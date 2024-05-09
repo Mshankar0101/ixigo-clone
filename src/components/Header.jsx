@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import "../styles/Header.css";
 import {NavLink} from 'react-router-dom';
 
@@ -11,7 +11,7 @@ export const Header = () => {
     const navbar = document.querySelector('.navbar');
     // console.log(navbar);
 
-        if(window.scrollY >  25){  //67
+        if(window.scrollY >  70){  //67
           console.log("yes");
           navbar.classList.add("sticky");
         }else{
@@ -30,11 +30,11 @@ export const Header = () => {
       <div className="header-content"> 
             <div className="header-content-div">
               <NavLink to='/offers' >
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABQ0lEQVR4nN2VP0oDQRTGf0EL7bQ2XsD0nkA9gR5AS/9AjqCFXkLxClsYorXBxkYrwcZoo7WQxiYjD76FcZjJzm6QiB98sLx9+3vLmzcz8N/VAq6AV+AIWJTt+Q24UU5j7QDO84fsx7abwueApwAW8zMwnwvtAOfAPTDKgJce6ZsLMZK6rAF1CRsjqdMguQesAG2gH7z7TBQ4m1RgN0huA3fAAFj14oXW6DFSwBhJHUcKDIBbr8ALsASsA1+RAsaIah8YB8l9FTH4tYAGXlahWIvGYv3QVgQec1cbq6jIM9Zm3QKF4N2MHzHWRk6LnDxUW8q+T5ouYxzkLrIL+j6smC7zSZ0xdcCDRrKomK7Se3U2mktsqnC6sjfarx8VHR1Y0xx2a8zyuK66cN5lP2Y5jdXSItqVeQgsyPZsMVvsqa7Mv69vANL/0z8xToMAAAAASUVORK5CYII="/>
+                  <img alt='offerIcon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABQ0lEQVR4nN2VP0oDQRTGf0EL7bQ2XsD0nkA9gR5AS/9AjqCFXkLxClsYorXBxkYrwcZoo7WQxiYjD76FcZjJzm6QiB98sLx9+3vLmzcz8N/VAq6AV+AIWJTt+Q24UU5j7QDO84fsx7abwueApwAW8zMwnwvtAOfAPTDKgJce6ZsLMZK6rAF1CRsjqdMguQesAG2gH7z7TBQ4m1RgN0huA3fAAFj14oXW6DFSwBhJHUcKDIBbr8ALsASsA1+RAsaIah8YB8l9FTH4tYAGXlahWIvGYv3QVgQec1cbq6jIM9Zm3QKF4N2MHzHWRk6LnDxUW8q+T5ouYxzkLrIL+j6smC7zSZ0xdcCDRrKomK7Se3U2mktsqnC6sjfarx8VHR1Y0xx2a8zyuK66cN5lP2Y5jdXSItqVeQgsyPZsMVvsqa7Mv69vANL/0z8xToMAAAAASUVORK5CYII="/>
                   <p>Offers</p>
               </NavLink>
               <NavLink to='/customercare' >
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVR4nO2ZS2sUQRSFv4Q4igYlBkUl4PgbFFz4IGShohJcCupGXKpZulRcZOIyYjau9CcIkux84ztGdKfgAzOj7jSokERtueEMNGMPPZPurn4wBwqmuqvOPbd6qm7VLeggEJuBE8B14BHwDvipYr8fAteA42qbKXQBh4A7gNdmuQ0cFEeq2A289gmbA24AZ4CdQBlYrVLWs7NqM+fr9wrYlYYDK4ALwG8JeQ+cA9a1wdELjAAfxPEHGAdWJqj7PwG3ZHwRGANKEfh6NAjz4rwPrCVh9APPZPAjsD1G7h3AJ3E/AfpICDZyD2ToDbA1ARtl4K1s3JPN2HFJBmaBTSSHLUBNtkbjJh8C/gILjlaXvZp/tgAMxkVqa/xTjdB53OGibD6Oi/CICO1zr8EdeoEvsn04DsK7IrMg5xojsm3LfSRsVNCzubEe9+hTfDENG6IQndKITJIepqThZBSSHo3EAOlhQBoSiSm5QUkB0Faqagz7qdR0jAWcHSrJ6U1ORy2AwJ65Rm05Ouz4WUezE51reCE6/JqXMKi9TasEruCF6FjUvmwJ3cB0Q4O8OOIBL+UDB5o0yIsjHrDPKhMFcOSyVWYK4MgLq3wtgCOf8WUv8uzIPL7DS54dqRVljkxb5UoBHBm3yv6ixJFu4HmOHZmpR3a0X1log8AVvBAdpnlPY6djbRC4gheiw685ENWAzpYqdY1qVB2VAILY87AudJREUtUIjKZ4Zq9kQEcHjdnOfl335RqTmhunyTGG5cS3NHLP/qRaUAxoNdE2DPxQH7vSzkRSzWsh0bYK2AYc9f2drFwlJQQFsWZfpn6hE/T+u+5HurLuyGyDI790PX1Tl0pp3MeERmMvIzuFZUfjZl+iE6ELj39a7dESp7S2JgAAAABJRU5ErkJggg=="/>
+                  <img alt='icon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClUlEQVR4nO2ZS2sUQRSFv4Q4igYlBkUl4PgbFFz4IGShohJcCupGXKpZulRcZOIyYjau9CcIkux84ztGdKfgAzOj7jSokERtueEMNGMPPZPurn4wBwqmuqvOPbd6qm7VLeggEJuBE8B14BHwDvipYr8fAteA42qbKXQBh4A7gNdmuQ0cFEeq2A289gmbA24AZ4CdQBlYrVLWs7NqM+fr9wrYlYYDK4ALwG8JeQ+cA9a1wdELjAAfxPEHGAdWJqj7PwG3ZHwRGANKEfh6NAjz4rwPrCVh9APPZPAjsD1G7h3AJ3E/AfpICDZyD2ToDbA1ARtl4K1s3JPN2HFJBmaBTSSHLUBNtkbjJh8C/gILjlaXvZp/tgAMxkVqa/xTjdB53OGibD6Oi/CICO1zr8EdeoEvsn04DsK7IrMg5xojsm3LfSRsVNCzubEe9+hTfDENG6IQndKITJIepqThZBSSHo3EAOlhQBoSiSm5QUkB0Faqagz7qdR0jAWcHSrJ6U1ORy2AwJ65Rm05Ouz4WUezE51reCE6/JqXMKi9TasEruCF6FjUvmwJ3cB0Q4O8OOIBL+UDB5o0yIsjHrDPKhMFcOSyVWYK4MgLq3wtgCOf8WUv8uzIPL7DS54dqRVljkxb5UoBHBm3yv6ixJFu4HmOHZmpR3a0X1log8AVvBAdpnlPY6djbRC4gheiw685ENWAzpYqdY1qVB2VAILY87AudJREUtUIjKZ4Zq9kQEcHjdnOfl335RqTmhunyTGG5cS3NHLP/qRaUAxoNdE2DPxQH7vSzkRSzWsh0bYK2AYc9f2drFwlJQQFsWZfpn6hE/T+u+5HurLuyGyDI790PX1Tl0pp3MeERmMvIzuFZUfjZl+iE6ELj39a7dESp7S2JgAAAABJRU5ErkJggg=="/>
                   <p>Customer Service</p>
               </NavLink>
             </div>
