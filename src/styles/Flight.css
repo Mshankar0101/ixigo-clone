@@ -1,0 +1,59 @@
+.flight{
+    margin: 0;
+    width: 100%;
+}
+.flightPage-background{
+    margin: 0;
+    background-image:url('../images/flightPageBackground.jpg') ;
+    height: 700px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    width: 100%;
+}
+.search-book-go div{
+    border: 1px solid skyblue;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.search-book-go img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+}
+.search-book-go{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    margin-top: 200px;
+    margin-bottom: 80px;
+}
+.flight-search-box{
+    height: 110px;
+    max-width: 1080px;
+    background-color: white;
+    margin: 10px auto;
+    border-radius: 5px;
+    box-shadow: 0px -25px 19px -20px rgba(0,0,0,0.45),
+    25px 0px 20px -20px rgba(0,0,0,0.5),
+    0px 25px 20px -20px rgba(0,0,0,0.5),
+    -25px 0px 20px -20px rgba(0,0,0,0.5) inset;
+}
+.poster{
+    height: 130px;
+    max-width: 1080px;
+    background-color: white;
+    margin: auto auto;
+    overflow:hidden;  
+}
+.poster img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
