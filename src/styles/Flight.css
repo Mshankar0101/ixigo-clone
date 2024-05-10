@@ -57,6 +57,71 @@
     width: 100%;
     object-fit: cover;
 }
-/* .flight-passanger-category{
-    padding: 20px;
+.flight-search-box{
+    padding: 15px;
+}
+.flight-search-box .flight-search-input{
+   display: flex;
+   gap: .5rem;
+}
+.flight-passanger-category div{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 0px 0px;
+    color: #17181C;
+}
+/* .flight-passanger-category div div{
+    background-color: yellow;
 } */
+.flight-passanger-category .category-div{
+    border: 1px solid rgba(132,135,148,1);
+    font-weight: 400;
+    color: #17181C;
+    padding: 3px 4px;
+    height: 22px;
+    border-radius: 20px;
+    margin: 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+.category-div p{
+    margin: 0;
+    padding: 0px 4px;
+    text-align: center;
+}
+.flight-passanger-category .special-fare{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    padding: 4px 2px;
+}
+.flight-search-input input{
+    padding: 10px 15px;
+    /* border-radius: 20px; */
+    border-style: none;
+    background-color: rgba(244,245,245,1);
+    width: 100%;
+    cursor: pointer;
+    color: #5E616E;
+    font-family: 400;
+    font-size: 18px;
+}
+.flight-search-input{
+    height: 60px;
+    display: flex;
+    justify-content:flex-start;
+    padding: 7px 0px;
+}
+.flight-search-input input:first-child{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.flight-search-input input:last-child{
+    border-top-right-radius:10px;
+    border-bottom-right-radius: 10px;
+    /* background-color: #FC790D; */
+    background-color: rgb(252,121,13);
+    color: #ffffff;
+}

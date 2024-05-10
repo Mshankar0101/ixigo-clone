@@ -17,20 +17,19 @@ const Flights = () => {
                 <h2>Search &#x2022; Book &bull; Go</h2>
             </div>
             <div className='flight-search-box'>
-                <div className='flight-search-input'>
-                    
+                <div className='flight-search-input'> 
                     <input type='text' placeholder='From' value=''/>
                     <input type='text' placeholder='To' value=''/>
                     <input type='date' min="2024-01-01" />
-                    <input type='text' value=''/>
-                    
+                    <input type='text' placeholder='Travellers & Class' value=''/>
+                    <input type='submit' value='Search'/>
                 </div>
                 <div className='flight-passanger-category'>
                     <div>
-                      <div><b>Special Fares</b> (Optional) : </div>
-                      <div>Student</div>
-                      <div>Senior Citizen</div>
-                      <div>Armed Forces</div>
+                      <div className='special-fare'><b >Special Fares</b> (Optional) : </div>
+                      <div className='category-div'><p>Student</p> </div>
+                      <div className='category-div'><p>Senior Citizen</p> </div>
+                      <div className='category-div'><p>Armed Forces</p> </div>
                     </div>
                 </div>
             </div>
