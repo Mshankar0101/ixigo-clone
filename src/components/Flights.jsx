@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import { Header } from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import '../styles/Flight.css';
-import flightDiscount from '../images/flightAdvertisement.jpg'
+import flightDiscount from '../images/flightAdvertisement.jpg';
 const Flights = () => {
   return (
     <div className='flight'>
         <Header/>
-        <Navbar/>
+        <Navbar />
         <div className='flightPage-background' >
             <div className='search-book-go'>
                 <div >
@@ -17,7 +17,22 @@ const Flights = () => {
                 <h2>Search &#x2022; Book &bull; Go</h2>
             </div>
             <div className='flight-search-box'>
-                {/* <input type='text'></input> */}
+                <div className='flight-search-input'>
+                    
+                    <input type='text' placeholder='From' value=''/>
+                    <input type='text' placeholder='To' value=''/>
+                    <input type='date' min="2024-01-01" />
+                    <input type='text' value=''/>
+                    
+                </div>
+                <div className='flight-passanger-category'>
+                    <div>
+                      <div><b>Special Fares</b> (Optional) : </div>
+                      <div>Student</div>
+                      <div>Senior Citizen</div>
+                      <div>Armed Forces</div>
+                    </div>
+                </div>
             </div>
             <br/>
             <br/>

@@ -38,7 +38,7 @@ const Navbar = () => {
                    <p>Buses</p>
                 </NavLink>
             </li>
-        </ul>
+        </ul>  
     </nav>
   )
 }

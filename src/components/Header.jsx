@@ -2,24 +2,22 @@ import React from 'react'
 import "../styles/Header.css";
 import {NavLink} from 'react-router-dom';
 
-// const headerRef = useRef("");
 export const Header = () => {
- 
-    window.onscroll = function(){myFunction()} ;
-    // var top = navbar.offsetTop;
-    function myFunction(){
-    const navbar = document.querySelector('.navbar');
-    // console.log(navbar);
-
-        if(window.scrollY >  70){  //67
-          console.log("yes");
-          navbar.classList.add("sticky");
-        }else{
-          console.log("no");
-          navbar.classList.remove("sticky");
-        }
-  }
-//canvas
+    
+  window.onscroll = function(){myFunction()} ;
+  function myFunction(){
+  const navbar = document.querySelector('.navbar');
+  const header = document.querySelector('.header');
+      if(window.scrollY >  170){  
+        console.log("yes");
+        navbar.classList.add("sticky");
+        header.classList.add("fixed");
+      }else{
+        console.log("no");
+        navbar.classList.remove("sticky");
+        header.classList.remove("fixed");
+      }
+}
 
 
   return (
