@@ -4,8 +4,10 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import '../styles/Flight.css';
 import flightDiscount from '../images/flightAdvertisement.jpg';
+
 const Flights = () => {
   return (
+    
     <div className='flight'>
         <Header/>
         <Navbar />
@@ -22,7 +24,7 @@ const Flights = () => {
                     <input type='text' placeholder='To' value=''/>
                     <input type='date' min="2024-01-01" />
                     <input type='text' placeholder='Travellers & Class' value=''/>
-                    <input type='submit' value='Search'/>
+                       <button >Search</button>
                 </div>
                 <div className='flight-passanger-category'>
                     <div>
@@ -33,14 +35,23 @@ const Flights = () => {
                     </div>
                 </div>
             </div>
-            <br/>
-            <br/>
+            {/* <br/>
+            <br/> */}
+        </div>
             <div className='poster'>
                 <img alt='flight offer' src={flightDiscount}/>
             </div>
+        <div className='flight-offers'>
+           <h2>Offers For You </h2> 
+           <div className='flight-offers-container'>
+              <div className='flight-offer-img-container'>
+                <img alt='flight-offer' src=''/>
+              </div>
+           </div>
         </div>
         <Footer/>
     </div>
+    
   )
 }
 

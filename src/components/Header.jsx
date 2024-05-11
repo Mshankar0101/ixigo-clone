@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../styles/Header.css";
 import {NavLink} from 'react-router-dom';
+import Navbar from './Navbar';
 
 export const Header = () => {
-    
+  const [isScroll, setIsScroll] = useState(false);  
+
+
   window.onscroll = function(){myFunction()} ;
   function myFunction(){
   const navbar = document.querySelector('.navbar');
@@ -12,10 +15,12 @@ export const Header = () => {
         console.log("yes");
         navbar.classList.add("sticky");
         header.classList.add("fixed");
+        setIsScroll(true);
       }else{
         console.log("no");
         navbar.classList.remove("sticky");
         header.classList.remove("fixed");
+        setIsScroll(false);
       }
 }
 
@@ -24,6 +29,11 @@ export const Header = () => {
     <div className='header'  > 
       <div className='header-logo'>
           <NavLink to='/flight'><img alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
+          <div>
+        {
+          isScroll && <Navbar/>
+        }
+          </div>
       </div>
       <div className="header-content"> 
             <div className="header-content-div">

@@ -1,6 +1,7 @@
 .flight{
     margin: 0;
     width: 100%;
+    /* padding: 0px 20px; */
 }
 .flightPage-background{
     margin: 0;
@@ -45,11 +46,18 @@
     0px 25px 20px -20px rgba(0,0,0,0.4),
     -25px 0px 20px -20px rgba(0,0,0,0.4) inset;
 }
-.poster{
+/* .poster{
     height: 130px;
     max-width: 1080px;
     background-color: white;
     margin: auto auto;
+    overflow:hidden;  
+} */
+.poster{
+    height: 130px;
+    max-width: 1080px;
+    background-color: white;
+    margin: -100px auto auto auto;
     overflow:hidden;  
 }
 .poster img{
@@ -72,9 +80,6 @@
     padding: 5px 0px 0px;
     color: #17181C;
 }
-/* .flight-passanger-category div div{
-    background-color: yellow;
-} */
 .flight-passanger-category .category-div{
     border: 1px solid rgba(132,135,148,1);
     font-weight: 400;
@@ -99,14 +104,27 @@
 }
 .flight-search-input input{
     padding: 10px 15px;
-    /* border-radius: 20px; */
     border-style: none;
     background-color: rgba(244,245,245,1);
     width: 100%;
     cursor: pointer;
     color: #5E616E;
-    font-family: 400;
+    font-family: 400; 
     font-size: 18px;
+    /* outline: none;  */
+}
+.flight-search-input button{
+    padding: 10px 15px;
+    border-style: none;
+    width: 100%;
+    cursor: pointer;
+    font-family: 400;
+    font-size: 24px;
+    border-top-right-radius:10px;
+    border-bottom-right-radius: 10px;
+    /* background-color: #FC790D; */
+    background-color: rgb(252,121,13);
+    color: #ffffff;
 }
 .flight-search-input{
     height: 60px;
@@ -118,10 +136,46 @@
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-.flight-search-input input:last-child{
-    border-top-right-radius:10px;
-    border-bottom-right-radius: 10px;
-    /* background-color: #FC790D; */
-    background-color: rgb(252,121,13);
-    color: #ffffff;
+
+.flight-search-input input:hover{
+   background-color:#e4e7e7 ;
+}
+.flight-search-input button:hover{
+   background-color: #e36802;
+}
+
+.flight-offers{
+    height: 255px;
+    width: 1240;
+    padding: 30px 20px;
+    font-weight: 700;
+    font-size: 20px;
+    /* background-color: yellow; */
+}
+.flight-offers h2{
+    margin: 0px;
+    
+}
+.flight-offers-container{
+    height: 180px;
+    width: 100%;
+    padding: 10px 0px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+     gap: 20px;
+}
+.flight-offer-img-container{
+    width: 295;
+    height: 180px;
+    border-radius: 20px;
+    border: 1px solid #e36802;
+}
+
+.flight-offer-img-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

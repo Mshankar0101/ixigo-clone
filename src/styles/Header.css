@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 97%;
     height: 70px;
     padding: 0px 20px;
     border-bottom: rgb(0, 0, 0, 0.2) ridge 0.5px;
@@ -68,4 +68,10 @@
 .fixed{
     position: sticky;
     top: 0;
+}
+.header-logo{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0px;
 }
