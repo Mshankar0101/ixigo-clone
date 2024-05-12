@@ -1,14 +1,19 @@
 footer{
     margin: 0;
+    padding: 5px 20px;
+
+}
+.footer{
     background-color: #E4E4E7;
-    padding: 0 0 5px 0;
     color: rgba(0,0,0,0.8);
     width: 100%;
 }
 footer h3{
-    margin-top: 0px;
     font-size:24px;
-    text-align: center;
+    font-weight: 700;
+    margin: 0px;
+    line-height: 1.4;
+    font-weight: bolder;
 }
 .footer-img-container{
     display: flex;

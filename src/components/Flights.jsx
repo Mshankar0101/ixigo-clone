@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -6,6 +6,28 @@ import '../styles/Flight.css';
 import flightDiscount from '../images/flightAdvertisement.jpg';
 
 const Flights = () => {
+ //fething api for offers
+ const [offer, setOffers] = useState([]);
+ const fetchOffers = ()=>{
+    fetch("https://academics.newtonschool.co/api/v1/bookingportals/offers?filter={\"type\":\"FLIGHTS\"}",{
+        method: 'get',
+        headers:{
+            'projectID': '9h69a26iogeq'
+        }
+    })
+    .then((res)=> res.json())
+    .then((result)=> result.data)
+    .then((data)=>setOffers(data.offers))
+    .catch((err)=> console.log(err));
+}
+useEffect(()=>{  
+    fetchOffers(); 
+    console.log(offer);
+ },[]);
+
+
+
+
   return (
     
     <div className='flight'>
@@ -20,10 +42,10 @@ const Flights = () => {
             </div>
             <div className='flight-search-box'>
                 <div className='flight-search-input'> 
-                    <input type='text' placeholder='From' value=''/>
-                    <input type='text' placeholder='To' value=''/>
+                    <input type='text' placeholder='From' />
+                    <input type='text' placeholder='To' />
                     <input type='date' min="2024-01-01" />
-                    <input type='text' placeholder='Travellers & Class' value=''/>
+                    <input type='text' placeholder='Travellers & Class'/>
                        <button >Search</button>
                 </div>
                 <div className='flight-passanger-category'>
@@ -44,9 +66,19 @@ const Flights = () => {
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
            <div className='flight-offers-container'>
-              <div className='flight-offer-img-container'>
-                <img alt='flight-offer' src=''/>
-              </div>
+            {offer.map((item)=>{
+                // return <div className='flight-offer-img-container' key={item.id} >
+                //        <img alt={item.pTl} src={item.newHeroOfferCardUrl}/>
+                //     </div>
+
+                if(item.newHeroOfferCardUrl){
+                  return <div className='flight-offer-img-container' key={item.id} >
+                        <img alt={item.pTl} src={item.newHeroOfferCardUrl}/>
+                    </div>
+                }else{
+                    return null;
+                }
+            })}
            </div>
         </div>
         <Footer/>
