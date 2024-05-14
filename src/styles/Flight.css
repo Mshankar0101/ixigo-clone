@@ -102,47 +102,82 @@
     line-height: 22px;
     padding: 4px 2px;
 }
-.flight-search-input input{
-    padding: 10px 15px;
+
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label{
+  top: 6px;
+  bottom: 10px;
+  left: 29px;
+  font-size: 11px;
+  opacity: 1;
+  color: #0770E4;
+}
+
+.flight-search-input div{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    padding: 0px 15px;
+    position: relative;
+}
+
+.inputText {
     border-style: none;
     background-color: rgba(244,245,245,1);
     width: 100%;
+    height: 100%;
     cursor: pointer;
-    color: #5E616E;
-    font-family: 400; 
+    color: #17181C;
     font-size: 18px;
-     
+    font-weight: 500;
+    padding: 0px 15px;
+}
+
+.floating-label{
+  position: absolute;
+  pointer-events: none;
+  left: 25px;
+  top: 16px;  
+  transition: 0.2s ease all;
+  font-weight: 400; 
+  font-size: 16px;
+  color: #5E616E;
+}
+
+.flight-search-input{
+    height: 60px;
+    display: flex;
+    justify-content:flex-start;
+    padding: 7px 0px;
+    width: 100%;
+    gap: 0.5rem;
 }
 .flight-search-input input:focus{
     outline: none;
-    color:#17181C;
+    border-bottom: 4px solid #0770E4;
+} 
+.flight-search-input .input-first-child{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
+
+ .flight-search-input input:hover{
+    background-color:#e4e7e7 ;
+} 
 .flight-search-input button{
     padding: 10px 15px;
     border-style: none;
     width: 100%;
+    height: 100%;
     cursor: pointer;
-    font-family: 400;
+    font-weight: 400;
     font-size: 24px;
     border-top-right-radius:10px;
     border-bottom-right-radius: 10px;
     /* background-color: #FC790D; */
     background-color: rgb(252,121,13);
     color: #ffffff;
-}
-.flight-search-input{
-    height: 60px;
-    display: flex;
-    justify-content:flex-start;
-    padding: 7px 0px;
-}
-.flight-search-input input:first-child{
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.flight-search-input input:hover{
-   background-color:#e4e7e7 ;
 }
 .flight-search-input button:hover{
    background-color: #e36802;
@@ -152,7 +187,7 @@
     height: 265px;
     width: 100%;
     padding: 30px 20px;
-    /* background-color: yellow; */
+   
 }
 .flight-offers h2{
     font-weight: 700;
@@ -181,6 +216,7 @@
 .flight-offers-container{
     -ms-overflow-style: none;
     scrollbar-width: none;
+    /* position: relative; */
 }
 .flight-offer-img-container{
     width: 295;
@@ -195,4 +231,48 @@
     width: 295px;
     object-fit:fill;
     border-radius: 20px;
+}
+
+.flight-offers-next-prev{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flight-offers-next-prev div:first-child{
+    position: absolute;
+    z-index: 25;
+    left: 50px;
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    padding-left: 4px;
+    padding-top: 4px;
+    border-radius: 50%;
+    align-content:center;
+    cursor: pointer;
+}
+.flight-offers-next-prev div:nth-child(2){
+    position: absolute;
+    z-index: 25;
+    right: 50px;
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    padding-left: 4px;
+    padding-top: 4px;
+    border-radius: 50%;
+    align-content:center;
+    cursor: pointer;
+}
+.flight-offers-next-prev div:first-child img{
+    height: 45px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: scale-down;
+}
+.flight-offers-next-prev div:nth-child(2) img{
+    height: 45px;
+    width: 35px;
+    border-radius: 50%;
+    object-fit: scale-down;
 }
