@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from "./Header";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import '../styles/Flight.css';
 import flightDiscount from '../images/flightAdvertisement.jpg';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import Datepicker from '../common/Datepicker';
+
 
 const Flights = () => {
 
@@ -27,14 +31,29 @@ useEffect(()=>{
  },[]);
 
 //offer section next/prev
-const showPreviousOffers = ()=>{
-
-    
-}
-const showNextOffers = ()=>{
-
-    console.log(window.scrollX);
-}
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 1210 }, //min:1024
+      items: 4,
+      slidesToSlide: 3
+    },
+    desktop: {
+      breakpoint: { max: 1210, min: 910 }, //max:1024
+      items: 3,
+      slidesToSlide: 2
+    },
+    tablet: {
+      breakpoint: { max: 910, min: 600 },
+      items: 2,
+      slidesToSlide: 1
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 1,
+      slidesToSlide: 1
+    }
+  };
 
 
 
@@ -59,8 +78,8 @@ const showNextOffers = ()=>{
             <div className='flight-search-box'>
 
                 <div className='flight-search-input'>
-                    <div>
-                        <input type="text" className="inputText input-first-child" required></input>
+                    <div className='flight-search-feild-relative'>
+                        <input type="text" className="inputText input-first-child"  required></input>
                         <span className="floating-label">From</span>    
                         {/* <div className='airport-suggesion-container'>
                             <li>
@@ -75,22 +94,22 @@ const showNextOffers = ()=>{
                         </div> */}
                     </div>
 
-                    <div>
+                    <div className='flight-search-feild-relative'>
                     <input type="text" className="inputText" required/>
                     <span className="floating-label">To</span>
                     </div>
                          
-                    <div>
-                     <input  className="inputText" type='date' min="2024-01-01"  />
+                    <div className='flight-search-feild-container'>
+                     <Datepicker/>
                     </div>
 
-                    <div>
+                    <div className='flight-search-feild-relative'>
                     <input type="text" className="inputText" required/>
                     <span className="floating-label">Travellers & Class</span>
                     </div>
                    
-                    <div>
-                       <button >Search</button>
+                    <div className='flight-search-feild-container'>
+                       <button className='search-button'>Search</button>
                     </div>
                 </div>
                
@@ -111,17 +130,19 @@ const showNextOffers = ()=>{
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
            <div className='flight-offers-container' >
-            {offer.map((item)=>{
-                if(item.newHeroOfferCardUrl){
-                  return <div className='flight-offer-img-container' key={item.id} >
-                        <img alt={item.pTl} src={item.newHeroOfferCardUrl}/>
-                    </div>
-                }else{
-                    return null;
-                }
-            })}
+                <Carousel  responsive={responsive}  >
+                {offer.map((item)=>{
+                    if(item.newHeroOfferCardUrl){
+                    return <div className='flight-offer-img-container' key={item.id} >
+                            <img alt={item.pTl} src={item.newHeroOfferCardUrl}/>
+                        </div>
+                    }else{
+                        return null;
+                    }
+                })}
+                </Carousel>
 
-            <div className='flight-offers-next-prev'>
+            {/* <div className='flight-offers-next-prev'>
                 <div onClick={showPreviousOffers} >
                 <img alt='previous-icon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5UlEQVR4nO2ZOw7CQAxEHYr4qEhQ2DkBf0jLR1DA7exzsHRApCSIanckP8n9zHi1Hy9REATB/6SqVjuz+pzwSFUtdmH1xGpPMBPv5NOnDMXEd/LdqsVuVL54P/WL9zst0oTKJVWsfgQVT8TqbYjPAYsfkJPfh/gcsPgOOHnbhvgcsNoGN3mxdYjPAautkJNfwoofNaD2gDAwuoSgTMjADhQmSjnIoDqhA/egMFHKdRqrE97/GgsTpTzqwTrRhomiR4sKs5xGhrsKZQJ2vP7jg6PxGcF+MTVQ4juduLLYNLeSIAgoLy+9z15ZP/8kOAAAAABJRU5ErkJggg=="/>
                 </div>
@@ -129,7 +150,7 @@ const showNextOffers = ()=>{
                 <div onClick={showNextOffers}>
                 <img alt='next-icon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA6klEQVR4nO2ZSQoCMRBFvy46B1VwZ9UNdOvswgH1diYeQ0oUFBHtdf0yD3r/XkLoDEClUvlvkp77jZYjRtYFo3ySfE1arJFyoopIb/LP7zETsA4YaCTv3+VfEZI3JBHWuct+jyiHGuFhJpKUNf1MJC0rcGDBI6QswYEFj9C8AP9M5Dk4sPARMwRYE1NwED1C8gQBIsYgCdiSBlib/AS08up+EUeVF/c/slZ571uJqPLqfjttLSPv/kBjQeXV/aHegsqL+4st+ylPcD9qzPLgv15Pw0uP+oHjM4LuielJkjxoNO+oRr5SqcANNxV6UqzcpPJzAAAAAElFTkSuQmCC"/>
                 </div>
-            </div>
+            </div> */}
            </div>
         </div>
         <Footer/>

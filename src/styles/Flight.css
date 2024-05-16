@@ -68,10 +68,7 @@
 .flight-search-box{
     padding: 15px;
 }
-.flight-search-box .flight-search-input{
-   display: flex;
-   gap: .5rem;
-}
+
 .flight-passanger-category div{
     display: flex;
     gap: 10px;
@@ -114,25 +111,42 @@ input:not(:focus):valid ~ .floating-label{
   color: #0770E4;
 }
 
-.flight-search-input div{
+.flight-search-input .flight-search-feild-relative{
     margin: 0px;
     width: 100%;
     height: 100%;
     padding: 0px 15px;
     position: relative;
 }
-
-.inputText {
+.flight-search-input .flight-search-feild-container{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    padding: 0px 15px;
+}
+.react-datepicker-wrapper{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    /* padding: 0px 15px; */
+}
+.react-datepicker__input-container{
+    margin: 0px;
+    /* padding: 0px !important; */
+}
+.inputText, .react-datepicker__input-container input {
     border-style: none;
     background-color: rgba(244,245,245,1);
     width: 100%;
-    height: 100%;
+    height: 60px;
     cursor: pointer;
-    color: #17181C;
+    color: #17181c;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 520;
     padding: 0px 15px;
+    line-height: 1.2;
 }
+
 
 .floating-label{
   position: absolute;
@@ -165,7 +179,7 @@ input:not(:focus):valid ~ .floating-label{
  .flight-search-input input:hover{
     background-color:#e4e7e7 ;
 } 
-.flight-search-input button{
+.flight-search-input .search-button{
     padding: 10px 15px;
     border-style: none;
     width: 100%;
@@ -179,7 +193,7 @@ input:not(:focus):valid ~ .floating-label{
     background-color: rgb(252,121,13);
     color: #ffffff;
 }
-.flight-search-input button:hover{
+.flight-search-input .search-button:hover{
    background-color: #e36802;
 }
 
@@ -199,31 +213,38 @@ input:not(:focus):valid ~ .floating-label{
 .flight-offers-container{
     height: 190px;
     width: 100%;
-    padding: 10px 0px;
-    display: flex;
+    padding: 15px 0px; 
+   /* display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    gap: 20px;*/
+    /* flex-wrap: nowrap; 
+    overflow-x: auto; */
 }
+/* .react-multi-carousel-list{
+    flex-wrap: nowrap; 
+    width: 100%;
+    overflow-x: auto;
+} */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.flight-offers-container::-webkit-scrollbar{
+/* .flight-offers-container::-webkit-scrollbar{
    display: none;
-}
+} */
 /* Hide scrollbar for IE, Edge and Firefox */
-.flight-offers-container{
+/* .flight-offers-container{
     -ms-overflow-style: none;
     scrollbar-width: none;
-    /* position: relative; */
-}
-.flight-offer-img-container{
-    width: 295;
+    
+} */
+ .flight-offer-img-container{
+    width: 295px;
     height: 190px;
     border-radius: 20px;
-    flex: 0 0 auto;
+    /* flex: 0 0 auto; */
     cursor: pointer;
+    border-radius: 20px;
+   
 }
 
 .flight-offer-img-container img{
@@ -231,9 +252,10 @@ input:not(:focus):valid ~ .floating-label{
     width: 295px;
     object-fit:fill;
     border-radius: 20px;
+    
 }
 
-.flight-offers-next-prev{
+/*.flight-offers-next-prev{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -275,4 +297,4 @@ input:not(:focus):valid ~ .floating-label{
     width: 35px;
     border-radius: 50%;
     object-fit: scale-down;
-}
+} */
