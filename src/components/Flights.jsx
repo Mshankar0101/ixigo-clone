@@ -56,9 +56,9 @@ const responsive = {
   };
 
 
+ //dropdown container for popular airport and shearched airport
+ const [showSuggesion, setShowSuggestions]= useState(false);
 
-
- //ui logic for input date feild
 
 
 
@@ -79,19 +79,81 @@ const responsive = {
 
                 <div className='flight-search-input'>
                     <div className='flight-search-feild-relative'>
-                        <input type="text" className="inputText input-first-child"  required></input>
-                        <span className="floating-label">From</span>    
-                        {/* <div className='airport-suggesion-container'>
+                        <input type="text" className="inputText input-first-child" onFocus={()=> setShowSuggestions(true)}  required></input>
+                        <span className="floating-label">From</span>  
+                        {/* onBlur={()=> setShowSuggestions(false)} */}
+                        {showSuggesion && <div className='airport-suggesion-container'>
                             <li>
                                 <div className='iata_code_airport'>
                                     <span></span>
                                 </div>
                                 <div className='name_city_airport'>
-                                    <p></p>
+                                    <p>Delhi...1..............................</p>
+                                    <p>Delhi...2..............................</p>
+                                    <p>Delhi...3..............................</p>
+                                    <p>Delhi...4..............................</p>
+                                    <p>Delhi....5.............................</p>
+                                    <p>Delhi....6.............................</p>
+                                    <p>Delhi....7.............................</p>
+                                    <p>Delhi.....8............................</p>
+                                    <p>Delhi.....9............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    {/* <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p>
+                                    <p>Delhi....10.............................</p> */}
+                                    
                                     <p></p>
                                 </div>
                             </li> 
-                        </div> */}
+                        </div>}
+
                     </div>
 
                     <div className='flight-search-feild-relative'>
@@ -130,7 +192,7 @@ const responsive = {
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
            <div className='flight-offers-container' >
-                <Carousel  responsive={responsive}  >
+                <Carousel  forceToAxis={true} responsive={responsive}  >
                 {offer.map((item)=>{
                     if(item.newHeroOfferCardUrl){
                     return <div className='flight-offer-img-container' key={item.id} >
