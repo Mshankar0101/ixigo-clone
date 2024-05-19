@@ -1,6 +1,6 @@
 import "../styles/App.css";
 import React from "react";
-import Flights from "./Flights";
+import Flights from "./flight/Flights";
 
 function App() {
   return (

@@ -12,7 +12,7 @@ export const Header = () => {
   const navbar = document.querySelector('.navbar');
   const header = document.querySelector('.header');
       if(window.scrollY >  170){  
-        console.log("yes");
+        // console.log("yes");
         navbar.classList.add("sticky");
         header.classList.add("fixed");
         setIsScroll(true);
@@ -20,7 +20,7 @@ export const Header = () => {
         console.log("no");
         navbar.classList.remove("sticky");
         header.classList.remove("fixed");
-        setIsScroll(false);
+        // setIsScroll(false);
       }
 }
 

@@ -9,7 +9,7 @@
     height: 700px;
     background-size: cover;
     background-repeat: no-repeat;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
 }
 .search-book-go div{
@@ -32,8 +32,11 @@
     color: white;
     font-size: 24px;
     font-weight: 900;
-    margin-top: 200px;
+    /* margin-top: 200px ; */
+    margin-top: auto;
     margin-bottom: 80px;
+    padding-top: 140px;
+    
 }
 .flight-search-box{
     height: 110px;
@@ -144,6 +147,7 @@ input:not(:focus):valid ~ .floating-label{
     font-size: 18px;
     font-weight: 520;
     padding: 0px 15px;
+    margin-top: 5px;
     line-height: 1.2;
 }
 
@@ -192,6 +196,7 @@ input:not(:focus):valid ~ .floating-label{
     /* background-color: #FC790D; */
     background-color: rgb(252,121,13);
     color: #ffffff;
+    margin-top: 5px;
 }
 .flight-search-input .search-button:hover{
    background-color: #e36802;
@@ -225,6 +230,10 @@ input:not(:focus):valid ~ .floating-label{
     flex-wrap: nowrap; 
     width: 100%;
     overflow-x: scroll;
+} */
+/* .flight-offers-container .react-multi-carousel-list::-webkit-scrollbar {
+    display:contents;
+
 } */
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -303,10 +312,9 @@ input:not(:focus):valid ~ .floating-label{
     position: absolute;
     display: block;
     z-index: 200;
-    /* min-height: 150px; */
-    height: 600px;
-    /* max-height: 450px; */
-    top: 65px;
+    min-height: 150px;
+    max-height: 450px;
+    top: 70px;
     width: 375px;
     background-color: white;
     border-radius: 20px;
@@ -314,7 +322,72 @@ input:not(:focus):valid ~ .floating-label{
     overflow-y: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    /* padding: 0px 20px; */
+   
 }
 .airport-suggesion-container::-webkit-scrollbar{
     display: none;
  } 
+ 
+ .airport-suggesion-container li{
+    list-style: none;
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 20px;
+    gap: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e7eb;
+    box-sizing: border-box;
+    color: rgba(23,24,28,1);
+    overflow: hidden;
+ }
+ .iata_code_airport{
+    display: inline-flex;
+    height: 50px;
+    width: 50px;
+    border:1px solid #e5e7eb;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(244, 245, 245, 1);
+    padding: 1px 0px;
+    font-size: 0.875rem;
+    font-weight: 500;
+ }
+ .airport-suggesion-container .name_city_airport{
+     display: flex;
+     flex-direction: column;
+     gap: 3px;
+     height: 50px;
+     flex: 1 1 auto;
+     justify-content: center;
+ }
+ .name_city_airport p:first-child{
+    margin: 0px;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+ }
+ .name_city_airport p:nth-child(2){
+    margin: 0px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #5E616E;
+    font-weight: 500;
+ }
+.popular-airports p{
+    margin: 0px;
+    line-height: 1.2;
+    font-size: 18px;
+    padding: 15px 20px 5px 20px;
+    font-weight: 500;
+}
+.airport-suggesion-container ul{
+    padding: 0px;
+    margin: 0px;
+}
+.airport-suggesion-container li:hover{
+    background-color: rgba(244,245,245,1);
+}
