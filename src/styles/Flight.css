@@ -219,33 +219,28 @@ input:not(:focus):valid ~ .floating-label{
     height: 190px;
     width: 100%;
     padding: 15px 0px; 
-   /* display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;*/
-    /* flex-wrap: nowrap; 
-    overflow-x: auto; */
 }
-/* .react-multi-carousel-list{
-    flex-wrap: nowrap; 
+.react-multi-carousel-list{
     width: 100%;
-    overflow-x: scroll;
-} */
-/* .flight-offers-container .react-multi-carousel-list::-webkit-scrollbar {
-    display:contents;
-
-} */
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-/* .flight-offers-container::-webkit-scrollbar{
-   display: none;
-} */
-/* Hide scrollbar for IE, Edge and Firefox */
-/* .flight-offers-container{
+    overflow-x: scroll !important;
+    /* Hide scrollbar for IE, Edge and Firefox */
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.react-multi-carousel-list::-webkit-scrollbar{
+   display: none ;
+}
+.react-multiple-carousel__arrow--right{
+    position: sticky !important;
+}
+/* .react-multiple-carousel__arrow--left{
+   
+
 } */
+/* .react-multi-carousel-track{
+    position:unset;
+ } */
  .flight-offer-img-container{
     width: 295px;
     height: 190px;

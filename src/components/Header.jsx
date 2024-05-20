@@ -1,28 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../styles/Header.css";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import Navbar from './Navbar';
 
 export const Header = () => {
   const [isScroll, setIsScroll] = useState(false);  
+ const location = useLocation();
+useEffect(()=>{
+  const handleScroll = ()=>{
 
+//   }
+// })
+//   window.onscroll = function(){myFunction()} ;
+//   function myFunction(){
+    const navbar = document.querySelector('.navbar');
+    const header = document.querySelector('.header');
+        if(window.scrollY >  170){  
+          console.log("yes");
 
-  window.onscroll = function(){myFunction()} ;
-  function myFunction(){
-  const navbar = document.querySelector('.navbar');
-  const header = document.querySelector('.header');
-      if(window.scrollY >  170){  
-        // console.log("yes");
-        navbar.classList.add("sticky");
-        header.classList.add("fixed");
-        setIsScroll(true);
-      }else{
-        console.log("no");
-        navbar.classList.remove("sticky");
-        header.classList.remove("fixed");
-        // setIsScroll(false);
-      }
-}
+        if(navbar)  navbar.classList.add("sticky");
+         if(header) header.classList.add("fixed");
+          setIsScroll(true);
+        }else{
+          console.log("no");
+         if(navbar) navbar.classList.remove("sticky");
+        if(header)  header.classList.remove("fixed");
+          setIsScroll(false);
+        }
+  }
+
+  if(location.pathname ==="/flights"){
+    window.addEventListener("scroll", handleScroll);
+  }
+  return ()=>{
+    window.removeEventListener("scroll", handleScroll);
+  }
+},[location.pathname])
 
 
   return (

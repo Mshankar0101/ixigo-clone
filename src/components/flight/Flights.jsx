@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from "../Header";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
@@ -7,7 +7,7 @@ import flightDiscount from '../../images/flightAdvertisement.jpg';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Datepicker from '../../common/Datepicker';
-// import Airports from './Airports';
+import Airports from './Airports';
 
 
 const Flights = () => {
@@ -56,43 +56,28 @@ const responsive = {
   //dropdown container for popular airport and shearched airport
   const [showSuggesion, setShowSuggestions]= useState(false);
   const [value, setValue] = useState(``);
-  const autocompleteRef = useRef();
-  const [airports,setAirports]=useState([]);
+  const [toValue, setToValue] = useState(``);
   const [inputChange, setInputChange] = useState(false);
-    const popularAirports = [
-        {_id:1,name:"Indira Gandhi Intl Airport",iata_code:"DEL", city:"New Delhi", country:"india"},
-        {_id:2,name:"Chatrapati Shivaji International Airport",iata_code:"BOM", city:"Mumbai", country:"india"},
-        {_id:3,name:"Rajiv Gandhi International Airport",iata_code:"HYD", city:"Hyderabad", country:"india"},
-        {_id:4,name:"Kempegowda International Airport",iata_code:"BLR", city:"Bengaluru", country:"india"},
-        {_id:5,name:"Chennai International Airport",iata_code:"MAA", city:"Chennai", country:"india"},
-        {_id:6,name:"Dabolim Airport",iata_code:"GOI", city:"Goa", country:"india"},
-        {_id:7,name:"Dubai International Airport",iata_code:"DXB", city:"Dubai", country:"United Arab Emirates"},
-        {_id:8,name:"Changi",iata_code:"SIN", city:"Singapore", country:"Singapore"},
-        {_id:9,name:"Suvarnabhumi Airport",iata_code:"BKK", city:"Bangkok", country:"Thailand"},
-        {_id:10,name:"Kuala Lumpur Intl",iata_code:"KUL", city:"Kuala Lumpur", country:"Malaysia"}
-        
-    ]
-    
-    const handelSuggetionClick = (item)=>{
-        setValue(`${item.iata_code} - ${item.city}`);
-        setShowSuggestions(false);
-    }
-    
-    //fething api to get airport
-     const fetchAirports = ()=>{
-        fetch("https://academics.newtonschool.co/api/v1/bookingportals/airport?limit=30",{
-            method: 'get',
-            headers:{
-                'projectID': '9h69a26iogeq'
-            }
-        })
-        .then((res)=>res.json())
-        .then((result)=>result.data)
-        .then((data)=>setAirports(data.airports))
-        .catch((err)=>console.log(err))
-    }
+  const [fromSuggession, setFromSuggesion] = useState(false);
+  const [toSuggession, setToSuggesion] = useState(false);
+  
+  //handling input of from feild
     const handleInputChange = (e)=>{
+        console.log("showSuggesion",showSuggesion);
+        console.log("fromSuggession",fromSuggession);
         setValue(e.target.value);
+        if(e.target.value !== ""){
+            setInputChange(true);
+        }else{
+            setInputChange(false);
+        }
+    }
+
+  //handling input of to feild
+    const handleToInputChange = (e)=>{
+        console.log("showSuggesion", showSuggesion);
+        console.log("toSuggession",toSuggession);
+        setToValue(e.target.value);
         if(e.target.value !== ""){
             setInputChange(true);
         }else{
@@ -102,14 +87,9 @@ const responsive = {
 
 
 
-
-
     //useEffect to fetch api
     useEffect(()=>{  
         fetchOffers(); 
-        fetchAirports(); 
-        console.log(airports);
-        // console.log(offer);
      },[]);
     
     
@@ -131,11 +111,19 @@ const responsive = {
 
                 <div className='flight-search-input'>
                     <div className='flight-search-feild-relative'>
-                        <input type="text" className="inputText input-first-child" onFocus={()=> setShowSuggestions(true)}  value={value} onChange={handleInputChange} required></input>
+                        <input type="text" className="inputText input-first-child" onFocus={()=> {
+                            setShowSuggestions(true);
+                            setFromSuggesion(true);
+                            setToSuggesion(false);
+                        }}  value={value} onChange={handleInputChange} required></input>
                         <span className="floating-label">From</span>  
-                        {(showSuggesion && inputChange)?
+                        {
+                            fromSuggession &&
+                           <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} />
+                        }
+                        {/* {(showSuggesion && inputChange)?
 
-                            <div className='airport-suggesion-container' ref={autocompleteRef}>
+                            <div className='airport-suggesion-container' ref={autocompleteRef} >
                                
                                 <ul>
                                 { airports.map((item)=>{
@@ -164,7 +152,7 @@ const responsive = {
                             :
                             (showSuggesion && !inputChange)? 
                             
-                            <div className='airport-suggesion-container' ref={autocompleteRef}>
+                            <div className='airport-suggesion-container' ref={autocompleteRef} >
                                 <div className='popular-airports'>
                                     <p>Popular Airports</p>
                                 </div>
@@ -185,36 +173,23 @@ const responsive = {
                                 </ul>
                             </div>
                             : null
-                            }
+                            } */}
                         
-                        {/* {showSuggesion &&
-                            <div className='airport-suggesion-container' ref={autocompleteRef}>
-                                <div className='popular-airports'>
-                                    <p>Popular Airports</p>
-                                </div>
-                                <ul>
-                                { popularAirports.map((item)=>{
-                                        return(
-                                            <li key={item._id} onClick={()=> handelSuggetionClick(item)}>
-                                                <div className='iata_code_airport' >
-                                                    <span>{item.iata_code}</span>
-                                                </div>
-                                                <div className='name_city_airport' >  
-                                                    <p>{`${item.city}, ${item.country}`} </p>
-                                                    <p>{item.name}</p>
-                                                </div>
-                                            </li> 
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                        } */}
 
                     </div>
 
                     <div className='flight-search-feild-relative'>
-                    <input type="text" className="inputText" required/>
+                    <input type="text" className="inputText" onFocus={()=>{ 
+                        setShowSuggestions(true);
+                        setToSuggesion(true);
+                        setFromSuggesion(false);
+                    }}  value={toValue} onChange={handleToInputChange} required/>
                     <span className="floating-label">To</span>
+                    {
+                        toSuggession &&
+                     <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} toSuggession={toSuggession}  />
+                    }
+
                     </div>
                          
                     <div className='flight-search-feild-container'>
@@ -248,7 +223,7 @@ const responsive = {
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
            <div className='flight-offers-container' >
-                <Carousel  forceToAxis={true} responsive={responsive}  >
+                <Carousel  responsive={responsive}  >
                 {offer.map((item)=>{
                     if(item.newHeroOfferCardUrl){
                     return <div className='flight-offer-img-container' key={item.id} >
