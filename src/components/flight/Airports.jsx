@@ -1,6 +1,6 @@
 import React,{useRef,useState,useEffect} from 'react'
-
-const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, showSuggesion, inputChange, toSuggession, fromSuggession}) => {
+import '../../styles/Flight.css';
+const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, showSuggesion, inputChange, toSuggession, fromSuggession, inputFromRef, inputToRef}) => {
 
     //dropdown container for popular airport and shearched airport
   const autocompleteRef = useRef();
@@ -48,9 +48,12 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
 
     //handling outside click for to and from dropdown
     const handleClickOutside = (event)=>{
-        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target)  ){
+        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputFromRef.current && !inputFromRef.current.contains(event.target) ){
            setShowSuggestions(false);
         }
+        // else if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputToRef.current && !inputToRef.current.contains(event.target) ){
+        //    setShowSuggestions(false);
+        // }
     }
     // && inputRef.current && !inputRef.current.contains(event.target)
     useEffect(()=>{

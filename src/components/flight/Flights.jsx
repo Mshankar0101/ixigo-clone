@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Header } from "../Header";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
@@ -26,6 +26,9 @@ const Flights = () => {
     .then((data)=>setOffers(data.offers))
     .catch((err)=> console.log(err));
 }
+    useEffect(()=>{  
+        fetchOffers(); 
+    },[]);
 
 //offer section next/prev
 const responsive = {
@@ -52,7 +55,7 @@ const responsive = {
     }
   };
 
-  
+  console.log("flight component");
   //dropdown container for popular airport and shearched airport
   const [showSuggesion, setShowSuggestions]= useState(false);
   const [value, setValue] = useState(``);
@@ -60,6 +63,8 @@ const responsive = {
   const [inputChange, setInputChange] = useState(false);
   const [fromSuggession, setFromSuggesion] = useState(false);
   const [toSuggession, setToSuggesion] = useState(false);
+  const inputFromRef = useRef();
+  const inputToRef = useRef();
   
   //handling input of from feild
     const handleInputChange = (e)=>{
@@ -85,12 +90,11 @@ const responsive = {
         }
     }
 
+    //input feild travellers and class logic
+    const [travellersAndClass, setTravellersAndClass]= useState("2 Travellers, Economy");
+    const [showTravellersdropdown, setShowTravellersDropdown]= useState(false);
 
 
-    //useEffect to fetch api
-    useEffect(()=>{  
-        fetchOffers(); 
-     },[]);
     
     
 
@@ -115,11 +119,11 @@ const responsive = {
                             setShowSuggestions(true);
                             setFromSuggesion(true);
                             setToSuggesion(false);
-                        }}  value={value} onChange={handleInputChange} required></input>
+                        }}  value={value} onChange={handleInputChange} ref={inputFromRef} required></input>
                         <span className="floating-label">From</span>  
                         {
                             fromSuggession &&
-                           <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} />
+                           <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} inputFromRef={inputFromRef}/>
                         }
                         {/* {(showSuggesion && inputChange)?
 
@@ -183,11 +187,11 @@ const responsive = {
                         setShowSuggestions(true);
                         setToSuggesion(true);
                         setFromSuggesion(false);
-                    }}  value={toValue} onChange={handleToInputChange} required/>
+                    }}  value={toValue} onChange={handleToInputChange} ref={inputToRef} required/>
                     <span className="floating-label">To</span>
                     {
                         toSuggession &&
-                     <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} toSuggession={toSuggession}  />
+                     <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} toSuggession={toSuggession} inputToRef={inputToRef}  />
                     }
 
                     </div>
@@ -197,8 +201,83 @@ const responsive = {
                     </div>
 
                     <div className='flight-search-feild-relative'>
-                    <input type="text" className="inputText" required/>
-                    <span className="floating-label">Travellers & Class</span>
+                        <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)} onBlur={()=> setShowTravellersDropdown(false)} required/>
+                        <span className="floating-label">Travellers & Class</span>
+                           {showTravellersdropdown && 
+                           
+                            <div className="flight-travellers-class">
+                                <h6>Travellers</h6>
+                                <div className="flight-travellers-container">
+                                    <div className="flight-traveller">
+                                        <div>
+                                            <p>Adults</p>
+                                            <p>12 yrs or above</p>
+                                        </div>
+                                        <div>
+                                            <button>1</button>
+                                            <button>2</button>
+                                            <button>3</button>
+                                            <button>4</button>
+                                            <button>5</button>
+                                            <button>6</button>
+                                            <button>7</button>
+                                            <button>8</button>
+                                            <button>9</button>
+                                        </div>
+                                    </div>
+                                    <div className="flight-traveller">
+                                        <div>
+                                            <p>Children</p>
+                                            <p>2 - 12 yrs</p>
+                                        </div>
+                                        <div>
+                                            <button>0</button>
+                                            <button>1</button>
+                                            <button>2</button>
+                                            <button>3</button>
+                                            <button>4</button>
+                                            <button>5</button>
+                                            <button>6</button>
+                                            <button>7</button>
+                                            <button>8</button>
+                                        </div>
+                                    </div>
+                                    <div className="flight-traveller">
+                                       <div>
+                                            <p>Infant</p>
+                                            <p>0 - 2 yrs</p>
+                                        </div>
+                                        <div>
+                                            <button>0</button>
+                                            <button>1</button>
+                                            <button>2</button>
+                                            <button>3</button>
+                                            <button>4</button>
+                                        </div>
+                                    </div>
+                                    {/* <div className="flight-travellers-more-than-nine">
+                                    </div> */}
+                                    <div className="flight-class-container">
+                                         <p className='class'>Class</p>
+                                          <div className="flight-class">
+                                            <div className='flight-class-div'>
+                                                <p>Economy</p>
+                                            </div>
+                                            <div className='flight-class-div'>
+                                                <p>Premium Economy</p>
+                                            </div>
+                                            <div className='flight-class-div'>
+                                                 <p>Business</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                                    <div className="flight-travellers-class-btn-container">
+                                        <button className="flight-travellers-sumbit-btn">
+                                            Done
+                                        </button>
+                                    </div>
+                           </div>}
                     </div>
                    
                     <div className='flight-search-feild-container'>
