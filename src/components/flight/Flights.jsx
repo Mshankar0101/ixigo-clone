@@ -8,6 +8,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Datepicker from '../../common/Datepicker';
 import Airports from './Airports';
+import { Link, NavLink } from 'react-router-dom';
 
 
 const Flights = () => {
@@ -93,7 +94,19 @@ const responsive = {
     //input feild travellers and class logic
     const [travellersAndClass, setTravellersAndClass]= useState("2 Travellers, Economy");
     const [showTravellersdropdown, setShowTravellersDropdown]= useState(false);
-
+    const travellerDropdown = useRef();
+    const handleTravellersOutsideClik = (event)=>{
+        if(travellerDropdown.current && !travellerDropdown.current.contains(event.target) ){
+            setShowTravellersDropdown(false);
+        }
+    }
+    useEffect(()=>{
+        document.addEventListener("mousedown", handleTravellersOutsideClik);
+        return ()=>{
+            document.removeEventListener("mousedown", handleTravellersOutsideClik);
+        }
+        
+    },[]);
 
     
     
@@ -201,11 +214,12 @@ const responsive = {
                     </div>
 
                     <div className='flight-search-feild-relative'>
-                        <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)} onBlur={()=> setShowTravellersDropdown(false)} required/>
+                        <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)}  required/>  
+                        {/* onBlur={()=> setShowTravellersDropdown(false)} */}
                         <span className="floating-label">Travellers & Class</span>
                            {showTravellersdropdown && 
                            
-                            <div className="flight-travellers-class">
+                            <div className="flight-travellers-class" ref={travellerDropdown}>
                                 <h6>Travellers</h6>
                                 <div className="flight-travellers-container">
                                     <div className="flight-traveller">
@@ -213,7 +227,7 @@ const responsive = {
                                             <p>Adults</p>
                                             <p>12 yrs or above</p>
                                         </div>
-                                        <div>
+                                        <div className='adults'>
                                             <button>1</button>
                                             <button>2</button>
                                             <button>3</button>
@@ -230,7 +244,7 @@ const responsive = {
                                             <p>Children</p>
                                             <p>2 - 12 yrs</p>
                                         </div>
-                                        <div>
+                                        <div className='children'>
                                             <button>0</button>
                                             <button>1</button>
                                             <button>2</button>
@@ -247,7 +261,7 @@ const responsive = {
                                             <p>Infant</p>
                                             <p>0 - 2 yrs</p>
                                         </div>
-                                        <div>
+                                        <div className='infants'>
                                             <button>0</button>
                                             <button>1</button>
                                             <button>2</button>
@@ -272,11 +286,13 @@ const responsive = {
                                           </div>
                                     </div>
                                 </div>
+                                        <NavLink to='/search' >
                                     <div className="flight-travellers-class-btn-container">
                                         <button className="flight-travellers-sumbit-btn">
                                             Done
                                         </button>
                                     </div>
+                                        </NavLink>
                            </div>}
                     </div>
                    
