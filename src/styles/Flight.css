@@ -436,7 +436,7 @@ input:not(:focus):valid ~ .floating-label{
    font-size: 12px;
    line-height: 1.4;
 }
-.flight-traveller div:nth-child(2) button{
+.flight-traveller div:nth-child(2) .button{
     padding: 0.375rem 0.625rem 0.375rem 0.625rem;
     color: #17181C;
     cursor: pointer;
@@ -503,4 +503,9 @@ input:not(:focus):valid ~ .floating-label{
 }
 .flight-travellers-sumbit-btn:hover{
     background-color: #e36802;
+}
+
+.adults .active-btn, .children .active-btn, .infant .active-btn, .flight-class-div-active{
+    background-color: #0770E4 !important;
+
 }

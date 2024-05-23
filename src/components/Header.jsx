@@ -8,11 +8,6 @@ export const Header = () => {
  const location = useLocation();
 useEffect(()=>{
   const handleScroll = ()=>{
-
-//   }
-// })
-//   window.onscroll = function(){myFunction()} ;
-//   function myFunction(){
     const navbar = document.querySelector('.navbar');
     const header = document.querySelector('.header');
         if(window.scrollY >  170){  
@@ -29,13 +24,17 @@ useEffect(()=>{
         }
   }
 
-  if(location.pathname ==="/flights"){
+  if(location.pathname === '/flights/search'){
+    setIsScroll(true);
+  }else{
     window.addEventListener("scroll", handleScroll);
   }
+
   return ()=>{
     window.removeEventListener("scroll", handleScroll);
   }
-},[location.pathname])
+
+},[location.pathname]);
 
 
   return (

@@ -8,7 +8,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Datepicker from '../../common/Datepicker';
 import Airports from './Airports';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 const Flights = () => {
@@ -67,6 +67,7 @@ const responsive = {
   const inputFromRef = useRef();
   const inputToRef = useRef();
   
+  
   //handling input of from feild
     const handleInputChange = (e)=>{
         console.log("showSuggesion",showSuggesion);
@@ -108,7 +109,28 @@ const responsive = {
         
     },[]);
 
+    const [adult, setAdults]= useState({adults:2, activeIndex:1});
+    const [children, setChildren]= useState({childrens:0, activeIndex:0});
+    const [infant, setInfant]= useState({infants:0, activeIndex:0});
+    const [travellerclass, setTravellerClass]= useState({classType:"Economy",activeIndex:0});
+    const classes = ["Economy", "Premium Economy", "Business"];
     
+    const handleAdultButtonClick = (index)=>{
+        setAdults({adults:index+1, activeIndex:index});
+    }
+    const handlChildrenButtonClick = (index)=>{
+        setChildren({childrens:index, activeIndex:index});
+    }
+    const handleInfantButtonClick = (index)=>{
+        setInfant({infants:index, activeIndex:index});
+    }
+    const handleClassButtonClick = (index,classType)=>{
+        setTravellerClass({classType:classType, activeIndex:index});
+    }
+    const handleTravellerAndClassSumbission = ()=>{
+        setShowTravellersDropdown(false);
+        setTravellersAndClass(`${adult.adults+children.childrens+infant.infants} Travellers, ${travellerclass.classType}`);
+    }
     
 
   return (
@@ -138,59 +160,6 @@ const responsive = {
                             fromSuggession &&
                            <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} inputFromRef={inputFromRef}/>
                         }
-                        {/* {(showSuggesion && inputChange)?
-
-                            <div className='airport-suggesion-container' ref={autocompleteRef} >
-                               
-                                <ul>
-                                { airports.map((item)=>{
-                                        // const airportByCity = item.filter((item)=>item.city.toLowerCase()===value.toLowerCase());
-                                        // airportByCity.map((item)={
-
-                                        // })
-                                        if(item.city.toLowerCase().includes(value.toLowerCase()) || item.name.toLowerCase().includes(value.toLowerCase())){
-
-                                            return(
-                                                <li key={item._id} onClick={()=> handelSuggetionClick(item)}>
-                                                    <div className='iata_code_airport' >
-                                                        <span>{item.iata_code}</span>
-                                                    </div>
-                                                    <div className='name_city_airport' >  
-                                                        <p>{`${item.city}, ${item.country}`} </p>
-                                                        <p>{item.name}</p>
-                                                    </div>
-                                                </li> 
-                                            )
-                                        }
-                                        return null;
-                                    })}
-                                </ul>
-                            </div> 
-                            :
-                            (showSuggesion && !inputChange)? 
-                            
-                            <div className='airport-suggesion-container' ref={autocompleteRef} >
-                                <div className='popular-airports'>
-                                    <p>Popular Airports</p>
-                                </div>
-                                <ul>
-                                { popularAirports.map((item)=>{
-                                        return(
-                                            <li key={item._id} onClick={()=> handelSuggetionClick(item)}>
-                                                <div className='iata_code_airport' >
-                                                    <span>{item.iata_code}</span>
-                                                </div>
-                                                <div className='name_city_airport' >  
-                                                    <p>{`${item.city}, ${item.country}`} </p>
-                                                    <p>{item.name}</p>
-                                                </div>
-                                            </li> 
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                            : null
-                            } */}
                         
 
                     </div>
@@ -228,15 +197,14 @@ const responsive = {
                                             <p>12 yrs or above</p>
                                         </div>
                                         <div className='adults'>
-                                            <button>1</button>
-                                            <button>2</button>
-                                            <button>3</button>
-                                            <button>4</button>
-                                            <button>5</button>
-                                            <button>6</button>
-                                            <button>7</button>
-                                            <button>8</button>
-                                            <button>9</button>
+                                            {Array.from({length:9},(_,index)=>{
+                                              return <button
+                                                 key={index}
+                                                 className={adult.activeIndex === index?  'active-btn button' : 'button'}
+                                                 onClick={()=>handleAdultButtonClick(index)}>
+                                                 {index+1}
+                                                </button>  
+                                            })}
                                         </div>
                                     </div>
                                     <div className="flight-traveller">
@@ -245,15 +213,14 @@ const responsive = {
                                             <p>2 - 12 yrs</p>
                                         </div>
                                         <div className='children'>
-                                            <button>0</button>
-                                            <button>1</button>
-                                            <button>2</button>
-                                            <button>3</button>
-                                            <button>4</button>
-                                            <button>5</button>
-                                            <button>6</button>
-                                            <button>7</button>
-                                            <button>8</button>
+                                        {Array.from({length:8},(_,index)=>{
+                                              return <button
+                                                 key={index}
+                                                 className={children.activeIndex === index?  'active-btn button' : 'button'}
+                                                 onClick={()=>handlChildrenButtonClick(index)}>
+                                                 {index}
+                                                </button>    
+                                            })}
                                         </div>
                                     </div>
                                     <div className="flight-traveller">
@@ -261,12 +228,15 @@ const responsive = {
                                             <p>Infant</p>
                                             <p>0 - 2 yrs</p>
                                         </div>
-                                        <div className='infants'>
-                                            <button>0</button>
-                                            <button>1</button>
-                                            <button>2</button>
-                                            <button>3</button>
-                                            <button>4</button>
+                                        <div className='infant'>
+                                        {Array.from({length:5},(_,index)=>{
+                                              return <button
+                                                 key={index}
+                                                 className={infant.activeIndex === index?  'active-btn button' : 'button'}
+                                                 onClick={()=>handleInfantButtonClick(index)}>
+                                                 {index}
+                                                </button>
+                                            })}
                                         </div>
                                     </div>
                                     {/* <div className="flight-travellers-more-than-nine">
@@ -274,30 +244,32 @@ const responsive = {
                                     <div className="flight-class-container">
                                          <p className='class'>Class</p>
                                           <div className="flight-class">
-                                            <div className='flight-class-div'>
-                                                <p>Economy</p>
-                                            </div>
-                                            <div className='flight-class-div'>
-                                                <p>Premium Economy</p>
-                                            </div>
-                                            <div className='flight-class-div'>
-                                                 <p>Business</p>
-                                            </div>
+                                          {classes.map((classType, index) => {
+                                                    return (
+                                                        <div
+                                                        key={index}
+                                                        className={travellerclass.activeIndex === index ? 'flight-class-div-active flight-class-div' : 'flight-class-div'}
+                                                        onClick={() => handleClassButtonClick(index, classType)}>
+                                                        <p>{classType}</p>
+                                                        </div>
+                                                    );
+                                            })}
                                           </div>
                                     </div>
                                 </div>
-                                        <NavLink to='/search' >
                                     <div className="flight-travellers-class-btn-container">
-                                        <button className="flight-travellers-sumbit-btn">
+                                        <button className="flight-travellers-sumbit-btn" onClick={()=> handleTravellerAndClassSumbission()}>
                                             Done
                                         </button>
                                     </div>
-                                        </NavLink>
+                                       
                            </div>}
                     </div>
                    
                     <div className='flight-search-feild-container'>
+                    <NavLink to='search' >
                        <button className='search-button'>Search</button>
+                    </NavLink>
                     </div>
                 </div>
                
@@ -342,6 +314,7 @@ const responsive = {
            </div>
         </div>
         <Footer/>
+         
     </div>
     
   )

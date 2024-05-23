@@ -48,7 +48,7 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
 
     //handling outside click for to and from dropdown
     const handleClickOutside = (event)=>{
-        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputToRef.current && !inputToRef.current.contains(event.target) ){
+        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) ){
            setShowSuggestions(false);
         }
         // else if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputToRef.current && !inputToRef.current.contains(event.target) ){
