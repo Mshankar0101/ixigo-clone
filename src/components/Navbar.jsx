@@ -2,8 +2,10 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import '../styles/Navbar.css';
 
+
 const Navbar = () => {
   return (
+    
     <nav className='navbar'>
         <ul className='navbar-ul'>
             <li key={1}>

@@ -8,17 +8,17 @@ export const Header = () => {
  const location = useLocation();
 useEffect(()=>{
   const handleScroll = ()=>{
-    const navbar = document.querySelector('.navbar');
+    // const navbar = document.querySelector('.navbar');
     const header = document.querySelector('.header');
         if(window.scrollY >  170){  
           console.log("yes");
 
-        if(navbar)  navbar.classList.add("sticky");
+        // if(navbar)  navbar.classList.add("sticky");
          if(header) header.classList.add("fixed");
           setIsScroll(true);
         }else{
           console.log("no");
-         if(navbar) navbar.classList.remove("sticky");
+        //  if(navbar) navbar.classList.remove("sticky");
         if(header)  header.classList.remove("fixed");
           setIsScroll(false);
         }
@@ -26,21 +26,26 @@ useEffect(()=>{
 
   if(location.pathname === '/flights/search'){
     setIsScroll(true);
+    const header = document.querySelector('.header');
+    if(header.classList.contains("fixed")){
+      header.classList.remove("fixed");
+    }  
   }else{
     window.addEventListener("scroll", handleScroll);
+    setIsScroll(false);
   }
 
   return ()=>{
     window.removeEventListener("scroll", handleScroll);
   }
 
-},[location.pathname]);
+},[location]);
 
 
   return (
     <div className='header'  > 
       <div className='header-logo'>
-          <NavLink to='/flight'><img alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
+          <NavLink to='/'><img alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
           <div>
         {
           isScroll && <Navbar/>

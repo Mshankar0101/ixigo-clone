@@ -2,8 +2,8 @@ import React,{useState, useEffect, useRef} from 'react'
 import Datepicker from '../../common/Datepicker';
 import {  useLocation } from 'react-router-dom';
 import Airports from './Airports';
-import { Header } from '../Header'
 import '../../styles/Flight.css';
+import '../../styles/FlightSearch.css';
 
 const Search = () => {
     //dropdown container for popular airport and shearched airport
@@ -84,13 +84,38 @@ const Search = () => {
     const location = useLocation();
      
 
+   // handling sticky property of search container
+   const [sticky, setSticky] = useState(false);
+   useEffect(()=>{
+     const handleScrolling = ()=>{
+        if(window.scrollY > 70){
+            setSticky(true);
+        }else{
+            setSticky(false);
+        }
+     }
+      window.addEventListener("scroll",handleScrolling);
+      return ()=>{
+        window.removeEventListener("scroll",handleScrolling);
+      }
+   },[location.pathname]);
 
+
+   //logic for filter
+   const handleCheckboxNonstop = ()=>{
+
+   }
+   const handleCheckboxOnestop = ()=>{
+
+   }
+   const handleCheckboxTwoplusstop = ()=>{
+
+   }
 
 
   return (
     <>
-        <Header/>
-        <div className={location.pathname === '/flights/search' ? 'flight-search-box-search-component' : 'flight-search-box'}>
+        <div className={(location.pathname === '/flights/search' && !sticky) ? 'flight-search-box-search-component' :(location.pathname === '/flights/search' && sticky)? 'flight-search-box-search-component flight-search-box-sticky': 'flight-search-box'}>
                <div className='flight-search-input'>
                     <div className='flight-search-feild-relative'>
                         <input type="text" className="inputText input-first-child" onFocus={()=> {
@@ -224,27 +249,57 @@ const Search = () => {
                 </div>
          </div>
 
-    <div>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        <h1>hello</h1>
-        
+    <div className='flight-filter-search-main-container'>
+        <div className="flight-filter-search-container">
+
+            <div className='flight-filter-container-relative'> 
+               <div className='white-round'>
+
+                <div className='flight-text-filter'>
+                    <p>Filters</p>
+                </div>
+                 <div className='border-bottom'></div>
+                <div className='flight-filter-options'>
+                    <div className='stops'>
+                        <p className='stops-text'>Stops</p>
+                        <li>
+                            <div>
+                               <p>Non-Stops</p> 
+                            </div>
+                            <div>
+                              <input type="checkbox" name="non-stops" value="0" onChange={()=> handleCheckboxNonstop()} />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                               <p>1 Stop</p> 
+                            </div>
+                            <div>
+                              <input type="checkbox" name="one-stop" value="1" onChange={()=> handleCheckboxOnestop()} />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                               <p>2+ Stops</p> 
+                            </div>
+                            <div>
+                              <input type="checkbox" name="twoplus-stops" value="2" onChange={()=> handleCheckboxTwoplusstop()} />
+                            </div>
+                        </li>
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+               </div>
+            </div>
+
+            <div className='flight-onsearch-container'>
+
+            </div>
+
+        </div>
     </div>
 
 

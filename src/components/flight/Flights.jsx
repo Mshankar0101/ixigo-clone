@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Header } from "../Header";
-import Navbar from "../Navbar";
 import Footer from "../Footer";
 import '../../styles/Flight.css';
 import flightDiscount from '../../images/flightAdvertisement.jpg';
@@ -136,8 +134,6 @@ const responsive = {
   return (
     
     <div className='flight'>
-        <Header/>
-        <Navbar />
         <div className='flightPage-background' >
             <div className='search-book-go'>
                 <div >
