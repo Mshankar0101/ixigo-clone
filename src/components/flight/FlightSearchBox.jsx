@@ -1,4 +1,4 @@
-import React,{ useEffect, useState, useRef, useContext, memo } from 'react'
+import React,{ useEffect, useState, useRef, useContext} from 'react'
 import Datepicker from '../../common/Datepicker';
 import Airports from './Airports';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import FlightSearchContext from '../../context/Contexts';
 import "../../styles/Flight.css";
 import "../../styles/FlightSearch.css";
 
-const FlightSearchBox = memo(() => {
+const FlightSearchBox =() => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -39,9 +39,7 @@ const FlightSearchBox = memo(() => {
   
   //handling input of from feild
     const handleInputChange = (e)=>{
-        // console.log("showSuggesion",showSuggesion);
-        // console.log("fromSuggession",fromSuggession);
-        e.preventDefault();
+        // e.preventDefault();
         setValue(e.target.value);
         if(e.target.value !== ""){
             setInputChange(true);
@@ -52,23 +50,23 @@ const FlightSearchBox = memo(() => {
 
   //handling input of to feild
     const handleToInputChange = (e)=>{
-        // console.log("showSuggesion", showSuggesion);
-        // console.log("toSuggession",toSuggession);
-        e.preventDefault();
+        // e.preventDefault();
         setToValue(e.target.value);
         if(e.target.value !== ""){
             setInputChange(true);
         }else{
             setInputChange(false);
         }
+      
     }
 
     //input feild travellers and class logic
     const [travellersAndClass, setTravellersAndClass]= useState("2 Travellers, Economy");
     const [showTravellersdropdown, setShowTravellersDropdown]= useState(false);
     const travellerDropdown = useRef();
+    const travellerInputRef = useRef();
     const handleTravellersOutsideClik = (event)=>{
-        if(travellerDropdown.current && !travellerDropdown.current.contains(event.target) ){
+        if(travellerDropdown.current && !travellerDropdown.current.contains(event.target) && travellerInputRef?.current && !travellerInputRef?.current.contains(event.target) ){
             setShowTravellersDropdown(false);
         }
     }
@@ -118,6 +116,7 @@ const FlightSearchBox = memo(() => {
             navigate("search");
         }else{
             console.log("fetch api based on filter");
+           
         }
     }
 
@@ -148,7 +147,7 @@ const FlightSearchBox = memo(() => {
                 <span className="floating-label">From</span>  
                 {
                     fromSuggession &&
-                <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} inputFromRef={inputFromRef}/>
+                <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} setInputChange={setInputChange} fromSuggession={fromSuggession} inputFromRef={inputFromRef}/>
                 }
                 
 
@@ -163,7 +162,7 @@ const FlightSearchBox = memo(() => {
             <span className="floating-label">To</span>
             {
                 toSuggession &&
-            <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} toSuggession={toSuggession} inputToRef={inputToRef}  />
+            <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} setInputChange={setInputChange} toSuggession={toSuggession} inputToRef={inputToRef}  />
             }
 
             </div>
@@ -173,7 +172,7 @@ const FlightSearchBox = memo(() => {
             </div>
 
             <div className='flight-search-feild-relative'>
-                <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)}  required/>  
+                <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)} ref={travellerInputRef} required/>  
                 {/* onBlur={()=> setShowTravellersDropdown(false)} */}
                 <span className="floating-label">Travellers & Class</span>
                 {showTravellersdropdown && 
@@ -274,6 +273,6 @@ const FlightSearchBox = memo(() => {
         </div>
     </>
   )
-});
+};
 
 export default FlightSearchBox

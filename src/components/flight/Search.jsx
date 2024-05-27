@@ -30,14 +30,17 @@ const Search = () => {
 
     //retrieving seach feild data from context
     const {searchFeilds} = useContext(FlightSearchContext);
-    useEffect(()=>{
-        if(!searchFeilds){
+    
+        if(searchFeilds === undefined){
             return <h1>No content</h1>
         }else{
             console.log("searchFeilds",searchFeilds);
-
+            // const source = searchFeilds.value.split(" - ")[0];
+            // const destination = searchFeilds.toValue.split(" - ")[0];
+            // const date = searchFeilds.date.slice(0,3);
+            // console.log(source,destination, date);
         }
-    },[searchFeilds]);
+    
 
 
   return (

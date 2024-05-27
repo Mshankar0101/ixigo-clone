@@ -1,6 +1,6 @@
 import React,{useRef,useState,useEffect} from 'react'
 import '../../styles/Flight.css';
-const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, showSuggesion, inputChange, toSuggession, fromSuggession, inputFromRef, inputToRef}) => {
+const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, showSuggesion, inputChange,setInputChange, toSuggession, fromSuggession, inputFromRef, inputToRef}) => {
 
     //dropdown container for popular airport and shearched airport
   const autocompleteRef = useRef();
@@ -23,11 +23,11 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
     const handelSuggetionClick = (item)=>{
       if(fromSuggession){ 
         setValue(`${item.iata_code} - ${item.city}`);
-        // setFromSuggesion(false);
+        setInputChange(false);
       }
       if(toSuggession){
         setToValue(`${item.iata_code} - ${item.city}`);
-        // setToSuggesion(false);
+        setInputChange(false);
       }
         setShowSuggestions(false);
     }
@@ -48,14 +48,14 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
 
     //handling outside click for to and from dropdown
     const handleClickOutside = (event)=>{
-        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target)  ){
+        if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputFromRef?.current && !inputFromRef?.current.contains(event.target) ){
            setShowSuggestions(false);
         }
-        // else if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputToRef.current && !inputToRef.current.contains(event.target) ){
-        //    setShowSuggestions(false);
-        // }
+        else if(autocompleteRef.current && !autocompleteRef.current.contains(event.target) && inputToRef?.current && !inputToRef?.current.contains(event.target) ){
+           setShowSuggestions(false);
+        }
     }
-    // && inputRef.current && !inputRef.current.contains(event.target)
+    // && inputFromRef.current && !inputFromRef.current.contains(event.target)
     useEffect(()=>{
         document.addEventListener("mousedown", handleClickOutside);
         return ()=>{
@@ -86,8 +86,6 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
        
      },[value,toValue]);
     
-
-
   return (
     <>
           {(showSuggesion && inputChange)?
