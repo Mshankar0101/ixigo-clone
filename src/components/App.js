@@ -11,6 +11,7 @@ import Login from "./Login";
 import Navbar from "./Navbar";
 import { Header } from "./Header";
 import ScrollToTop from "./ScrollToTop";
+import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
 
 function App() {
   const location = useLocation();
@@ -25,6 +26,7 @@ useEffect(()=>{
 },[location])
   return (
   <div className="App"> 
+   <FlightSearchContextProvider>
        <ScrollToTop/>
       <Header/>
       {showNavbar && <Navbar/>}
@@ -39,6 +41,7 @@ useEffect(()=>{
 
             <Route path='*' element={<h2>Page Not Found</h2>} />
         </Routes>
+    </FlightSearchContextProvider>
   </div>
   );
 }

@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import {format} from "date-fns";
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const Datepicker = () => {
 
-      const [currentDate, setCurrentDate] = useState(new Date());
+const Datepicker = ({currentDate,setCurrentDate}) => {
+
+      
   return (
     <DatePicker
       selected={currentDate}

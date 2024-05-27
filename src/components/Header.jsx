@@ -45,7 +45,7 @@ useEffect(()=>{
   return (
     <div className='header'  > 
       <div className='header-logo'>
-          <NavLink to='/'><img alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
+          <NavLink to='/flights'><img alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
           <div>
         {
           isScroll && <Navbar/>

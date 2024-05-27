@@ -1,105 +1,14 @@
-import React,{useState, useEffect, useRef} from 'react'
-import Datepicker from '../../common/Datepicker';
-import {  useLocation } from 'react-router-dom';
-import Airports from './Airports';
-import '../../styles/Flight.css';
-import '../../styles/FlightSearch.css';
+import React,{useState, useEffect, useContext} from 'react'
+ import '../../styles/FlightSearch.css';
+ import sunrise from '../../images/sunrise.png';
+ import cloudy from '../../images/cloudy.png';
+ import sun from '../../images/sun.png';
+ import cloudynight from '../../images/cloudy-night.png';
+ import {Slider} from '@mui/material';
+ import FlightSearchContext from '../../context/Contexts'
+import FlightSearchBox from './FlightSearchBox';
 
 const Search = () => {
-    //dropdown container for popular airport and shearched airport
-  const [showSuggesion, setShowSuggestions]= useState(false);
-  const [value, setValue] = useState(``);
-  const [toValue, setToValue] = useState(``);
-  const [inputChange, setInputChange] = useState(false);
-  const [fromSuggession, setFromSuggesion] = useState(false);
-  const [toSuggession, setToSuggesion] = useState(false);
-  const inputFromRef = useRef();
-  const inputToRef = useRef();
-  
-  
-  //handling input of from feild
-    const handleInputChange = (e)=>{
-        console.log("showSuggesion",showSuggesion);
-        console.log("fromSuggession",fromSuggession);
-        setValue(e.target.value);
-        if(e.target.value !== ""){
-            setInputChange(true);
-        }else{
-            setInputChange(false);
-        }
-    }
-
-  //handling input of to feild
-    const handleToInputChange = (e)=>{
-        console.log("showSuggesion", showSuggesion);
-        console.log("toSuggession",toSuggession);
-        setToValue(e.target.value);
-        if(e.target.value !== ""){
-            setInputChange(true);
-        }else{
-            setInputChange(false);
-        }
-    }
-
-    //input feild travellers and class logic
-    const [travellersAndClass, setTravellersAndClass]= useState("2 Travellers, Economy");
-    const [showTravellersdropdown, setShowTravellersDropdown]= useState(false);
-    const travellerDropdown = useRef();
-    const handleTravellersOutsideClik = (event)=>{
-        if(travellerDropdown.current && !travellerDropdown.current.contains(event.target) ){
-            setShowTravellersDropdown(false);
-        }
-    }
-    useEffect(()=>{
-        document.addEventListener("mousedown", handleTravellersOutsideClik);
-        return ()=>{
-            document.removeEventListener("mousedown", handleTravellersOutsideClik);
-        }
-        
-    },[]);
-
-    const [adult, setAdults]= useState({adults:2, activeIndex:1});
-    const [children, setChildren]= useState({childrens:0, activeIndex:0});
-    const [infant, setInfant]= useState({infants:0, activeIndex:0});
-    const [travellerclass, setTravellerClass]= useState({classType:"Economy",activeIndex:0});
-    const classes = ["Economy", "Premium Economy", "Business"];
-    
-    const handleAdultButtonClick = (index)=>{
-        setAdults({adults:index+1, activeIndex:index});
-    }
-    const handlChildrenButtonClick = (index)=>{
-        setChildren({childrens:index, activeIndex:index});
-    }
-    const handleInfantButtonClick = (index)=>{
-        setInfant({infants:index, activeIndex:index});
-    }
-    const handleClassButtonClick = (index,classType)=>{
-        setTravellerClass({classType:classType, activeIndex:index});
-    }
-    const handleTravellerAndClassSumbission = ()=>{
-        setShowTravellersDropdown(false);
-        setTravellersAndClass(`${adult.adults+children.childrens+infant.infants} Travellers, ${travellerclass.classType}`);
-    }
-
-    const location = useLocation();
-     
-
-   // handling sticky property of search container
-   const [sticky, setSticky] = useState(false);
-   useEffect(()=>{
-     const handleScrolling = ()=>{
-        if(window.scrollY > 70){
-            setSticky(true);
-        }else{
-            setSticky(false);
-        }
-     }
-      window.addEventListener("scroll",handleScrolling);
-      return ()=>{
-        window.removeEventListener("scroll",handleScrolling);
-      }
-   },[location.pathname]);
-
 
    //logic for filter
    const handleCheckboxNonstop = ()=>{
@@ -112,201 +21,163 @@ const Search = () => {
 
    }
 
+   //price range slider
+   const [priceRange, setPriceRange] = useState([2000, 10000]);
+    const updatePriceRange = (e, val)=>{
+        setPriceRange(val);
+        // console.log(val);
+    }
+
+    //retrieving seach feild data from context
+    const {searchFeilds} = useContext(FlightSearchContext);
+    useEffect(()=>{
+        if(!searchFeilds){
+            return <h1>No content</h1>
+        }else{
+            console.log("searchFeilds",searchFeilds);
+
+        }
+    },[searchFeilds]);
+
 
   return (
     <>
-        <div className={(location.pathname === '/flights/search' && !sticky) ? 'flight-search-box-search-component' :(location.pathname === '/flights/search' && sticky)? 'flight-search-box-search-component flight-search-box-sticky': 'flight-search-box'}>
-               <div className='flight-search-input'>
-                    <div className='flight-search-feild-relative'>
-                        <input type="text" className="inputText input-first-child" onFocus={()=> {
-                            setShowSuggestions(true);
-                            setFromSuggesion(true);
-                            setToSuggesion(false);
-                        }}  value={value} onChange={handleInputChange} ref={inputFromRef} required></input>
-                        <span className="floating-label">From</span>  
-                        {
-                            fromSuggession &&
-                           <Airports value={value} setValue={setValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} fromSuggession={fromSuggession} inputFromRef={inputFromRef}/>
-                        }
-                        
+        <FlightSearchBox/>
+    
+        <div className='flight-filter-search-main-container'>
+            <div className="flight-filter-search-container">
 
+                <div className='flight-filter-container-relative'> 
+                  <div className='white-round'>
+
+                    <div className='flight-text-filter'>
+                        <p>Filters</p>
                     </div>
-
-                    <div className='flight-search-feild-relative'>
-                    <input type="text" className="inputText" onFocus={()=>{ 
-                        setShowSuggestions(true);
-                        setToSuggesion(true);
-                        setFromSuggesion(false);
-                    }}  value={toValue} onChange={handleToInputChange} ref={inputToRef} required/>
-                    <span className="floating-label">To</span>
-                    {
-                        toSuggession &&
-                     <Airports toValue={toValue} setToValue={setToValue} setShowSuggestions={setShowSuggestions}  showSuggesion={showSuggesion} inputChange={inputChange} toSuggession={toSuggession} inputToRef={inputToRef}  />
-                    }
-
-                    </div>
-                         
-                    <div className='flight-search-feild-container'>
-                     <Datepicker/>
-                    </div>
-
-                    <div className='flight-search-feild-relative'>
-                        <input type="text" className="inputText" value={travellersAndClass} onFocus={()=>setShowTravellersDropdown(true)}  required/>  
-                        {/* onBlur={()=> setShowTravellersDropdown(false)} */}
-                        <span className="floating-label">Travellers & Class</span>
-                           {showTravellersdropdown && 
-                           
-                            <div className="flight-travellers-class" ref={travellerDropdown}>
-                                <h6>Travellers</h6>
-                                <div className="flight-travellers-container">
-                                    <div className="flight-traveller">
-                                        <div>
-                                            <p>Adults</p>
-                                            <p>12 yrs or above</p>
-                                        </div>
-                                        <div className='adults'>
-                                            {Array.from({length:9},(_,index)=>{
-                                              return <button
-                                                 key={index}
-                                                 className={adult.activeIndex === index?  'active-btn button' : 'button'}
-                                                 onClick={()=>handleAdultButtonClick(index)}>
-                                                 {index+1}
-                                                </button>  
-                                            })}
-                                        </div>
+                    <div className='border-bottom'></div>
+                    <div className='flight-filter-options'>
+                        <div className='stops'>
+                            <p className='stops-text'>Stops</p>
+                            <li>
+                                <div>
+                                <p>Non-Stops</p> 
+                                </div>
+                                <div>
+                                <input type="checkbox" name="non-stops" value="0" onChange={()=> handleCheckboxNonstop()} />
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                <p>1 Stop</p> 
+                                </div>
+                                <div>
+                                <input type="checkbox" name="one-stop" value="1" onChange={()=> handleCheckboxOnestop()} />
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                <p>2+ Stops</p> 
+                                </div>
+                                <div>
+                                <input type="checkbox" name="twoplus-stops" value="2" onChange={()=> handleCheckboxTwoplusstop()} />
+                                </div>
+                            </li>
+                        </div>
+                        <div className='flight-filter-range'>
+                            <p>Flight Price</p>
+                            <div className='flight-filter-range-box'>
+                                 <Slider
+                                  sx={{
+                                    ".MuiSlider-thumb": {bgcolor: 'white', height: '25px', width:'25px', border:'0.5px solid #0770E4'},
+                                    ".MuiSlider-track":{bgcolor: '#0770E4', height:"1px"},
+                                    ".MuiSlider-rail":{bgcolor: '#0770E4'},
+                                  }}
+                                  value={priceRange}
+                                  min={2000}
+                                  max={10000}
+                                  onChange={updatePriceRange}
+                                 />
+                                 <div className='price-display'>
+                                    <p>{priceRange[0]}</p>
+                                    <p>{priceRange[1]}</p>
+                                 </div>
+                               
+                            </div>
+                        </div>
+                        <div className='flight-filter-time'>
+                            <div className='filter-time'>
+                                <p className='departure'>Departure from Mumbai</p>
+                                <div className='morning-day-night'>
+                                    <div className='icon-div'>
+                                        
+                                    
+                                        {/* <img alt='early morning' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABjklEQVR4nO2WTStEURjHf2aMREzIS7HwGWRh4yMQijIlNVufZHbyASxY2tkqKa81hYVBSDa2MlgNoaP/rWvSNDP3uvPS86uzmXOel/+c53nOBcMwDOM3rUCCJuAQuKIJKABfzXArBRNSZ9TdjfQDnREKaQP6CJkOIA/cAiMRCBkCLoBnoIsQiQMHSuiuQjHbwE6FIi4VK6t3KFS6gWMFeABGww4ADOgmXIyz/yitKMREJsIjCZwo4E0ZAyCm0ixFu0/EKdBLRCTVM2/AYNGeq+kpYF1J5XXuHNgAZv5o/B6dy0YpwiOuUvPjBFzrn/XWB/Be9JsbGHNFtm46hd7YldICZIBPJXoELGu6xbQ/DCwB+z5Bq9qvGzJK7AVIlXF+Xm+Es1mjTphWQq/ARAV2Y+oLZ7tAjUloDLtk0lXYp2T7qMlVM2Z9c9/1QTV479IiNWRTSawE8JGWj62gycQ0x6tZOSUxGcDHuHzcB/DxM7a9D7RGXjknZBd4avC1F7QsDcMwDMMwDMMwDMMwKMU30FLCeXRdQ/sAAAAASUVORK5CYII="/> */}
+                                        <img alt='sunrise' src={sunrise}/>
+                                        <p>Early Morning</p>
+                                        <p>Before 6AM</p>
                                     </div>
-                                    <div className="flight-traveller">
-                                        <div>
-                                            <p>Children</p>
-                                            <p>2 - 12 yrs</p>
-                                        </div>
-                                        <div className='children'>
-                                        {Array.from({length:8},(_,index)=>{
-                                              return <button
-                                                 key={index}
-                                                 className={children.activeIndex === index?  'active-btn button' : 'button'}
-                                                 onClick={()=>handlChildrenButtonClick(index)}>
-                                                 {index}
-                                                </button>    
-                                            })}
-                                        </div>
-                                    </div>
-                                    <div className="flight-traveller">
-                                       <div>
-                                            <p>Infant</p>
-                                            <p>0 - 2 yrs</p>
-                                        </div>
-                                        <div className='infant'>
-                                        {Array.from({length:5},(_,index)=>{
-                                              return <button
-                                                 key={index}
-                                                 className={infant.activeIndex === index?  'active-btn button' : 'button'}
-                                                 onClick={()=>handleInfantButtonClick(index)}>
-                                                 {index}
-                                                </button>
-                                            })}
-                                        </div>
-                                    </div>
-                                    {/* <div className="flight-travellers-more-than-nine">
-                                    </div> */}
-                                    <div className="flight-class-container">
-                                         <p className='class'>Class</p>
-                                          <div className="flight-class">
-                                          {classes.map((classType, index) => {
-                                                    return (
-                                                        <div
-                                                        key={index}
-                                                        className={travellerclass.activeIndex === index ? 'flight-class-div-active flight-class-div' : 'flight-class-div'}
-                                                        onClick={() => handleClassButtonClick(index, classType)}>
-                                                        <p>{classType}</p>
-                                                        </div>
-                                                    );
-                                            })}
-                                          </div>
+                                    <div className='icon-div'>
+                                        <img alt='morning' src={sun} />
+                                        <p>Morning</p>
+                                        <p>6AM-12PM</p>
                                     </div>
                                 </div>
-                                    <div className="flight-travellers-class-btn-container">
-                                        <button className="flight-travellers-sumbit-btn" onClick={()=> handleTravellerAndClassSumbission()}>
-                                            Done
-                                        </button>
+                                <div className='morning-day-night'>
+                                <div className='icon-div'>
+                                    <img alt='midday' src={cloudy} />
+                                        <p>Mid Day</p>
+                                        <p>12PM-6PM</p>
                                     </div>
-                                       
-                           </div>}
+                                    <div className='icon-div'>
+                                    <img alt='cloudynight' src={cloudynight} />
+                                        <p>Night</p>
+                                        <p>After 6pm</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='filter-airlines' style={{paddingTop:'20px'}}>
+                           <p className='heading'>Popular Airlines</p>
+                           <li>
+                                <div>
+                                    <img alt='airindia' src='https://images.ixigo.com/img/common-resources/airline-new/AI.png' />
+                                </div>
+                                <p>Air India</p>
+                                <input type='checkbox'/>
+                           </li>
+                           <li>
+                                <div>
+                                    <img alt='indigo' src='https://images.ixigo.com/img/common-resources/airline-new/6E.png' />
+                                </div>
+                                <p>Indigo</p>
+                                <input type='checkbox'/>
+                           </li>
+                           <li>
+                                <div>
+                                    <img alt='spicejet' src='https://images.ixigo.com/img/common-resources/airline-new/SG.png' />
+                                </div>
+                                <p>SpiceJet</p>
+                                <input type='checkbox'/>
+                           </li>
+                           <li>
+                                <div>
+                                    <img alt='vistara' src='https://images.ixigo.com/img/common-resources/airline-new/UK.png' />
+                                </div>
+                                <p>Vistara</p>
+                                <input type='checkbox'/>
+                           </li>
+                        </div>
                     </div>
-                   
-                    <div className='flight-search-feild-container'>
-                       <button className='search-button'>Search</button>
-                    </div>
-                </div>
-               
-                <div className='flight-passanger-category'>
-                    <div>
-                      <div className='special-fare'><b >Special Fares</b> (Optional) : </div>
-                      <div className='category-div'><p>Student</p> </div>
-                      <div className='category-div'><p>Senior Citizen</p> </div>
-                      <div className='category-div'><p>Armed Forces</p> </div>
-                    </div>
-                </div>
-         </div>
 
-    <div className='flight-filter-search-main-container'>
-        <div className="flight-filter-search-container">
-
-            <div className='flight-filter-container-relative'> 
-               <div className='white-round'>
-
-                <div className='flight-text-filter'>
-                    <p>Filters</p>
                 </div>
-                 <div className='border-bottom'></div>
-                <div className='flight-filter-options'>
-                    <div className='stops'>
-                        <p className='stops-text'>Stops</p>
-                        <li>
-                            <div>
-                               <p>Non-Stops</p> 
-                            </div>
-                            <div>
-                              <input type="checkbox" name="non-stops" value="0" onChange={()=> handleCheckboxNonstop()} />
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                               <p>1 Stop</p> 
-                            </div>
-                            <div>
-                              <input type="checkbox" name="one-stop" value="1" onChange={()=> handleCheckboxOnestop()} />
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                               <p>2+ Stops</p> 
-                            </div>
-                            <div>
-                              <input type="checkbox" name="twoplus-stops" value="2" onChange={()=> handleCheckboxTwoplusstop()} />
-                            </div>
-                        </li>
-                    </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
                 </div>
 
-               </div>
-            </div>
+                <div className='flight-onsearch-container'>
 
-            <div className='flight-onsearch-container'>
+                </div>
 
-            </div>
-
+             </div>
         </div>
-    </div>
-
-
-
-
-
-
+    
 
     </>
 )
