@@ -25,7 +25,7 @@ const Flights = () => {
     .then((result)=> result.data)
     .then((data)=>setOffers(data.offers))
     .catch((err)=> console.log(err));
-}
+ }
     useEffect(()=>{  
         fetchOffers(); 
     },[]);

@@ -1,4 +1,5 @@
-import React,{useState, useEffect, useContext} from 'react'
+import React,{useState, useEffect, useContext} from 'react';
+import ScrollToTop from '../ScrollToTop';
  import '../../styles/FlightSearch.css';
  import sunrise from '../../images/sunrise.png';
  import cloudy from '../../images/cloudy.png';
@@ -6,20 +7,41 @@ import React,{useState, useEffect, useContext} from 'react'
  import cloudynight from '../../images/cloudy-night.png';
  import {Slider} from '@mui/material';
  import FlightSearchContext from '../../context/Contexts'
-import FlightSearchBox from './FlightSearchBox';
+ import FlightSearchBox from './FlightSearchBox';
+ import downarrow from '../../images/downarrow.png'
+ import handbag from '../../images/handbag.png'
 
 const Search = () => {
 
    //logic for filter
+   const [oneStop, setOneStop]=useState({stop:1,checked:false});
+   const [twoStop, setTwoStop]=useState({stop:2,checked:false});
+   const [nonStop, setNonStop]=useState({stop:0,checked:false});
    const handleCheckboxNonstop = ()=>{
-
+        setNonStop({stop:0,checked:!nonStop.checked});
    }
-   const handleCheckboxOnestop = ()=>{
-
+   const handleCheckboxOnestop = (e)=>{
+         setOneStop({stop:1,checked:!oneStop.checked});
    }
-   const handleCheckboxTwoplusstop = ()=>{
-
+   const handleCheckboxTwoplusstop = (e)=>{
+         setTwoStop({stop:2,checked:!twoStop.checked});
    }
+  
+//    useEffect(()=>{
+//      const arr = [1,0,1,1,4,2,2,3,1,0]
+//      console.log(oneStop.checked,twoStop.checked,nonStop.checked);
+//      if(oneStop.checked || twoStop.checked || nonStop.checked){
+//          var newArr = arr.filter((flight)=>{
+//              if(flight.stops === oneStop.checked?1 || flight.stops === twoStop.checked?2 ||  flight.stops === nonStop.checked?0){
+
+//              }
+
+//          })
+//      }
+//    },[oneStop, twoStop, nonStop])
+  
+  
+   
 
    //price range slider
    const [priceRange, setPriceRange] = useState([2000, 10000]);
@@ -28,24 +50,68 @@ const Search = () => {
         // console.log(val);
     }
 
+    //sorting of flights
+    const [sortSelectedOption, setSortSelectedOption]= useState('');
+    const handleSortChange = (e)=>{
+        setSortSelectedOption(e.target.value);
+    }
+
+
+
+
     //retrieving seach feild data from context
     const {searchFeilds} = useContext(FlightSearchContext);
-    
-        if(searchFeilds === undefined){
-            return <h1>No content</h1>
-        }else{
-            console.log("searchFeilds",searchFeilds);
-            // const source = searchFeilds.value.split(" - ")[0];
-            // const destination = searchFeilds.toValue.split(" - ")[0];
-            // const date = searchFeilds.date.slice(0,3);
-            // console.log(source,destination, date);
+    const {value, toValue, date} = searchFeilds;
+    const daysArr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const source = value.split(" - ")[0];
+    const destination = toValue.split(" - ")[0];
+    const day = daysArr[date.getDay()];
+
+    //display flight
+   const [flight, setFlight] = useState([])
+      const fetchFlights = (source,destination,day)=>{
+           fetch(`https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${source}","destination":"${destination}"}&day=${day}`, {
+               method: 'get',
+               headers:{
+                   'projectID': '9h69a26iogeq'
+               }
+           })
+           .then((response) => response.json())
+           .then((result) =>{
+               setFlight(result.data.flights);
+               console.log(result.data.flights);
+           })
+           .catch((error) => console.error(error));
+      }
+
+
+     //rendering flight when nevigated from flight page
+    //  useEffect(()=>{
+    //     console.log(source,destination, day);
+    //     fetchFlights(source, destination, day);
+    //  },[]);
+
+
+    //hadling searches on search page
+    const handleSubmition = ()=>{
+        console.log("inside handle submition");
+        if(value && toValue && date){ 
+            console.log(source,destination, day);
+            fetchFlights(source, destination, day);   
         }
-    
+    }
+    useEffect(()=>{
+        console.log("useeffect");
+        handleSubmition();
+    },[searchFeilds]);
+
+
 
 
   return (
     <>
-        <FlightSearchBox/>
+    <ScrollToTop/>
+        <FlightSearchBox handleSubmition={handleSubmition} />
     
         <div className='flight-filter-search-main-container'>
             <div className="flight-filter-search-container">
@@ -62,10 +128,10 @@ const Search = () => {
                             <p className='stops-text'>Stops</p>
                             <li>
                                 <div>
-                                <p>Non-Stops</p> 
+                                <p>Non-Stop</p> 
                                 </div>
                                 <div>
-                                <input type="checkbox" name="non-stops" value="0" onChange={()=> handleCheckboxNonstop()} />
+                                <input type="checkbox" name="non-stop" value="0" onChange={()=> handleCheckboxNonstop()} />
                                 </div>
                             </li>
                             <li>
@@ -175,7 +241,143 @@ const Search = () => {
                 </div>
 
                 <div className='flight-onsearch-container'>
+                     <div className='sort-by'>
+                        <p className='heading'>Sort by</p>
+                        <div className='sort-by-container'>
+                            <div className='sorting-options'>
+                                    <input
+                                    type='radio'
+                                    value='price'
+                                    checked={sortSelectedOption === 'price'}
+                                    onChange={handleSortChange}
+                                    />
+                                    <div>
+                                        <p>Price
+                                         <img alt='downarrow' className={(sortSelectedOption==='price'?"sort-downarrow-visible": "sort-downarrow-hidden")} src={downarrow} />
+                                        </p>
+                                        <p>Low To High</p>
+                                    </div>
+                            </div>
+                            <div className='sorting-options'>
+                                    <input
+                                    type='radio'
+                                    value='fastest'
+                                    checked={sortSelectedOption === 'fastest'}
+                                    onChange={handleSortChange}
+                                    />
+                                    <div>
+                                        <p>Fastest
+                                        <img alt='downarrow' className={(sortSelectedOption==='fastest'?"sort-downarrow-visible": "sort-downarrow-hidden")} src={downarrow} />
+                                        </p>
+                                        <p>Shortest First</p>
+                                    </div>
+                            </div>
+                            <div className='sorting-options'>
+                                    <input
+                                    type='radio'
+                                    value='departure'
+                                    checked={sortSelectedOption === 'departure'}
+                                    onChange={handleSortChange}
+                                    />
+                                    <div>
+                                        <p>Departure
+                                        <img alt='downarrow' className={(sortSelectedOption==='departure'?"sort-downarrow-visible": "sort-downarrow-hidden")} src={downarrow} />  
+                                        </p>
+                                        <p>Earliest First</p>
+                                    </div>
+                            </div>
+                            <div className='sorting-options'>
+                                    <input
+                                    type='radio'
+                                    value='smart'
+                                    checked={sortSelectedOption === 'smart'}
+                                    onChange={handleSortChange}
+                                    />
+                                    <div>
+                                        <p>Smart
+                                        <img alt='downarrow' className={(sortSelectedOption==='smart'?"sort-downarrow-visible": "sort-downarrow-hidden")} src={downarrow} />
+                                        </p>
+                                        <p>Recommended</p>
+                                    </div>
+                            </div>
+                        </div>
+                     </div>
+                     <div className='available-flights-container'>
+                       { flight.map((flight)=>{
+                           const {source,destination,departureTime,arrivalTime,duration,stops,ticketPrice,flightID} = flight;
+                          if(source && destination && departureTime && arrivalTime && duration && stops && ticketPrice && flightID){
+                             const id = flightID.slice(0, 2);
+                             let airline;
+                             let imgUrl;
+                             if(id === "AI"){
+                                 airline= "Air India";
+                                 imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/AI.png";
+                             }else if(id === "6E"){
+                                airline= "IndiGo";
+                                imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/6E.png";
+                             }else if(id === "UK"){
+                                airline= "Vistara";
+                                imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/UK.png";  
+                             }else if(id === "SG"){
+                                airline= "SpiceJet";
+                                imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/SG.png"
+                             }else if(id === "G8"){
+                                airline="Go First";
+                                imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/G8.png"
+                             }else{
+                                airline= "IndiGo";
+                                imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/6E.png";
+                             }
 
+                             return(
+                                <div className='available-flights-card'>
+                                <div className='source-destination-stops-price-book'>
+                                   <div className='source-destination-stops'>
+                                          <div className='img-and-airline'>  
+                                             <img  src={imgUrl} alt='airline-img'/>
+                                              <div>
+                                                 <p>{airline}</p>
+                                                 <p>{flightID}</p>
+                                              </div>
+                                          </div>
+                                          <div className='source-stops-destiny' >
+                                              <div>
+                                                 <h5 className='time'>{departureTime}</h5>
+                                                 <p className='source-destination'>{source}</p>
+                                              </div>
+                                              <div>
+                                                 <p>{duration+" hours"}</p>
+                                                 <div style={{height:"1px",width:"70px", borderBottom:"1px solid #d8d8da"}}></div>
+                                                 <p>{(stops===0? "Non-stop": stops+" stops")}</p>
+
+
+                                              </div>
+                                              <div>
+                                                 <h5 className='time'>{arrivalTime}</h5>
+                                                 <p className='source-destination'>{destination}</p>
+                                              </div>
+                                          </div>
+                                   </div>
+                                   <div className='price-book'>
+                                       <h5>{"₹"+ticketPrice}</h5>
+                                       <button>Book</button>
+                                   </div>
+                                </div>
+                                    <div className='more-details'>
+                                        <div>
+                                            <div style={{height:"16px", width:"16px", overflow:"hidden"}}>
+                                                <img alt='handbag' src={handbag}/>
+                                            </div>
+                                            <p>Handbag Only</p>
+                                        </div>
+                                        <p>Flight Details &gt;</p>
+                                    </div>
+                                </div>)
+                            }
+                            return null;
+                       })}
+
+                     </div>
                 </div>
 
              </div>
@@ -186,4 +388,4 @@ const Search = () => {
 )
 }
 
-export default Search
+export default Search;

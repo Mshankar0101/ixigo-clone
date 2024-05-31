@@ -1,4 +1,4 @@
-import React,{ useEffect, useState, useRef, useContext} from 'react'
+import React,{ useEffect, useState, useRef, useContext, memo} from 'react'
 import Datepicker from '../../common/Datepicker';
 import Airports from './Airports';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import FlightSearchContext from '../../context/Contexts';
 import "../../styles/Flight.css";
 import "../../styles/FlightSearch.css";
 
-const FlightSearchBox =() => {
+const FlightSearchBox =({handleSubmition}) => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -105,8 +105,8 @@ const FlightSearchBox =() => {
     const [currentDate, setCurrentDate] = useState(new Date());
 
     //submition of search feilds
-    const {setSearchFeilds} = useContext(FlightSearchContext);
-    const handleSearchFeildSubmition = (e)=>{
+    const {setSearchFeilds,searchFeilds} = useContext(FlightSearchContext);
+    const handleSearchFeildSubmition = ()=>{
         // e.preventDefault();
         if(!value || !toValue){
             alert("Please fill all the feilds");
@@ -114,14 +114,24 @@ const FlightSearchBox =() => {
             const totalTravlers = adult.adults+children.childrens+infant.infants;
             setSearchFeilds({value, toValue, totalTravlers, travellerclass:travellerclass.classType, date:currentDate, travellersAndClass});
             navigate("search");
-        }else{
-            console.log("fetch api based on filter");
-           
+        }else if(location.pathname === '/flights/search'){
+            const totalTravlers = adult.adults+children.childrens+infant.infants;
+            console.log(value,toValue,currentDate);
+            setSearchFeilds({value, toValue, totalTravlers, travellerclass:travellerclass.classType, date:currentDate, travellersAndClass});
+            console.log("fetch api based on search feild change");
+            // console.log(searchFeilds);
+            // handleSubmition();
+          
         }
     }
+    //fetch api based on search feild change
+    // useEffect(()=>{
+    //     console.log("useeffect");
+    //     handleSubmition();
+    // },[searchFeilds]);
 
     //acessing feild values to render when navigated from flight page
-    const {searchFeilds} = useContext(FlightSearchContext);
+    // const {searchFeilds} = useContext(FlightSearchContext);
     useEffect(()=>{
         if(searchFeilds && location.pathname === '/flights/search'){
             setValue(searchFeilds.value);
@@ -130,6 +140,7 @@ const FlightSearchBox =() => {
             setTravellersAndClass(searchFeilds.travellersAndClass);
         }
     },[]);
+
 
   return (
     <>

@@ -94,7 +94,8 @@ const Airports = ({value, setValue, toValue, setToValue, setShowSuggestions, sho
             
               <ul>
               { airports.map((item)=>{
-                      if(item.city.toLowerCase().includes(searchValue.toLowerCase()) || item.name.toLowerCase().includes(searchValue.toLowerCase())){
+                
+                      if(item.city.toLowerCase().includes(searchValue?.toLowerCase()) || item.name.toLowerCase().includes(searchValue?.toLowerCase())){
 
                           return(
                               <li key={item._id} onClick={()=> handelSuggetionClick(item)}>

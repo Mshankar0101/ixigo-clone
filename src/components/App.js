@@ -10,7 +10,7 @@ import Buses from "./bus/Buses";
 import Login from "./Login";
 import Navbar from "./Navbar";
 import { Header } from "./Header";
-import ScrollToTop from "./ScrollToTop";
+// import ScrollToTop from "./ScrollToTop";
 import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
 
 function App() {
@@ -27,7 +27,7 @@ useEffect(()=>{
   return (
   <div className="App"> 
    <FlightSearchContextProvider>
-       <ScrollToTop/>
+       
       <Header/>
       {showNavbar && <Navbar/>}
         <Routes>
