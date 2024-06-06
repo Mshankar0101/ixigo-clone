@@ -5,6 +5,7 @@ import flightDiscount from '../../images/flightAdvertisement.jpg';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import FlightSearchBox from './FlightSearchBox';
+// import FlighCrouselt from './FlighCrouselt';
 
 
 const Flights = () => {
@@ -77,6 +78,7 @@ const responsive = {
             </div>
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
+            {/* <FlighCrouselt offer={offer} /> */}
            <div className='flight-offers-container' >
                 <Carousel keyBoardControl={true} 
                   draggable={ true}

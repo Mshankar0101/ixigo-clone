@@ -12,8 +12,7 @@
 
 .flight-filter-search-main-container{
     padding:0px 20px 30px 20px;
-    width: 100%;
-    margin: auto;
+    margin: 0;
     background-color: rgba(239,239,240,1);
 
 }
@@ -23,7 +22,11 @@
     gap: 20px;
     margin-top: 5px;
     padding-top: 20px; 
+    width: 100%;
     
+}
+.flight-filter-container-relative{
+    width:25%;
 }
 .flight-filter-container-relative .white-round{
    box-shadow:0px 2px 5px 0px rgba(0,0,0,0.1); 
@@ -100,7 +103,6 @@
     max-width: 100%;
     width: 100%;
     position: relative;
-
 }
 .flight-filter-range-box .price-display{
    display: flex;
@@ -248,7 +250,7 @@
     font-weight: 400;
 }
 .flight-onsearch-container{
-    width: 900px;
+    width: 65%;
 }
 .flight-onsearch-container .sort-by{
    margin-bottom: 20px;
@@ -295,6 +297,7 @@
     background-clip: content-box;
     border: 1px solid rgb(94,97,110);
     background-color: rgba(239,239,240,1);
+    cursor: pointer;
 }
 .flight-onsearch-container .sorting-options input[type="radio"]:checked{
     background-color: rgba(7,112,228,1);
@@ -314,14 +317,9 @@
    display: flex;
    flex-direction: column;
    width: 100%;
-   /* height: 100%; */
-   /* gap: 10px; */
 }
 .available-flights-container .available-flights-card{
   padding: 20px;
-  /* padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px; */
   margin-bottom: 20px;
   border-radius: 10px;
   width: 100%;
@@ -345,14 +343,19 @@
    display: flex;
    align-items: flex-start;
    justify-content: space-between;
+   gap: 5px;
 }
-.source-destination-stops-price-book .source-destination-stops {
+/* .source-destination-stops-price-book .source-destination-stops {
   width: 510px;
   display: flex;
-}
-.available-flights-container .source-destination-stops .img-and-airline{
+  gap: auto;
+} */
+.available-flights-container  .img-and-airline{
   display: flex;
-  width: 200px;
+  /* width:200px; istead used max and min and overflow */
+  max-width: 200px;
+  min-width: 100px;
+  overflow: hidden;
   gap: 5px;
   align-items: center;
 }
@@ -388,10 +391,10 @@
    white-space: nowrap;
 
 }
-.available-flights-container .source-destination-stops .source-stops-destiny{
+.available-flights-container .source-stops-destiny{
     display: flex;
-    width: 310px;
-    /* gap: 5px; */
+    width: 300px; 
+    gap: 5px;
     justify-content: space-between;
     align-items: center;
 }
@@ -427,6 +430,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+  width: 40%;
 }
 .available-flights-container .price-book h5{
    color:rgb(23,24,28);
@@ -447,6 +451,9 @@
     line-height: 1.3;
     font-weight: 500;
     cursor: pointer;
+}
+.available-flights-container .price-book button:hover{
+    background-color: #e36802 ;
 }
 .available-flights-container .more-details{
   /* padding-bottom: 5px; */

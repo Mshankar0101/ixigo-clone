@@ -5,15 +5,35 @@ import ScrollToTop from '../ScrollToTop';
  import cloudy from '../../images/cloudy.png';
  import sun from '../../images/sun.png';
  import cloudynight from '../../images/cloudy-night.png';
- import {Slider} from '@mui/material';
+ import {Button, Slider, Stack, Typography, styled} from '@mui/material';
  import FlightSearchContext from '../../context/Contexts'
  import FlightSearchBox from './FlightSearchBox';
  import downarrow from '../../images/downarrow.png'
  import handbag from '../../images/handbag.png'
+ import Modal from '@mui/material/Modal';
+ import Box from '@mui/material/Box';
+ import nextarrow from '../../images/nextarrow.png';
 
 const Search = () => {
     const [filterObj, setFilterObj]= useState({});
-    // const [sortObj, setSortObj]= useState({});
+
+    //flight details model
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '63%',
+        // left:'65%',
+        transform: 'translate(-50%, -50%)',
+        width: '62%',
+        bgcolor: 'background.paper',
+        borderRadius: '10px',
+        boxShadow: 24,
+        padding:3,
+      };
 
    //logic for stops filter
    const [stops, setStop]= useState(null);
@@ -223,6 +243,18 @@ const Search = () => {
         console.log("useeffect");
         handleSubmition();
     },[searchFeilds,filterObj, sortSelectedOption]);
+
+
+    //button
+    const CustomButton = styled(Button)(({ theme }) => ({
+        textTransform:'none',
+        borderRadius:'10px',
+        backgroundColor: 'rgb(252,121,13)',
+        '&:hover': {
+          backgroundColor: '#e36802',
+        },
+      }));
+
 
 
   return (
@@ -447,10 +479,10 @@ const Search = () => {
                                 imgUrl = "https://images.ixigo.com/img/common-resources/airline-new/6E.png";
                              }
 
-                             return(
+                            return(
                                 <div className='available-flights-card' key={index}>
                                 <div className='source-destination-stops-price-book'>
-                                   <div className='source-destination-stops'>
+                                   {/* <div className='source-destination-stops'> */}
                                           <div className='img-and-airline'>  
                                              <img  src={imgUrl} alt='airline-img'/>
                                               <div>
@@ -475,7 +507,7 @@ const Search = () => {
                                                  <p className='source-destination'>{destination}</p>
                                               </div>
                                           </div>
-                                   </div>
+                                   {/* </div> */}
                                    <div className='price-book'>
                                        <h5>{"₹"+ticketPrice}</h5>
                                        <button>Book</button>
@@ -489,12 +521,163 @@ const Search = () => {
                                             </div>
                                             <p>Handbag Only</p>
                                         </div>
-                                        <p>Flight Details &gt;</p>
+                                        <p onClick={handleOpen}>Flight Details &gt;</p>
                                     </div>
-                                </div>)
-                            // }
-                            // return null;
+                                </div>
+                            )  
+                           
                        })}
+                            {open?<div className='flight-details-model' >
+                            <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style} >
+                                   <Box className='short-details' sx={{
+                                     display:'flex',
+                                     flexDirection:'column',
+                                     gap:'0px'
+                                   }}>
+                                        <Stack className='source-destination'
+                                         direction='row'
+                                         sx={{
+                                            display:'flex',
+                                            gap:'5px',
+                                            alignItems:'center',
+                                            
+                                         }}
+                                        >
+                                            <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2' >{"Mumbai"}</Typography>
+                                            <img alt='to' height='24px' width='24px' src={nextarrow}/>
+                                            <Typography variant='h6'sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2'>{"patna"}</Typography>
+                                        </Stack>
+                                        <Stack 
+                                        direction='row'
+                                        sx={{
+                                           display:'flex',
+                                           gap:'5px',
+                                           alignItems:'center',
+                                           
+                                        }}
+                                        >
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2" >{"wed, 05 jun"} &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2">{" 1 stop "} &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2"> {"5"} hour &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}}variant="subtitle2"> {"Economy"}</Typography>
+                                        </Stack>
+                                   </Box>
+                                   <Box className='all-details'>
+                                        <Stack
+                                        direction='row'
+                                        sx={{
+                                            mt:'15px',
+                                            display:'flex',
+                                            alignItems:'center',
+                                            gap:'auto',
+                                            width:'100%'
+                                        }}
+                                        >
+                                            <img alt='airline' height='32px' width='40px' src={"https://images.ixigo.com/img/common-resources/airline-new/6E.png"}/>
+                                            <Typography variant='body2' color='#17181C'>{"IndiGo"}</Typography>
+                                            <Typography variant='body2' color="rgb(94,97,110)"> | {"flightID"}</Typography>
+                                        </Stack>
+                                        <Stack
+                                        direction={{ xs: 'column', sm: 'column', md:'row', lg:'row' }}
+                                        spacing={{sm:2,md:2}}
+                                        sx={{
+                                            mt:'10px',
+                                            width:'100%'
+                                        }}
+                                        >
+                                        <Stack
+                                         direction='row'
+                                         sx={{
+                                            mb:'15px',     
+                                         }}
+                                        >
+
+                                                <Box sx={{minWidth:'130px',textAlign:'left'}}>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"Fri, 21 june"}</Typography>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{"18:50"}</Typography>
+                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{"BOM - Mumbai"}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{"Chatrapati Shivaji International Airport"}</Typography>
+                                                </Box>
+                                                <Box
+                                                sx={{
+                                                    minWidth:'60px',
+                                                    mt:'30px',
+                                                    display:'flex',
+                                                    flexDirection:'column',
+                                                    alignItems:'center',
+                                                    gap:'0px'
+                                                }}
+                                                >
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2'>{"5"}hours</Typography>   
+                                                    <img alt='from-to' src='https://edge.ixigo.com/st/vimaan/_next/static/media/line.9641f579.svg'/>
+                                                </Box>
+                                                <Box sx={{minWidth:'130px',textAlign:'right'}}>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"Fri, 21 june"}</Typography>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{"18:50"}</Typography>
+                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{"BOM - Mumbai"}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{"Chatrapati Shivaji International Airport"}</Typography>
+                                                </Box>
+                                            </Stack>
+                                            <Stack
+                                            //  direction='row'
+                                             direction={{ xs: 'row', md:'column', lg:'row' }}
+                                             sx={{
+                                                mb:'10px',
+                                                display:'flex',
+                                                alignItems:'flex-start',
+                                                justifyContent:'space-between',
+                                                gap:'5px'
+                                             }}
+                                            >
+                                                <Box sx={{minWidth:'80px'}}>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Available Seats</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"120"}</Typography>
+                                                </Box>
+                                                <Box sx={{minWidth:'80px'}}>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Baggage</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>Per Traveller</Typography>
+                                                </Box>
+                                                <Box sx={{minWidth:'80px'}}>
+                                                  <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Cabin</Typography>
+                                                  <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>7 Kg (1 piece per pax)</Typography>
+                                                </Box>
+                                                <Box sx={{minWidth:'80px'}}>
+                                                  <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Check-in</Typography>
+                                                  <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>15 Kg (01 piece only)</Typography>
+                                                </Box>
+                                            </Stack>
+                                        </Stack>
+                                   </Box>
+                                   <Box className="modal-rupees-book"
+                                    sx={{
+                                        mt:'10px',
+                                        display:'flex',
+                                        justifyContent:'space-between',
+                                        alignItems:'center'
+                                    }}
+                                   >
+                                      <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'700', lineHeight:'1.4'}} component='h2' >{"₹6,969"}</Typography> 
+                                        <CustomButton
+                                            size='large' 
+                                            variant="contained"
+                                            disableElevation
+                                            disableRipple
+                                            onClick={handleClose}
+                                        >
+                                            Book
+                                        </CustomButton>
+
+                                   </Box>
+                                   
+                                </Box>  
+                            </Modal>
+                            </div>: null}
 
                      </div>
                 </div>

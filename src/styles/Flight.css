@@ -218,8 +218,12 @@ input:not(:focus):valid ~ .floating-label{
     height: 190px;
     width: 100%;
     padding: 15px 0px; 
-   
+    /* overflow-x:auto;
+    border: 1px solid black;
+    white-space: nowrap; */
 }
+
+
 /* .react-multi-carousel-list{
     width: 100%;
     overflow-x: scroll !important;
@@ -243,11 +247,38 @@ Hide scrollbar for Chrome, Safari and Opera
 /* .react-multi-carousel-track{
     position:unset;
  } */
+
+
+
+ /* .carousel-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    border: 1px solid black;
+}
+.flight-offer-img-container {
+    display: inline-block;
+    margin-right: 10 px;
+}
+.carousel-container::-webkit-scrollbar {
+    height:12px;
+}
+.carousel-container::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 10px;
+}
+.carousel-container::-webkit-scrollbar-thumb:hover{
+    background-color: yellow;
+} */
+
+
+
+
+
  .flight-offer-img-container{
     width: 295px;
     height: 190px;
     border-radius: 20px;
-    /* flex: 0 0 auto; */
     cursor: pointer;
     border-radius: 20px;
    
