@@ -17,11 +17,10 @@ import ScrollToTop from '../ScrollToTop';
 const Search = () => {
     const [filterObj, setFilterObj]= useState({});
 
-    //flight details model
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
     
+    
+
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -188,16 +187,16 @@ const Search = () => {
 
     //retrieving seach feild data from context
     const {searchFeilds} = useContext(FlightSearchContext);
-    const {value, toValue, date} = searchFeilds;
+    const {value, toValue, date, travellerclass} = searchFeilds;
     var daysArr;
     var source;
     var destination;
     var day;
     try{
         daysArr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-        source = value.split(" - ")[0];
-        destination = toValue.split(" - ")[0];
-        day = daysArr[date.getDay()];
+        source = value?.split(" - ")[0];
+        destination = toValue?.split(" - ")[0];
+        day = daysArr[date?.getDay()];
     }catch(e){
         console.log(e.name,e.message);
     }
@@ -232,7 +231,7 @@ const Search = () => {
       }
  
     //hadling searches on search page
-    const handleSubmition = ()=>{
+    const handleSubmition = ()=>{ 
        // console.log("inside handle submition");
         if(value && toValue && date){ 
             console.log(source,destination, day);
@@ -242,6 +241,7 @@ const Search = () => {
     useEffect(()=>{
         console.log("useeffect");
         handleSubmition();
+        console.log("searchFeilds", searchFeilds);
     },[searchFeilds,filterObj, sortSelectedOption]);
 
 
@@ -256,6 +256,55 @@ const Search = () => {
       }));
 
 
+
+    //flight details model
+    const [open, setOpen] = useState(false);
+    const [modalDetails, setModalDetails]=useState({});
+    const [airports, setAirports]=useState([]);
+    useEffect(()=>{
+        fetch("https://academics.newtonschool.co/api/v1/bookingportals/airport?limit=30",
+         {
+            method: 'get',
+            headers:{
+                'projectID': '9h69a26iogeq'
+            }
+         })
+         .then((res)=>res.json())
+        .then((result)=>result.data)
+        .then((data)=>setAirports(data.airports))
+        .catch((err)=>console.log(err))
+    },[]);
+     useEffect(()=>{
+        console.log("modalDetails",modalDetails);
+     },[modalDetails]);
+
+   // const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const handleModalOpen = (imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,source,destination,availableSeats)=>{
+        let sourceAirport;
+        let destinationAirport;
+        airports.map((item)=>{
+            if(item.iata_code === source){
+             sourceAirport = item.name;
+            }
+            if(item.iata_code === destination){
+             destinationAirport = item.name;
+            }
+            return null;
+        })
+
+        const dateObj = new Date(date);
+        const options = { weekday: 'short', day: '2-digit', month: 'short' };
+        const formattedDate = dateObj.toLocaleDateString('en-US', options);
+        const sourceCity = value.split(" - ")[1];
+        const destinationCity = toValue.split(" - ")[1];
+        setModalDetails({imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,sourceAirport,destinationAirport,availableSeats,travellerclass,formattedDate,sourceCity,destinationCity,value,toValue});
+        setOpen(true);
+        
+    }
+
+    
 
   return (
     <>
@@ -454,7 +503,7 @@ const Search = () => {
                      </div>
                      <div className='available-flights-container'>
                        {flight.map((flight,index)=>{
-                           const {source,destination,departureTime,arrivalTime,duration,stops,ticketPrice,flightID} = flight;
+                           const {source,destination,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,availableSeats} = flight;
                         //  if(source && destination && departureTime && arrivalTime && duration && stops && ticketPrice && flightID){
                              const id = flightID.slice(0, 2);
                              let airline;
@@ -521,19 +570,23 @@ const Search = () => {
                                             </div>
                                             <p>Handbag Only</p>
                                         </div>
-                                        <p onClick={handleOpen}>Flight Details &gt;</p>
+                                        <p onClick={()=> handleModalOpen(imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,source,destination,availableSeats)}>Flight Details &gt;</p>
                                     </div>
                                 </div>
                             )  
                            
                        })}
-                            {open?<div className='flight-details-model' >
+                        {open?<div className='flight-details-model' >
                             <Modal
                             open={open}
                             onClose={handleClose}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                             >
+                            {
+                               (() => {
+                                     const {imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,sourceAirport,destinationAirport,availableSeats,travellerclass,formattedDate,sourceCity,destinationCity,value,toValue} = modalDetails;
+                              return(
                                 <Box sx={style} >
                                    <Box className='short-details' sx={{
                                      display:'flex',
@@ -549,9 +602,9 @@ const Search = () => {
                                             
                                          }}
                                         >
-                                            <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2' >{"Mumbai"}</Typography>
+                                            <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2' >{sourceCity}</Typography>
                                             <img alt='to' height='24px' width='24px' src={nextarrow}/>
-                                            <Typography variant='h6'sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2'>{"patna"}</Typography>
+                                            <Typography variant='h6'sx={{color:'#17181C',m:'0px',fontWeight:'700'}} component='h2'>{destinationCity}</Typography>
                                         </Stack>
                                         <Stack 
                                         direction='row'
@@ -562,10 +615,10 @@ const Search = () => {
                                            
                                         }}
                                         >
-                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2" >{"wed, 05 jun"} &#x2022;</Typography>
-                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2">{" 1 stop "} &#x2022;</Typography>
-                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2"> {"5"} hour &#x2022;</Typography>
-                                            <Typography sx={{color:'#17181C',fontWeight:'500'}}variant="subtitle2"> {"Economy"}</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2" >{formattedDate} &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2">{`${stops} stop`} &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}} variant="subtitle2"> {duration} hour &#x2022;</Typography>
+                                            <Typography sx={{color:'#17181C',fontWeight:'500'}}variant="subtitle2"> {travellerclass}</Typography>
                                         </Stack>
                                    </Box>
                                    <Box className='all-details'>
@@ -579,9 +632,9 @@ const Search = () => {
                                             width:'100%'
                                         }}
                                         >
-                                            <img alt='airline' height='32px' width='40px' src={"https://images.ixigo.com/img/common-resources/airline-new/6E.png"}/>
-                                            <Typography variant='body2' color='#17181C'>{"IndiGo"}</Typography>
-                                            <Typography variant='body2' color="rgb(94,97,110)"> | {"flightID"}</Typography>
+                                            <img alt='airline' height='32px' width='40px' src={imgUrl}/>
+                                            <Typography variant='body2' color='#17181C'>{airline}</Typography>
+                                            <Typography variant='body2' color="rgb(94,97,110)"> | {flightID}</Typography>
                                         </Stack>
                                         <Stack
                                         direction={{ xs: 'column', sm: 'column', md:'row', lg:'row' }}
@@ -599,10 +652,10 @@ const Search = () => {
                                         >
 
                                                 <Box sx={{minWidth:'130px',textAlign:'left'}}>
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"Fri, 21 june"}</Typography>
-                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{"18:50"}</Typography>
-                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{"BOM - Mumbai"}</Typography>
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{"Chatrapati Shivaji International Airport"}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{formattedDate}</Typography>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{departureTime}</Typography>
+                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{value}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{sourceAirport}</Typography>
                                                 </Box>
                                                 <Box
                                                 sx={{
@@ -614,14 +667,14 @@ const Search = () => {
                                                     gap:'0px'
                                                 }}
                                                 >
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2'>{"5"}hours</Typography>   
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2'>{duration}hours</Typography>   
                                                     <img alt='from-to' src='https://edge.ixigo.com/st/vimaan/_next/static/media/line.9641f579.svg'/>
                                                 </Box>
                                                 <Box sx={{minWidth:'130px',textAlign:'right'}}>
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"Fri, 21 june"}</Typography>
-                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{"18:50"}</Typography>
-                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{"BOM - Mumbai"}</Typography>
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{"Chatrapati Shivaji International Airport"}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{formattedDate}</Typography>
+                                                    <Typography variant='h6'  sx={{color:'#17181C',m:'0px',fontWeight:'700', lineHeight:'1.4',mb:'5px'}} component='h2' >{arrivalTime}</Typography>
+                                                    <Typography sx={{color:'#17181C',fontWeight:'600', fontSize:'0.875rem',mb:'5px', lineHeight:'1.4'}} component='h4'>{toValue}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', fontSize:'0.75rem',mb:'5px', lineHeight:'1.4'}} component='h2'>{destinationAirport}</Typography>
                                                 </Box>
                                             </Stack>
                                             <Stack
@@ -637,7 +690,7 @@ const Search = () => {
                                             >
                                                 <Box sx={{minWidth:'80px'}}>
                                                     <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Available Seats</Typography>
-                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{"120"}</Typography>
+                                                    <Typography sx={{color:'#5E616E',fontWeight:'500', lineHeight:'1.4',fontSize:'0.875rem'}} component='subtitle2'>{availableSeats}</Typography>
                                                 </Box>
                                                 <Box sx={{minWidth:'80px'}}>
                                                     <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'550', lineHeight:'1.4',fontSize:'0.875rem'}} component='h2' >Baggage</Typography>
@@ -662,7 +715,7 @@ const Search = () => {
                                         alignItems:'center'
                                     }}
                                    >
-                                      <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'700', lineHeight:'1.4'}} component='h2' >{"₹6,969"}</Typography> 
+                                      <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'700', lineHeight:'1.4'}} component='h2' >{`₹${ticketPrice}`}</Typography> 
                                         <CustomButton
                                             size='large' 
                                             variant="contained"
@@ -675,9 +728,12 @@ const Search = () => {
 
                                    </Box>
                                    
-                                </Box>  
+                                </Box>
+                              );
+                              })()
+                            }
                             </Modal>
-                            </div>: null}
+                        </div>: null}
 
                      </div>
                 </div>
