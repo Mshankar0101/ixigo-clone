@@ -203,7 +203,7 @@ input:not(:focus):valid ~ .floating-label{
 
 .flight-offers{
     height: 265px;
-    width: 100%;
+    /* width: 100%; */
     padding: 30px 20px;
    
 }
@@ -218,12 +218,21 @@ input:not(:focus):valid ~ .floating-label{
     height: 190px;
     width: 100%;
     padding: 15px 0px; 
-    /* overflow-x:auto;
-    border: 1px solid black;
-    white-space: nowrap; */
+    /* changes made */
+    overflow:scroll; 
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;   
+
 }
+/* .flight-offers-container::-webkit-scrollbar{
+    display: none ;
+ } */
 
-
+/* adding scroll in multicrousel */
 /* .react-multi-carousel-list{
     width: 100%;
     overflow-x: scroll !important;
@@ -249,7 +258,7 @@ Hide scrollbar for Chrome, Safari and Opera
  } */
 
 
-
+/* react multi crousel css by divanshs sir*/
  /* .carousel-container {
     overflow-x: auto;
     white-space: nowrap;
@@ -292,7 +301,9 @@ Hide scrollbar for Chrome, Safari and Opera
     
 }
 
-/*.flight-offers-next-prev{
+
+
+.flight-offers-next-prev{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -334,7 +345,9 @@ Hide scrollbar for Chrome, Safari and Opera
     width: 35px;
     border-radius: 50%;
     object-fit: scale-down;
-} */
+}
+
+
 
 .airport-suggesion-container{
     position: absolute;

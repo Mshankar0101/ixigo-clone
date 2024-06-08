@@ -1,5 +1,5 @@
-import React,{useState, useEffect, useContext} from 'react';
-import ScrollToTop from '../ScrollToTop';
+ import React,{useState, useEffect, useContext} from 'react';
+ import ScrollToTop from '../ScrollToTop';
  import '../../styles/FlightSearch.css';
  import sunrise from '../../images/sunrise.png';
  import cloudy from '../../images/cloudy.png';
@@ -16,10 +16,6 @@ import ScrollToTop from '../ScrollToTop';
 
 const Search = () => {
     const [filterObj, setFilterObj]= useState({});
-
-    
-    
-
 
     const style = {
         position: 'absolute',
@@ -182,8 +178,6 @@ const Search = () => {
     
     
     
-  
-  
 
     //retrieving seach feild data from context
     const {searchFeilds} = useContext(FlightSearchContext);
@@ -278,7 +272,7 @@ const Search = () => {
         console.log("modalDetails",modalDetails);
      },[modalDetails]);
 
-   // const handleOpen = () => setOpen(true);
+
     const handleClose = () => setOpen(false);
 
     const handleModalOpen = (imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,source,destination,availableSeats)=>{

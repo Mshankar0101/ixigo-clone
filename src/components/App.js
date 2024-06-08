@@ -12,6 +12,7 @@ import Navbar from "./Navbar";
 import { Header } from "./Header";
 // import ScrollToTop from "./ScrollToTop";
 import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
+import PageNotFound from "./PageNotFound";
 
 function App() {
   const location = useLocation();
@@ -39,7 +40,7 @@ useEffect(()=>{
             <Route path="/buses" element={<Buses/>} />
             <Route path='/login' element={<Login/>} />
 
-            <Route path='*' element={<h2>Page Not Found</h2>} />
+            <Route path='*' element={<PageNotFound/>} />
         </Routes>
     </FlightSearchContextProvider>
   </div>

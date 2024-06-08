@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Footer from "../Footer";
 import '../../styles/Flight.css';
 import flightDiscount from '../../images/flightAdvertisement.jpg';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+// import Carousel from 'react-multi-carousel';
+// import 'react-multi-carousel/lib/styles.css';
 import FlightSearchBox from './FlightSearchBox';
+import Crousel from '../../common/Crousel';
 // import FlighCrouselt from './FlighCrouselt';
 
 
 const Flights = () => {
 // const navigate = useNavigate();
-
-
 
  //fething api for offers
  const [offer, setOffers] = useState([]);
@@ -29,32 +28,8 @@ const Flights = () => {
  }
     useEffect(()=>{  
         fetchOffers(); 
+        console.log(offer);
     },[]);
-
-//offer section next/prev
-const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 1210 }, //min:1024
-      items: 4,
-      slidesToSlide: 3
-    },
-    desktop: {
-      breakpoint: { max: 1210, min: 910 }, //max:1024
-      items: 3,
-      slidesToSlide: 2
-    },
-    tablet: {
-      breakpoint: { max: 910, min: 600 },
-      items: 2,
-      slidesToSlide: 1
-    },
-    mobile: {
-      breakpoint: { max: 600, min: 0 },
-      items: 1,
-      slidesToSlide: 1
-    }
-  };
 
   console.log("flight component");
 
@@ -68,10 +43,7 @@ const responsive = {
                 </div>
                 <h2>Search &#x2022; Book &bull; Go</h2>
             </div>
-
-            <FlightSearchBox/>
-            
-            
+            <FlightSearchBox/>   
         </div>
             <div className='poster'>
                 <img alt='flight offer' src={flightDiscount}/>
@@ -79,32 +51,7 @@ const responsive = {
         <div className='flight-offers'>
            <h2>Offers For You </h2> 
             {/* <FlighCrouselt offer={offer} /> */}
-           <div className='flight-offers-container' >
-                <Carousel keyBoardControl={true} 
-                  draggable={ true}
-                  swipeable={true}
-                  responsive={responsive}  >
-                {offer.map((item)=>{
-                    if(item.newHeroOfferCardUrl){
-                    return <div className='flight-offer-img-container' key={item.id} >
-                            <img alt={item.pTl} src={item.newHeroOfferCardUrl}/>
-                        </div>
-                    }else{
-                        return null;
-                    }
-                })}
-                </Carousel>
-
-            {/* <div className='flight-offers-next-prev'>
-                <div onClick={showPreviousOffers} >
-                <img alt='previous-icon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA5UlEQVR4nO2ZOw7CQAxEHYr4qEhQ2DkBf0jLR1DA7exzsHRApCSIanckP8n9zHi1Hy9REATB/6SqVjuz+pzwSFUtdmH1xGpPMBPv5NOnDMXEd/LdqsVuVL54P/WL9zst0oTKJVWsfgQVT8TqbYjPAYsfkJPfh/gcsPgOOHnbhvgcsNoGN3mxdYjPAautkJNfwoofNaD2gDAwuoSgTMjADhQmSjnIoDqhA/egMFHKdRqrE97/GgsTpTzqwTrRhomiR4sKs5xGhrsKZQJ2vP7jg6PxGcF+MTVQ4juduLLYNLeSIAgoLy+9z15ZP/8kOAAAAABJRU5ErkJggg=="/>
-                </div>
-
-                <div onClick={showNextOffers}>
-                <img alt='next-icon' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA6klEQVR4nO2ZSQoCMRBFvy46B1VwZ9UNdOvswgH1diYeQ0oUFBHtdf0yD3r/XkLoDEClUvlvkp77jZYjRtYFo3ySfE1arJFyoopIb/LP7zETsA4YaCTv3+VfEZI3JBHWuct+jyiHGuFhJpKUNf1MJC0rcGDBI6QswYEFj9C8AP9M5Dk4sPARMwRYE1NwED1C8gQBIsYgCdiSBlib/AS08up+EUeVF/c/slZ571uJqPLqfjttLSPv/kBjQeXV/aHegsqL+4st+ylPcD9qzPLgv15Pw0uP+oHjM4LuielJkjxoNO+oRr5SqcANNxV6UqzcpPJzAAAAAElFTkSuQmCC"/>
-                </div>
-            </div> */}
-           </div>
+            <Crousel offer={offer} />
         </div>
         <Footer/>
          
