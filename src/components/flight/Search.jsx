@@ -13,8 +13,10 @@
  import Modal from '@mui/material/Modal';
  import Box from '@mui/material/Box';
  import nextarrow from '../../images/nextarrow.png';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
+    const navigate = useNavigate();
     const [filterObj, setFilterObj]= useState({});
 
     const style = {
@@ -181,7 +183,7 @@ const Search = () => {
 
     //retrieving seach feild data from context
     const {searchFeilds} = useContext(FlightSearchContext);
-    const {value, toValue, date, travellerclass} = searchFeilds;
+    const {value, toValue, date, travellerclass, totalTravlers} = searchFeilds;
     var daysArr;
     var source;
     var destination;
@@ -273,7 +275,10 @@ const Search = () => {
      },[modalDetails]);
 
 
-    const handleClose = () => setOpen(false);
+    const handleClose = (ticketPrice) => {
+        handleBookClick(ticketPrice);
+        setOpen(false);
+    }
 
     const handleModalOpen = (imgUrl,airline,departureTime,arrivalTime,duration,stops,ticketPrice,flightID,source,destination,availableSeats)=>{
         let sourceAirport;
@@ -298,7 +303,15 @@ const Search = () => {
         
     }
 
-    
+    //function to navigate on booking page
+    const handleBookClick = (ticketPrice)=>{
+          const data = {
+            ticketPrice,
+            totalTravlers
+          }
+          navigate('book',{state:data});
+          
+    }
 
   return (
     <>
@@ -553,7 +566,7 @@ const Search = () => {
                                    {/* </div> */}
                                    <div className='price-book'>
                                        <h5>{"₹"+ticketPrice}</h5>
-                                       <button>Book</button>
+                                       <button onClick={()=>handleBookClick(ticketPrice)}>Book</button>
                                    </div>
                                 </div>
                                     <div className='more-details'>
@@ -715,7 +728,7 @@ const Search = () => {
                                             variant="contained"
                                             disableElevation
                                             disableRipple
-                                            onClick={handleClose}
+                                            onClick={()=>handleClose(ticketPrice)}
                                         >
                                             Book
                                         </CustomButton>

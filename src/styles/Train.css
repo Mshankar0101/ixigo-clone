@@ -1,0 +1,32 @@
+.train-banner{
+    width: 100%;
+    height: 550px;
+    position: relative;
+}
+.train-banner img{
+    width: 100%;
+    height: 550px;
+    object-fit:cover;
+}
+.train-banner .banner-line{
+    width: 100%;
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+}
+.train-banner .banner-line > img{
+   height: 71px;
+   width: 71px;
+}
+.train-banner .banner-line h1{
+    margin: 0px;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+}
