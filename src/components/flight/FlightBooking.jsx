@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Stack, TextField, Alert, styled, Button, Typography} from '@mui/material';
 import '../../styles/FlightBooking.css';
 import {useLocation} from 'react-router-dom';
@@ -60,7 +60,7 @@ const FlightBooking = () => {
             >
                 <div className='offer-on-booking-flight-heading' >
                     <h3>Offers For You</h3>
-                        <p>All Offers</p>
+                        <p>All Offers &gt;</p>
                 </div>
                <div className='offer-on-booking-flight'>
                     <div className='input-div-offer'>

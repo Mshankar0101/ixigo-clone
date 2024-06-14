@@ -15,6 +15,7 @@ import FlightSearchContextProvider from "../context/FlightSearchContextProvider"
 import PageNotFound from "./PageNotFound";
 import GlobalContext from '../context/Contexts';
 import FlightBooking from "./flight/FlightBooking";
+import NavbarMobile from "./NavbarMobile";
 
 function App() {
 const location = useLocation();
@@ -53,11 +54,17 @@ useEffect(() => {
   return (
   <div className="App"> 
    <FlightSearchContextProvider>
-     
-        <Header/>
-        {showNavbar && <Navbar/>}
+        {resolution.width < 766?
+          <NavbarMobile/>
+          :
+          <>
+            <Header/>
+            {showNavbar && <Navbar/>}
+          </>
+        }
           <Routes>
               <Route path="/" element={<Flights/>} />
+              <Route path="/nav" element={<NavbarMobile/>} />
               <Route path="/flights/*" element={<Flights/>} />
               <Route path="/flights/search/*" element={<Search/>} />
               <Route path="/flights/search/book" element={<FlightBooking/>} />
