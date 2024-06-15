@@ -58,7 +58,7 @@
     overflow:hidden;  
 } */
 .poster{
-    height: 130px;
+    height: 110px;
     max-width: 1080px;
     background-color: white;
     margin: -100px auto auto auto;
@@ -67,7 +67,7 @@
 .poster img{
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .flight-passanger-category div{
@@ -549,4 +549,54 @@ Hide scrollbar for Chrome, Safari and Opera
 .adults .active-btn, .children .active-btn, .infant .active-btn, .flight-class-div-active{
     background-color: #0770E4 !important;
 
+}
+
+
+@media screen and (max-width: 600px){
+    .search-book-go div{
+        height: 40px;
+        width: 40px;
+    }
+    .search-book-go img{
+        height: 40px;
+        width: 40px;
+    }
+    .search-book-go{
+        font-size: 20px;
+    }
+    
+    /* search box */
+    .flight-search-box{
+       padding: 15px 5px;
+    }
+    .flight-search-input .flight-search-feild-container{
+        padding: 0px 10px;
+    }
+
+    .flight-search-input .search-button{
+        padding: 15px 5px;
+        font-size: 20px;
+    }
+    .flight-passanger-category .special-fare{
+        font-size: 14px;
+    }
+    .flight-passanger-category .category-div{
+       font-size: 12px;
+       padding: 1px 2px;
+    }
+    .inputText, .react-datepicker__input-container input{
+        font-size: 16px;
+    }
+
+    /* autocomple box */
+    .airport-suggesion-container{
+        width: 280px;
+    }
+    .flight-travellers-class{
+        width: 300px;
+        right: -100px;
+    }
+    .react-datepicker{
+        width: 300px;
+    }
 }

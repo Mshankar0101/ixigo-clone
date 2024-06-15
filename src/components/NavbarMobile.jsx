@@ -1,6 +1,6 @@
 import React,{useRef,useEffect} from 'react';
 import {FaBars, FaTimes} from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import '../styles/NavbarMobile.css';
 
 const NavbarMobile = () => {
@@ -14,8 +14,8 @@ const NavbarMobile = () => {
 	};
 
 
-    const handleClickOutside = ()=>{
-        if(navRef.current.classList.contains("responsive_nav")){
+    const handleClickOutside = (event)=>{
+        if( !navRef.current.contains(event.target) && navRef.current.classList.contains("responsive_nav")){
             navRef.current.classList.remove("responsive_nav");
         }
        
@@ -28,8 +28,12 @@ const NavbarMobile = () => {
         
     },[]);
 
+    //based on path setting sticky property of header
+    const location = useLocation();
+    const currentPath = location.pathname;
+    
   return (
-    <header className='header-mobile'>
+    <header className={(currentPath ==='/flights/search'? 'header-mobile': 'header-mobile header-mobile-sticky')}>
             <NavLink to='/flights'><img className='ixigo-logo' alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
 			<nav ref={navRef}>
                <NavLink to='/flights' className='nav-link-mobile'>

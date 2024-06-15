@@ -135,6 +135,7 @@
 }
 .flight-filter-time .filter-time .morning-day-night{
    display: flex;
+   flex-wrap: wrap;
    gap: 12px;
    width: 100%;
    padding-top: 10px;
@@ -485,4 +486,180 @@
     font-size: 14px;
     line-height: 1.4;
     cursor: pointer;
+}
+
+
+
+
+
+/* @media screen and (max-width: 600px){
+    .css-1i9tbrv{
+        width: 90% !important;
+        left: 50% !important;
+        padding: 15px !important;
+    }
+} */
+
+
+
+
+@media screen and (max-width: 700px){
+    /* mmedia query for modal */
+    .css-1i9tbrv{
+        width: 90% !important;
+        left: 50% !important;
+        padding: 15px !important;
+    }
+
+    /* filter and card container*/
+    .flight-filter-search-main-container {
+        padding: 0px 10px 30px 10px;
+    }
+    .flight-filter-search-container{
+        flex-direction: column;
+    }
+    .flight-filter-container-relative{
+        /* min-width: 100px; */
+        width: 100%;
+        max-width: 450px;
+    }
+    .flight-filter-stops-checkbox{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .flight-filter-time{
+      /* width: 100%; */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* flex-wrap: wrap; */
+      
+    }
+    .flight-filter-airline-heckbox{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    /* filter styles */
+    .flight-filter-options{
+        padding: 10px 0px;
+    }
+    .flight-text-filter{
+        padding: 10px 20px;
+    }
+    .flight-filter-options .stops .stops-text{
+        font-size: 16px;
+        padding-bottom: 0px;
+    }
+    .flight-filter-options .stops li{
+        padding: 10px 20px;
+        gap: 5px;
+    }
+    .flight-filter-options .stops li p{
+        font-size: 14px;
+    }
+    .flight-filter-range{
+        padding: 10px 20px;
+        margin-bottom: 0px;
+    }
+    .flight-filter-range p{
+        font-size: 16px;
+    }
+    .flight-filter-time{
+        padding: 10px 5px 0px 5px;
+        width: 97%;
+    }
+    .flight-filter-time .filter-time{
+        width: 100%;
+    }
+    .flight-filter-time .filter-time .morning-day-night{
+        gap: 2px;
+        justify-content: space-between;
+        flex-wrap: unset;
+    }
+    .flight-filter-time .filter-time .departure{
+        font-size: 16px;
+        margin-left: 10px;
+    }
+    .filter-time .icon-div p:nth-of-type(1){
+        font-size: 12px;
+    }
+    .filter-time .icon-div p:nth-of-type(2){
+        font-size: 10px;
+    }
+    .filter-time .icon-div{
+        min-width: 75px;
+    }
+    .filter-airlines .heading{
+        font-size: 16px;
+        padding: 0px 20px;
+    }
+    .filter-airlines li {
+        padding: 10px 10px;
+        gap: unset;
+    }
+    .filter-airlines li div{
+        height: 30px;
+        width: 30px;
+    }
+    .filter-airlines li div img{
+        height: 30px;
+        width: 30px;
+        object-fit: fill;
+    }
+
+    /* flight card main container */
+    .flight-onsearch-container{
+        width: 97%;
+        min-width: 330px;
+    }
+    .flight-onsearch-container .sort-by-container{
+        padding: 10px 10px;
+    }
+    .filter-airlines li p{
+        font-size: 14px;
+    }
+    .flight-onsearch-container .sort-by .heading{
+        margin-left: 10px;
+    }
+
+    /* flight card */
+    .available-flights-container .available-flights-card{
+        padding: 15px 8px 0px 8px;
+    }
+    .available-flights-container .img-and-airline{
+        width: 85px;
+    }
+    .img-and-airline img{
+        height: 40px;
+        width: 35px;
+    }
+    .img-and-airline div p:first-child{
+        font-size: 14px;
+       
+    }
+    .img-and-airline div p:nth-child(2) {
+        font-size: 12px;
+    }
+    .available-flights-container .source-stops-destiny{
+        min-width: 150px;
+    }
+    .available-flights-container .source-stops-destiny .time{
+        font-size: 16px;
+    }
+    .available-flights-container .price-book{
+        flex-direction: column;
+        gap:5px;
+        width: unset;
+    }
+    .available-flights-container .price-book button{
+        width: 70px;
+        min-height: 35px;
+        padding: 0.2rem 5px;
+    }
 }

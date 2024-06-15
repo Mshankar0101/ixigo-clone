@@ -54,7 +54,7 @@ useEffect(() => {
   return (
   <div className="App"> 
    <FlightSearchContextProvider>
-        {resolution.width < 766?
+        {window.innerWidth < 766?
           <NavbarMobile/>
           :
           <>

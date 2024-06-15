@@ -224,6 +224,10 @@ const Search = () => {
            
            })
            .catch((error) => console.error(error));
+
+           if(window.innerWidth < 700){
+               if(window.scrollY < 140)window.scrollTo(0, 450);
+           }
       }
  
     //hadling searches on search page
@@ -331,6 +335,7 @@ const Search = () => {
                     <div className='flight-filter-options'>
                         <div className='stops'>
                             <p className='stops-text'>Stops</p>
+                        <div className='flight-filter-stops-checkbox'>
                             <li>
                                 <div>
                                 <p>Non-Stop</p> 
@@ -355,6 +360,7 @@ const Search = () => {
                                 <input type="checkbox" checked={stops === 2} name="twoplus-stops" value="2" onChange={handleCheckboxTwoplusstop} />
                                 </div>
                             </li>
+                         </div>
                         </div>
                         <div className='flight-filter-range'>
                             <p>Flight Price</p>
@@ -364,6 +370,7 @@ const Search = () => {
                                     ".MuiSlider-thumb": {bgcolor: 'white', height: '25px', width:'25px', border:'0.5px solid #0770E4'},
                                     ".MuiSlider-track":{bgcolor: '#0770E4', height:"1px"},
                                     ".MuiSlider-rail":{bgcolor: '#0770E4'},
+                                   
                                   }}
                                   value={priceRange}
                                   min={2000}
@@ -380,6 +387,7 @@ const Search = () => {
                         <div className='flight-filter-time'>
                             <div className='filter-time'>
                                 <p className='departure'>Departure from {value?value.split("-")[1]:'Airport'}</p>
+                             <div className='flight-filter-time'> 
                                 <div className='morning-day-night'>
                                     <div className={(isTime.isEarlymorningFlights?'icon-div-border': 'icon-div')} onClick={earlymorningFlights}>
                                         <img alt='sunrise' src={sunrise}/>
@@ -404,10 +412,12 @@ const Search = () => {
                                             <p>After 6pm</p>
                                         </div>
                                 </div>
+                              </div>
                             </div>
                         </div>
                         <div className='filter-airlines' style={{paddingTop:'20px'}}>
                            <p className='heading'>Popular Airlines</p>
+                           <div className='flight-filter-airline-heckbox'>
                            <li>
                                 <div>
                                     <img alt='airindia' src='https://images.ixigo.com/img/common-resources/airline-new/AI.png' />
@@ -436,6 +446,7 @@ const Search = () => {
                                 <p>Vistara</p>
                                 <input name="airline" value="65144a1b664a43628887c460" checked={airlines.airline === "65144a1b664a43628887c460"} onChange={handleAirlineChange} type='checkbox'/>
                            </li>
+                           </div>
                         </div>
                     </div>
 
@@ -586,7 +597,7 @@ const Search = () => {
                         {open?<div className='flight-details-model' >
                             <Modal
                             open={open}
-                            onClose={handleClose}
+                            onClose={()=>setOpen(false)}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                             >
