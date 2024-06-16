@@ -492,18 +492,9 @@
 
 
 
-/* @media screen and (max-width: 600px){
-    .css-1i9tbrv{
-        width: 90% !important;
-        left: 50% !important;
-        padding: 15px !important;
-    }
-} */
-
-
-
 
 @media screen and (max-width: 700px){
+    
     /* mmedia query for modal */
     .css-1i9tbrv{
         width: 90% !important;
@@ -519,7 +510,6 @@
         flex-direction: column;
     }
     .flight-filter-container-relative{
-        /* min-width: 100px; */
         width: 100%;
         max-width: 450px;
     }
@@ -530,20 +520,20 @@
       justify-content: space-between;
     }
     .flight-filter-time{
-      /* width: 100%; */
       display: flex;
       align-items: center;
       justify-content: space-between;
-      /* flex-wrap: wrap; */
       
     }
     .flight-filter-airline-heckbox{
-        width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
+        padding: 0px 10px;
     }
+
+
 
     /* filter styles */
     .flight-filter-options{
@@ -613,6 +603,8 @@
         object-fit: fill;
     }
 
+
+
     /* flight card main container */
     .flight-onsearch-container{
         width: 97%;
@@ -627,6 +619,9 @@
     .flight-onsearch-container .sort-by .heading{
         margin-left: 10px;
     }
+
+
+
 
     /* flight card */
     .available-flights-container .available-flights-card{
