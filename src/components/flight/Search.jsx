@@ -226,7 +226,8 @@ const Search = () => {
            .catch((error) => console.error(error));
 
            if(window.innerWidth < 700){
-               if(window.scrollY < 140)window.scrollTo(0, 450);
+               if(window.scrollY < 140)window.scrollTo(0, 500);
+               else if(window.scrollY > 140 && window.scrollY < 280)window.scrollTo(0, 400);
            }
       }
  
@@ -388,7 +389,7 @@ const Search = () => {
                             <div className='filter-time'>
                                 <p className='departure'>Departure from {value?value.split("-")[1]:'Airport'}</p>
                              <div className='flight-filter-time'> 
-                                <div className='morning-day-night'>
+                                <div style={window.innerWidth > 1085? {flexWrap: 'unset'}: {flexWrap: 'wrap'}} className='morning-day-night'>
                                     <div className={(isTime.isEarlymorningFlights?'icon-div-border': 'icon-div')} onClick={earlymorningFlights}>
                                         <img alt='sunrise' src={sunrise}/>
                                         <p>Early Morning</p>
@@ -400,7 +401,7 @@ const Search = () => {
                                         <p>6AM-12PM</p>
                                     </div>
                                 </div>
-                                <div className='morning-day-night'>
+                                <div style={window.innerWidth > 1085? {flexWrap: 'unset'}: {flexWrap: 'wrap'}} className='morning-day-night'>
                                         <div className={(isTime.isMiddayFlights?'icon-div-border': 'icon-div')}  onClick={middayFlights}>
                                             <img alt='midday' src={cloudy} />
                                             <p>Mid Day</p>

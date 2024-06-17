@@ -133,13 +133,19 @@ const FlightSearchBox =({handleSubmition}) => {
     //acessing feild values to render when navigated from flight page
     // const {searchFeilds} = useContext(FlightSearchContext);
     useEffect(()=>{
-        if(searchFeilds && location.pathname === '/flights/search'){
+        if(Object.keys(searchFeilds).length !== 0 && location.pathname === '/flights/search'){
             setValue(searchFeilds.value);
             setToValue(searchFeilds.toValue);
             setCurrentDate(searchFeilds.date);
             setTravellersAndClass(searchFeilds.travellersAndClass);
         }
-    },[]);
+    },[searchFeilds]);
+    // useEffect(()=>{
+    //     console.log("value",value)
+    //     console.log("toValue",toValue);
+    //     console.log("searchFeilds",searchFeilds);
+
+    // },[toValue,value,searchFeilds]);
 
 
   return (

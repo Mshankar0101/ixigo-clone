@@ -136,7 +136,7 @@
 .flight-filter-time .filter-time .morning-day-night{
    display: flex;
    flex-wrap: wrap;
-   gap: 12px;
+   gap: 10px;
    width: 100%;
    padding-top: 10px;
 }
@@ -493,7 +493,7 @@
 
 
 
-@media screen and (max-width: 700px){
+@media screen and (max-width: 735px){
     
     /* mmedia query for modal */
     .css-1i9tbrv{

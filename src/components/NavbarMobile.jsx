@@ -15,7 +15,7 @@ const NavbarMobile = () => {
 
 
     const handleClickOutside = (event)=>{
-        if( !navRef.current.contains(event.target) && navRef.current.classList.contains("responsive_nav")){
+        if( navRef.current.classList.contains("responsive_nav")){
             navRef.current.classList.remove("responsive_nav");
         }
        
