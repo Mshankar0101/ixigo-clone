@@ -83,7 +83,7 @@ const NavbarMobile = () => {
 
 				<button
 					className="nav-btn nav-close-btn"
-					onClick={showNavbar}>
+					>
 					<FaTimes />
 				</button>
 			</nav>

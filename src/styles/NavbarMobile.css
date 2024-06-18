@@ -29,9 +29,6 @@
     font-weight: 500;
     padding-left: 10px;
 }
-.nav-link-mobile:hover{
-    color: #e36802;
-}
 .nav-link-mobile img{
     height: 40px;
     width: 40px;
@@ -41,6 +38,7 @@
 }
 .nav-link-mobile:hover{
     background-color: rgba(245,245,245,0.7);
+    color: #e36802;
 
 }
 
@@ -117,6 +115,7 @@
 }
 .header-mobile .active{
     background-color:rgba(245,245,245,0.7);
+    color: #e36802;
 }
 nav .nav-close-btn {
     height: 40px;

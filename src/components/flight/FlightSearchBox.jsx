@@ -139,7 +139,7 @@ const FlightSearchBox =({handleSubmition}) => {
             setCurrentDate(searchFeilds.date);
             setTravellersAndClass(searchFeilds.travellersAndClass);
         }
-    },[searchFeilds]);
+    },[]);
     // useEffect(()=>{
     //     console.log("value",value)
     //     console.log("toValue",toValue);
