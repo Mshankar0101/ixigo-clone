@@ -1,5 +1,6 @@
 .train-home-page{
     background-color:#f2f2f2;
+    padding-bottom: 15px;
 }
 .train-banner{
     width: 100%;
@@ -154,7 +155,7 @@ input:not(:focus):valid ~ .floating-label-train{
 
 .train-search-box .description{
     background-image: url("https://images.ixigo.com/image/upload/fcRelated/248ab5019f1b1852f028dc376c786d3c-zrgqg.png");
-    height: 74px;
+    height: 80px;
     padding: 12px 12px 0px;
     margin-top: 15px;
     margin-left: 15px;
@@ -179,11 +180,13 @@ input:not(:focus):valid ~ .floating-label-train{
 .train-search-box .description div:first-child input{
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 .train-search-box .description div:nth-child(2) p{
    margin: 0;
-   margin-top: 5px;
-   font-size: 15px;
+   margin-top: 10px;
+   margin-bottom: 5px;
+   font-size: 16px;
    color: rgb(0,0,0,0.6);
    font-weight: 400;
    line-height: 1.4;
@@ -192,8 +195,249 @@ input:not(:focus):valid ~ .floating-label-train{
 
 /* train card section  */
 .train-cards-section{
-    padding: 30px 40px 20px;
-    margin: 40px auto;
+    padding: 0px 40px 20px;
+    margin: 40px 0px;
     background-color: #f2f2f2;
-    /* background: 0 0; */
+}
+.train-cards-section h1{
+   margin: 50px 0px 0px;
+   text-align: center;
+   line-height: 2;
+}
+.train-cards-section .irctc-logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  /* margin-top: 5px; */
+}
+.train-cards-section .irctc-logo h3{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.train-cards-section .irctc-logo img{
+    height: 50px;
+    width: 50px;
+}
+.train-cards-section .promises-support{
+    margin: 0px 25px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.train-cards-section .promises-support .flex-main{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.train-cards-section .promises-support .flex{
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 10px;
+   width: 100%;
+}
+.train-cards-section .promises-support .flex img{
+    height: 70px;
+    width: 70px;
+}
+.train-cards-section .promises-support .flex p{
+   margin: 0;
+   font-size: 20px;
+   font-weight: 700;
+}
+
+.train-cards-section .train-book-meal{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 10px;
+   margin-top: 20px;
+}
+.train-book-meal .icon-title{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+.train-book-meal .icon-title img{
+    height: 76px;
+    width: 76px;
+}
+.train-book-meal .icon-title p:first-child{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.train-book-meal .icon-title p:nth-child(2){
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #898380;
+}
+.train-book-meal .two-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
+.train-book-meal .two-buttons button:first-child{
+    border-style: none;
+    border: 1px solid #EC5B24;
+    background-color: white;
+    color: #EC5B24;
+    padding: 8px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.train-book-meal .two-buttons button:first-child:hover{
+    background-color: #EC5B24;
+    color: white;
+}
+.train-book-meal .two-buttons button:nth-child(2){
+    border-style: none;
+    background-color: #EC5B24;
+    color: white;
+    padding: 8px 14px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.train-book-meal .two-buttons button:nth-child(2):hover{
+    background-color: #ee4907bd;
+}
+
+/* offer container */
+.crousel-train{
+    height: 265px;
+    padding: 30px 20px;
+    background-color:rgba(255,255,255,0.8);
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2); 
+    margin: 0px 10px;
+    border-radius: 2px;
+   
+}
+.crousel-train h2{
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0px;
+    line-height: 1.2
+    
+}
+
+
+/* station dropdown container */
+.station-dropdown-container{
+    position: absolute;
+    display: block;
+    z-index: 200;
+    min-height: 150px;
+    max-height: 450px;
+    top: 70px;
+    width: 375px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 4px 30px -5px rgba(0,0,0,.25);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* padding: 0px 20px; */
+   
+}
+.station-dropdown-container::-webkit-scrollbar{
+    display: none;
+ } 
+
+
+
+
+
+
+
+
+
+@media screen and  (max-width:600px){
+    /* banner */
+    .train-banner .banner-line > img{
+        height: 50px;
+        width: 50px;
+     }
+    .train-banner .banner-line h1{
+        font-size: 21px;
+    }
+
+    /* search box */
+    .train-search-box .search-input-feilds .search-button{
+        font-size: 20px;
+        padding: 10px;
+    }
+    .train-search-box .description div:first-child p{
+         font-size: 16px;
+    }
+    .train-search-box .description div:nth-child(2) p{
+        margin-top: 5px;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+
+    /* card section */
+    .train-cards-section h1{
+        font-size: 22px;
+        line-height: 1.2;
+    }
+    .train-cards-section .irctc-logo{
+        margin-top: 5px;
+    }
+    .train-cards-section .irctc-logo h3{
+      font-size: 16px;
+    }
+    .train-cards-section .irctc-logo img{
+        height: 30px;
+        width: 30px;
+    }
+    .train-cards-section .promises-support .flex{
+        gap: 15px;
+    }
+    .train-cards-section .promises-support .flex-main{
+       flex-direction: column;
+       gap: 20px;
+    }
+    .train-cards-section .promises-support .flex img{
+        height: 50px;
+        width: 50px;
+    }
+    .train-cards-section .promises-support .flex p{
+       font-size: 18px;
+       font-weight: 600;
+    }
+
+    /* book meal */
+    .train-cards-section .train-book-meal{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .train-book-meal .icon-title img{
+        height: 60px;
+        width: 60px;
+    }
+    .train-book-meal .icon-title p:first-child{
+        font-size: 18px;
+    }
+    .train-book-meal .two-buttons{
+        justify-content: center;
+        gap: 10px;
+    }
+    .train-book-meal .two-buttons button:first-child{
+        padding: 5px;
+        height: 35px;
+    }
+    .train-book-meal .two-buttons button:nth-child(2){
+        padding: 5px 7px;
+        height: 35px;
+    }
 }

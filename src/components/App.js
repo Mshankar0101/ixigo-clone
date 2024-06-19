@@ -10,10 +10,9 @@ import Buses from "./bus/Buses";
 import Login from "./Login";
 import Navbar from "./Navbar";
 import { Header } from "./Header";
-// import ScrollToTop from "./ScrollToTop";
 import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
 import PageNotFound from "./PageNotFound";
-import GlobalContext from '../context/Contexts';
+// import GlobalContext from '../context/Contexts';
 import FlightBooking from "./flight/FlightBooking";
 import NavbarMobile from "./NavbarMobile";
 
@@ -31,23 +30,23 @@ useEffect(()=>{
 
 
 
-const {resolution,setResolution} = useContext(GlobalContext);
+// const {resolution,setResolution} = useContext(GlobalContext);
 
-useEffect(()=>{
-  console.log(resolution);
-},[resolution]);
+// useEffect(()=>{
+//   console.log(resolution);
+// },[resolution]);
 
-useEffect(() => {
-  const handleResize = () => {
-    setResolution({ width: window.innerWidth, height: window.innerHeight });
-  };
+// useEffect(() => {
+//   const handleResize = () => {
+//     setResolution({ width: window.innerWidth, height: window.innerHeight });
+//   };
 
-  window.addEventListener('resize', handleResize);
+//   window.addEventListener('resize', handleResize);
 
-  return () => {
-    window.removeEventListener('resize', handleResize);
-  };
-}, []);
+//   return () => {
+//     window.removeEventListener('resize', handleResize);
+//   };
+// }, []);
 
 
 
