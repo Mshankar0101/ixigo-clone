@@ -1,0 +1,283 @@
+.train-search-page{
+    background-color:#f2f2f2;
+}
+
+
+
+/* train search box */
+.train-search-box-searchPage{
+    height: auto;
+    padding: 15px 0px;
+    width: 100%;
+    background: linear-gradient(45deg, #721053, #AD2E41)
+ }
+
+ /* .search-input-feilds{
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     gap: 0.5rem;
+ }
+ 
+ .train-search-feild-container{
+     margin: 0px;
+     width: 100%;
+     height: 100%;
+     padding: 0px 15px;
+ }
+ .train-search-feild-relative{
+     margin: 0px;
+     width: 100%;
+     height: 100%;
+     padding: 0px 15px;
+     position: relative;
+ } */
+.train-search-box-searchPage .inputTextTrain, .react-datepicker__input-container input{
+     border-style: none;
+     background-color:unset;
+     width: 100%;
+     height: 60px;
+     cursor: pointer;
+     color: white;
+     font-size: 18px;
+     font-weight: 520;
+     padding: 0px 15px 0px 17px;
+     margin-top: 5px;
+     line-height: 1.2;
+     border-bottom: 0.5px solid white;
+ }
+ /* .train-search-box-searchPage .search-input-feilds .leftRoundBorder{
+     border-top-left-radius: 10px;
+     border-bottom-left-radius: 10px;
+ } */
+ .train-search-box-searchPage .search-input-feilds .search-button{
+     padding: 10px 15px;
+     border-style: none;
+     width: 100%;
+     height: 60px;
+     cursor: pointer;
+     font-weight: 400;
+     font-size: 24px;
+     /* border-top-right-radius:10px;
+     border-bottom-right-radius: 10px; */
+     background-color: rgb(252,121,13);
+     color: #ffffff;
+     margin-top: 5px;
+ }
+ /* .train-search-box-searchPage .search-input-feilds input:hover{
+     background-color:#e4e7e7 ;
+ }  */
+ .train-search-box-searchPage .search-input-feilds .search-button:hover{
+    background-color: #e36802;
+ }
+ .train-search-box-searchPage .search-input-feilds input:focus{
+     outline: none;
+     border-bottom: 4px solid #0770E4;
+ } 
+ .train-search-box-searchPage .floating-label-train{
+     position: absolute;
+     pointer-events: none;
+     left: 35px;
+     top: 16px;  
+     transition: 0.2s ease all;
+     font-weight: 400; 
+     font-size: 16px;
+     color: #FFFFFF80;
+   }
+   .train-search-box-searchPage input:focus ~ .floating-label-train,
+ input:not(:focus):valid ~ .floating-label-train{
+   top: 6px;
+   bottom: 10px;
+   left: 29px;
+   font-size: 11px;
+   opacity: 1;
+   color: #FFFFFF80;
+ }
+ 
+ .train-search-box-searchPage .swap-icon-div{
+     position: absolute;
+     height: 30px;
+     width: 30px;
+     top: 20px;
+     left: -2%;
+     z-index: 10;
+     border-radius: 50%;
+     background-color:unset;
+     border: 0.5px solid white;
+     
+ }
+ .train-search-box-searchPage .swap-icon{
+     height: 20px;
+     width: 20px;
+     padding-top: 5px;
+     padding-left: 5px;
+     background-color:unset;
+     color: white;
+     border-radius: 50%;
+ }
+
+
+/* train filters */
+.train-filters{
+    padding: 0px 20px;
+    background-color: white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.train-filters .train-class{
+    width: 100%;
+    /* border-right: 1px dotted rgba(0,0,0,0.2); */
+    min-width: 205px;
+    max-width: 255px;
+}
+.train-filters .train-class p{
+    margin: 10px 20px;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+.train-filters .checkbox-list{
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 120px;
+    max-width: 200px;
+}
+.train-filters .checkbox-list > div div{
+   margin-bottom: 10px;
+}
+.train-filters .checkbox-list > div div input{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+.train-filters .checkbox-list > div div label{
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000A3;
+    line-height:26px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+.train-filters .train-quota{
+   width: 100%;
+   /* border-right: 1px dotted rgba(0,0,0,0.2); */
+   min-width: 205px;
+   max-width: 255px;
+}
+.train-filters .train-quota p{
+    margin: 10px 20px;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+.train-filters .quota-list{
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 205px;
+    max-width: 255px;
+}
+.train-filters .quota-list>div div{
+    margin-bottom: 10px;
+}
+.train-filters .quota-list>div div input{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+.train-filters .quota-list>div div label{
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000A3;
+    line-height:26px;
+    margin-left: 10px;
+    vertical-align: top;
+}
+
+.train-filters .train-time{
+   width: 100%;
+   min-width:252px;
+}
+.train-filters .train-time >div{
+    padding: 0px 20px;
+}
+.train-filters .train-time >div >p{
+    margin: 10px 0px;
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.87);
+}
+.train-time .time-list{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    min-width:252px;
+}
+.train-time .time-list > div p{
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000A3;
+    text-align: center;
+}
+.train-time .time-list > div div{
+    width: 98px;
+    height: 28px;
+    border: 0.5px solid #000000A3 ;
+}
+.train-time .time-list > div div>p{
+   margin-top: 0px;
+   font-size: 12px;
+   font-weight: 600;
+   color: #000000A3;
+   text-align: center;
+   line-height: 28px;
+   vertical-align: middle;
+}
+
+
+
+
+
+ @media screen and  (max-width:810px){
+     /* search box */
+     .train-search-box-searchPage .search-input-feilds .search-button{
+        padding: 10px;
+        font-size: 20px;
+     }
+
+     /* filters */
+     .train-filters{
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+        padding: 0px 10px;
+     }
+     .train-filters .train-class p{
+        margin: 10px;
+     }
+     .train-filters .checkbox-list{
+        padding: 0px 10px;
+     }
+     .train-filters .train-quota p{
+        margin: 10px;
+     }
+     .train-filters .quota-list{
+        padding: 0px 10px;
+     }
+     .train-filters .train-time >div{
+        padding: 0px 10px;
+     }
+     .train-time .time-list > div div{
+        width: 75px;
+     }
+ }

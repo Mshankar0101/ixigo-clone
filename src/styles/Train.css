@@ -76,7 +76,7 @@
     color: #17181c;
     font-size: 18px;
     font-weight: 520;
-    padding: 0px 15px;
+    padding: 0px 15px 0px 17px;
     margin-top: 5px;
     line-height: 1.2;
 }
@@ -338,7 +338,8 @@ input:not(:focus):valid ~ .floating-label-train{
     min-height: 150px;
     max-height: 450px;
     top: 70px;
-    width: 375px;
+    /* width: 375px; */
+    width: 300px;
     background-color: white;
     border-radius: 20px;
     box-shadow: 0px 4px 30px -5px rgba(0,0,0,.25);
@@ -351,6 +352,60 @@ input:not(:focus):valid ~ .floating-label-train{
 .station-dropdown-container::-webkit-scrollbar{
     display: none;
  } 
+ .station-dropdown-container li{
+    list-style: none;
+    display: flex;
+    height: 70px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 20px;
+    gap: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e7eb;
+    box-sizing: border-box;
+    color: rgba(23,24,28,1);
+    overflow: hidden;
+ }
+ .station-dropdown-container .cityIcon{
+    display: inline-flex;
+    height: 40px;
+    width: 40px;
+    border:1px solid #e5e7eb;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(244, 245, 245, 1);
+    /* padding: 1px 0px; */
+ }
+ .station-dropdown-container .cityIcon svg{
+    height: 30px;
+    width: 30px;
+ }
+ .station-dropdown-container .name{
+     height: 40px;
+ }
+ .station-dropdown-container .name p{
+    margin: 0px;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+    margin-top: 8px;
+ }
+.popular-stations p{
+    margin: 0px;
+    line-height: 1.2;
+    font-size: 18px;
+    padding: 15px 20px 5px 20px;
+    font-weight: 500;
+}
+.station-dropdown-container ul{
+    padding: 0px;
+    margin: 0px;
+}
+.station-dropdown-container li:hover{
+    background-color: rgba(244,245,245,1);
+}
+
 
 
 
@@ -383,7 +438,7 @@ input:not(:focus):valid ~ .floating-label-train{
         font-size: 14px;
         line-height: 1;
     }
-
+    
 
     /* card section */
     .train-cards-section h1{
@@ -439,5 +494,18 @@ input:not(:focus):valid ~ .floating-label-train{
     .train-book-meal .two-buttons button:nth-child(2){
         padding: 5px 7px;
         height: 35px;
+    }
+
+
+    /* stations suggetion container */
+    .station-dropdown-container{
+        width: 280px;
+        left: -1px;
+    }
+    .station-dropdown-container li{
+        padding: 10px 15px;
+    }
+    .react-datepicker{
+        width: 250px;
     }
 }

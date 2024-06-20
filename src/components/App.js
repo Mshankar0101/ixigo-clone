@@ -1,6 +1,5 @@
 import "../styles/App.css";
 import React,{useState, useEffect, useContext} from "react";
-// import Search from "./flight/Search";
 import { Routes, Route, useLocation} from "react-router-dom";
 import Flights from "./flight/Flights";
 import Search from "./flight/Search";
@@ -12,9 +11,10 @@ import Navbar from "./Navbar";
 import { Header } from "./Header";
 import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
 import PageNotFound from "./PageNotFound";
-// import GlobalContext from '../context/Contexts';
+import GlobalContext from '../context/Contexts';
 import FlightBooking from "./flight/FlightBooking";
 import NavbarMobile from "./NavbarMobile";
+import SearchTrain from "./train/SearchTrain";
 
 function App() {
 const location = useLocation();
@@ -29,31 +29,17 @@ useEffect(()=>{
 },[location]);
 
 
-
-// const {resolution,setResolution} = useContext(GlobalContext);
-
-// useEffect(()=>{
-//   console.log(resolution);
-// },[resolution]);
-
-// useEffect(() => {
-//   const handleResize = () => {
-//     setResolution({ width: window.innerWidth, height: window.innerHeight });
-//   };
-
-//   window.addEventListener('resize', handleResize);
-
-//   return () => {
-//     window.removeEventListener('resize', handleResize);
-//   };
-// }, []);
-
+//updated innerwiwdth of window for navbar responsiveness
+const {resolution} = useContext(GlobalContext);
+useEffect(()=>{
+  console.log(resolution);
+},[resolution]);
 
 
   return (
   <div className="App"> 
    <FlightSearchContextProvider>
-        {window.innerWidth < 766?
+        {resolution.width < 766?
           <NavbarMobile/>
           :
           <>
@@ -68,7 +54,8 @@ useEffect(()=>{
               <Route path="/flights/search/*" element={<Search/>} />
               <Route path="/flights/search/book" element={<FlightBooking/>} />
               <Route path="/hotels" element={<Hotels/>} />
-              <Route path="/trains" element={<Trains/>} />
+              <Route path="/trains/*" element={<Trains/>} />
+              <Route path="/trains/search" element={<SearchTrain/>} />
               <Route path="/buses" element={<Buses/>} />
               <Route path='/login' element={<Login/>} />
 
