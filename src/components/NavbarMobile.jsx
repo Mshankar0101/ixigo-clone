@@ -35,7 +35,7 @@ const NavbarMobile = () => {
   return (
     <header className={(currentPath ==='/flights/search'? 'header-mobile': 'header-mobile header-mobile-sticky')}>
             <NavLink to='/flights'><img className='ixigo-logo' alt='ixigo.com' src='https://edge.ixigo.com/st/vimaan/_next/static/media/logo.44edf9f1.svg'/></NavLink>
-			<nav ref={navRef}>
+			       <nav ref={navRef}>
                <NavLink to='/flights' className='nav-link-mobile'>
                    <div>
                      <img alt='ixigo flights' src='https://edge.ixigo.com/st/vimaan/_next/static/media/flight.f515b25a.svg'/>
@@ -43,21 +43,21 @@ const NavbarMobile = () => {
                    <p>Flights</p>
                 </NavLink>
 
-				<NavLink to='/hotels' className='nav-link-mobile'>
+			      	<NavLink to='/hotels' className='nav-link-mobile'>
                    <div>
                      <img alt='ixigo hotels' src='https://edge.ixigo.com/st/vimaan/_next/static/media/hotel.4b63222d.svg'/>
                    </div>
                    <p>Hotels</p>
                 </NavLink>
 
-				<NavLink to='/trains' className='nav-link-mobile'>
+			       	 <NavLink to='/trains' className='nav-link-mobile'>
                    <div>
                      <img alt='ixigo trains' src='https://edge.ixigo.com/st/vimaan/_next/static/media/train.d3e3d1e5.svg'/>
                    </div>
                    <p>Trains</p>
                 </NavLink>
 
-				<NavLink to='/buses' className='nav-link-mobile'>
+			        	<NavLink to='/buses' className='nav-link-mobile'>
                    <div>
                      <img alt='ixigo buses' src='https://edge.ixigo.com/st/vimaan/_next/static/media/bus.1942c5dd.svg'/>
                    </div>

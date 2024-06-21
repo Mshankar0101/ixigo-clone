@@ -50,6 +50,7 @@ useEffect(()=>{
           <Routes>
               <Route path="/" element={<Flights/>} />
               <Route path="/nav" element={<NavbarMobile/>} />
+              {/* <Routes></Routes> */}
               <Route path="/flights/*" element={<Flights/>} />
               <Route path="/flights/search/*" element={<Search/>} />
               <Route path="/flights/search/book" element={<FlightBooking/>} />
@@ -58,7 +59,6 @@ useEffect(()=>{
               <Route path="/trains/search" element={<SearchTrain/>} />
               <Route path="/buses" element={<Buses/>} />
               <Route path='/login' element={<Login/>} />
-
               <Route path='*' element={<PageNotFound/>} />
           </Routes>
      

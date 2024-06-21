@@ -32,7 +32,7 @@
      padding: 0px 15px;
      position: relative;
  } */
-.train-search-box-searchPage .inputTextTrain, .react-datepicker__input-container input{
+.train-search-box-searchPage .inputTextTrain, .train-search-box-searchPage .react-datepicker__input-container input{
      border-style: none;
      background-color:unset;
      width: 100%;
@@ -119,11 +119,12 @@
 
 /* train filters */
 .train-filters{
-    padding: 0px 20px;
+    padding: 0px 20px 10px 20px;
     background-color: white;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
 }
 .train-filters .train-class{
     width: 100%;
@@ -234,15 +235,36 @@
     width: 98px;
     height: 28px;
     border: 0.5px solid #000000A3 ;
+    cursor: pointer;
 }
 .train-time .time-list > div div>p{
-   margin-top: 0px;
-   font-size: 12px;
-   font-weight: 600;
-   color: #000000A3;
-   text-align: center;
-   line-height: 28px;
-   vertical-align: middle;
+    margin-top: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000A3;
+    text-align: center;
+    line-height: 28px;
+    vertical-align: middle;
+}
+.train-time .time-list > div div:hover{
+    border: 0.5px solid #e36802;
+}
+.train-time .time-list > div div>p:hover{
+    color: #e36802;
+}
+.train-time .time-list > div .arrivalStyle{
+    background-color: #e36802;
+    border:none !important;
+    p{
+        color: white !important;
+    }
+}
+
+
+/* train sort */
+.train-sort-container{
+    margin: 20px 20px;
+    
 }
 
 
@@ -260,7 +282,7 @@
      .train-filters{
         /* flex-direction: column; */
         flex-wrap: wrap;
-        padding: 0px 10px;
+        padding: 0px 10px 10px 10px;
      }
      .train-filters .train-class p{
         margin: 10px;
@@ -281,3 +303,5 @@
         width: 75px;
      }
  }
+ /* ,"arrivalTime":{"$lte":"06:00","$gte":"12:00"} */
+ /* https://academics.newtonschool.co/api/v1/bookingportals/train?search={"source":"Delhi Junction","destination":"Salem Junction"}&day=Mon&filter={"coaches.coachType":"3A","coaches.coachType":"SL","departureTime":{"$lte":"12:00","$gte":"06:00"},"arrivalTime":{"$gte":"18:00","$lte":"23:00"}}&sort={"arrivalTime":1} */

@@ -67,7 +67,7 @@
     padding: 0px 15px;
     position: relative;
 }
-.inputTextTrain, .react-datepicker__input-container input{
+.train-search-box .inputTextTrain, .train-search-box .react-datepicker__input-container input{
     border-style: none;
     background-color: rgba(244,245,245,1);
     width: 100%;

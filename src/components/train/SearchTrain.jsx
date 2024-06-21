@@ -134,6 +134,19 @@ const SearchTrain = () => {
 
   }
 
+  const [departureTime, setDepartureTime]= useState("");
+  const [arrivalTime, setArrivalTime] = useState("");
+  const handleArrivalTime = (value)=>{
+    setArrivalTime(value);
+    console.log("value",value);
+   
+  }
+  const handleDepartureTime = (value)=>{
+    setDepartureTime(value);
+    console.log(value);
+
+  }
+
   return (
     <>
   <div className='train-search-page'>
@@ -339,19 +352,19 @@ const SearchTrain = () => {
                         <p>Departure From</p>
                         <div className='time-list'>
                             <div>
-                                <div><p>00:00 - 06:00</p></div>
+                                <div className={departureTime === "12:00 - 06:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("12:00 - 06:00")}>00:00 - 06:00</p></div>
                                 <p>Early Morning</p>
                             </div>
                             <div>
-                                <div><p>06:00 - 12:00</p></div>
+                                <div className={departureTime === "06:00 - 12:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("06:00 - 12:00")}>06:00 - 12:00</p></div>
                                 <p>Morning</p>
                             </div>
                             <div>
-                                <div><p>12:00 - 18:00</p></div>
+                                <div className={departureTime === "12:00 - 18:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("12:00 - 18:00")}>12:00 - 18:00</p></div>
                                 <p>Mid Day</p>
                             </div>
                             <div>
-                                <div><p>18:00 - 24:00</p></div>
+                                <div className={departureTime === "18:00 - 24:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("18:00 - 24:00")}>18:00 - 24:00</p></div>
                                 <p>Night</p>
                             </div>
                         </div>
@@ -360,25 +373,30 @@ const SearchTrain = () => {
                         <p>Arrival at</p>
                         <div className='time-list'>
                             <div>
-                                <div><p>00:00 - 06:00</p></div>
+                                <div  className={arrivalTime === "12:00 - 06:00"? "arrivalStyle": ""} ><p onClick={()=> handleArrivalTime("12:00 - 06:00")} >00:00 - 06:00</p></div>
                                 <p>Early Morning</p>
                             </div>
                             <div>
-                                <div><p>06:00 - 12:00</p></div>
+                                <div className={arrivalTime === "06:00 - 12:00"? "arrivalStyle": ""}><p onClick={()=> handleArrivalTime("06:00 - 12:00")}>06:00 - 12:00</p></div>
                                 <p>Morning</p>
                             </div>
                             <div>
-                                <div><p>12:00 - 18:00</p></div>
+                                <div className={arrivalTime === "12:00 - 18:00"? "arrivalStyle": ""}><p onClick={()=> handleArrivalTime("12:00 - 18:00")}>12:00 - 18:00</p></div>
                                 <p>Mid Day</p>
                             </div>
                             <div>
-                                <div><p>18:00 - 24:00</p></div>
+                                <div className={arrivalTime === "18:00 - 24:00"? "arrivalStyle": ""}><p onClick={()=> handleArrivalTime("18:00 - 24:00")}>18:00 - 24:00</p></div>
                                 <p>Night</p>
                             </div>
                         </div>
                     </div>
                 </div>
            </div>
+           
+           <div className="train-sort-container">
+            
+           </div>
+
       </div>
     </>
   )
