@@ -118,13 +118,17 @@
 
 
 /* train filters */
-.train-filters{
+.train-filters-container{
+    margin: 0;
     padding: 0px 20px 10px 20px;
     background-color: white;
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+}
+.train-filters{
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+   
 }
 .train-filters .train-class{
     width: 100%;
@@ -264,8 +268,193 @@
 /* train sort */
 .train-sort-container{
     margin: 20px 20px;
+    padding: 10px 15px;
+    display: flex;
+    align-items:center;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+    overflow: hidden;
+}
+.train-sort-container .sorting-option{
+   width:100%;
+   height: 40px;
+   border-right: 0.5px solid #00000038;
+}
+.train-sort-container .sorting-option p{
+   margin: 0;
+   margin-top: 2px;
+   font-size: 14px;
+   font-weight: 500;
+   vertical-align: middle;
+   text-align: center;
+   color: #000000A3;
+   line-height: 40px;
+}
+.train-sort-container .sorting-option p:hover{
+    color: #e36802;
+}
+.train-sort-container .sort-selected p{
+    color: #e36802 !important;
+}
+
+/* train search card */
+.train-search-card{
+    margin: 20px 20px;
+    padding: 20px 20px;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+    /* overflow: hidden; */
+    max-width: 960px;
+}
+.train-search-card .train-source-destination-book{
+   display: flex;
+   align-items: flex-start;
+   justify-content: space-between;
+   padding: 15px 0px;
+   gap: 2px;
+}
+.train-source-destination-book .train{
+    width: 100%;
+    max-width: 270px;
+}
+.train-source-destination-book .train >p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    font-style: normal;
+    color: rgb(236,88,36);
+    margin-bottom: 10px;
+    text-transform: uppercase;
     
 }
+.train-source-destination-book .train .flex-runsOn{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3px;
+}
+.train-source-destination-book .train .flex-runsOn p{
+    margin: 0;
+    font-size: 12px;
+    color: #000000DE;
+    font-weight: 450;
+    font-style:normal;
+}
+.train-source-destination-book .train .train-type span:first-child{
+    margin: 0;
+    font-size: 12px;
+    color: #000000DE;
+    font-weight: 400;
+    font-style:normal;
+}
+.train-source-destination-book .train .train-type span:nth-child(2){
+    margin: 0;
+    font-size: 12px;
+    color: #EC5B24;
+    font-weight: 400;
+}
+.train-source-destination-book .source-duration-destination{
+   width: 100%;
+   max-width: 400px;
+   display: flex;
+   align-items:center;
+   justify-content: space-between;
+   text-align: center;
+   gap: 3px;
+}
+.train-source-destination-book .source p:nth-child(1), .train-source-destination-book .destination p:nth-child(1){
+   margin: 0;
+   font-size: 14px;
+   color: #EC5B24;
+   font-weight: 400;
+   line-height: 1;
+}
+.train-source-destination-book .source p:nth-child(2), .train-source-destination-book .destination p:nth-child(2){
+   margin: 6px 0px;
+   font-size: 20px;
+   color: #000000DE;
+   font-weight: 600;
+   line-height: 1;
+}
+.train-source-destination-book .source p:nth-child(3), .train-source-destination-book .destination p:nth-child(3){
+   margin:0px;
+   font-size: 12px;
+   color: #0000008A;
+   font-weight: 400;
+   line-height: 16px;
+}
+.train-source-destination-book .source-duration-destination .duration p{
+    margin:0px;
+    font-size: 12px;
+    color: #0000008A;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+}
+.train-source-destination-book .source-duration-destination .duration img{
+    min-width: 130px;
+    max-width: 160px;
+    object-fit: cover;
+    height: 10px;
+}
+.train-source-destination-book .book{
+   width: 100%;
+   max-width: 200px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+}
+.train-source-destination-book .book button{
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    padding: 10px 14px;
+    height: 40px;
+    width: 90%;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    font-weight: 600;
+    background-color: #EC5B24;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.train-search-card .seats-classes{
+    padding-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+    overflow: hidden;
+}
+.train-search-card .seats-classes div{
+    border: 1px solid #CFE3BA;
+    background: #EEF5E6;
+    border-radius: 4px;
+    height: 55px;
+    padding: 8px 5px 5px;
+}
+.train-search-card .seats-classes div p:first-child{
+    margin: 0;
+    color: #000000DE;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: center;
+   
+}
+.train-search-card .seats-classes div p:nth-child(2){
+    margin: 0;
+    color: #008000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: center;
+}
+
 
 
 
@@ -280,7 +469,6 @@
 
      /* filters */
      .train-filters{
-        /* flex-direction: column; */
         flex-wrap: wrap;
         padding: 0px 10px 10px 10px;
      }
@@ -302,6 +490,69 @@
      .train-time .time-list > div div{
         width: 75px;
      }
+
+     /* sort */
+     .train-sort-container{
+        margin: 20px 5px;
+        padding: 10px 5px;
+     }
+     .train-sort-container div:first-child{
+        font-size: 12px;
+     }
+     .train-sort-container .sorting-option p{
+        padding: 0px 2px;
+        font-size: 12px;
+     }
+
+
+
+     /* search card */
+     .train-search-card{
+        margin: 20px 5px;
+        padding: 10px;
+     }
+     .train-search-card .train-source-destination-book{
+        padding: 5px 0px 15px;
+     }
+     .train-source-destination-book .train{
+        /* max 180px */
+        max-width: 210px;
+        min-width: 110px;
+     }
+     .train-source-destination-book .train .flex-runsOn{
+        flex-wrap: wrap;
+     }
+     .train-source-destination-book .train >p{
+        font-size: 14px;
+     }
+     .train-source-destination-book .source-duration-destination{
+        /* max-width: 250px; */
+        max-width: 300px;
+        min-width: 160px;
+     }
+     .train-source-destination-book .source p:nth-child(2), .train-source-destination-book .destination p:nth-child(2){
+        font-size: 16px;
+     }
+     .train-source-destination-book .source-duration-destination .duration p{
+        font-size: 10px;
+        font-weight: 500;
+     }
+     .train-source-destination-book .source-duration-destination .duration img{
+        width: 50px;
+        min-width:unset;
+        height: 8px;
+     }
+     .train-source-destination-book .book{
+        min-width: 50px;
+        max-width: 175px;
+     }
+     .train-source-destination-book .book button{
+        width: 100%;
+        padding: 10px;
+        height: 35px;
+        margin-left: 5px;
+     }
  }
  /* ,"arrivalTime":{"$lte":"06:00","$gte":"12:00"} */
  /* https://academics.newtonschool.co/api/v1/bookingportals/train?search={"source":"Delhi Junction","destination":"Salem Junction"}&day=Mon&filter={"coaches.coachType":"3A","coaches.coachType":"SL","departureTime":{"$lte":"12:00","$gte":"06:00"},"arrivalTime":{"$gte":"18:00","$lte":"23:00"}}&sort={"arrivalTime":1} */
+ /* https://academics.newtonschool.co/api/v1/bookingportals/train?search={"source":"Delhi Junction","destination":"Salem Junction"}&day=Mon&filter={"coaches.coachType":["CC","3E"]} */

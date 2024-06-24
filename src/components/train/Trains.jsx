@@ -4,9 +4,10 @@ import Datepicker from '../../common/Datepicker';
 import { AiOutlineSwap } from "react-icons/ai";
 import Footer from '../Footer';
 import { MdOutlineLocationCity } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const Trains = () => {
-
+  const navigate = useNavigate();
   //date picker
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -152,14 +153,30 @@ const Trains = () => {
     {id:45, name:"Visakhapatnam Junction"},
     {id:46, name:"Warangal"}
   ] 
-  const handleInputChange = (e)=>{
+  
+
+  //handling input of from feild
+  const handleFromInputChange = (e)=>{
+    setFromValue(e.target.value);
     setInptValue(e.target.value);
-     if(e.target.value !== ""){
-      setInputChange(true);
-     }else{
-      setInputChange(false);
-     }
+    if(e.target.value !== ""){
+        setInputChange(true);
+    }else{
+        setInputChange(false);
+    }
   }
+
+//handling input of to feild
+const handleToInputChange = (e)=>{
+   setToValue(e.target.value);
+  setInptValue(e.target.value);
+    if(e.target.value !== ""){
+        setInputChange(true);
+    }else{
+        setInputChange(false);
+    }
+  
+ }
 
   // handling station click
   const handelSuggetionClick = (name)=>{
@@ -174,11 +191,28 @@ const Trains = () => {
       setToValue(name);
      }
      setShowSuggetions(false)
+     setInptValue("");
+     setInputChange(false);
   }
   useEffect(()=>{
      console.log("toValue",toValue)
      console.log("fromValue",fromValue)
   },[toValue,fromValue])
+
+  const handleSearchSubmission = ()=>{
+    if(fromValue === ""){
+      alert("Please select from station");
+    }else if(toValue === ""){
+      alert("Please select to station");
+    }else{
+      const data = {
+        fromValue,
+        toValue,
+        currentDate
+      }
+      navigate('search',{state:data});
+    }
+  }
 
   return (
     <>
@@ -197,8 +231,9 @@ const Trains = () => {
                     setShowSuggetions(true);
                     setFromSuggesion(true);
                     setToSuggesion(false);
+                   
                   }}
-                  onChange={handleInputChange}
+                  onChange={handleFromInputChange}
                   value={fromValue}
                   required/>
                   <span className="floating-label-train">From</span>
@@ -258,8 +293,9 @@ const Trains = () => {
                     setToSuggesion(true);
                     setShowSuggetions(true);
                     setFromSuggesion(false);
+                    
                   }}
-                  onChange={handleInputChange}
+                  onChange={handleToInputChange}
                   value={toValue}
                   required/>
                   <span className="floating-label-train">To</span>
@@ -323,7 +359,7 @@ const Trains = () => {
                 </div>
 
                 <div className='train-search-feild-container'>
-                  <button className='search-button'>Search</button>
+                  <button className='search-button' onClick={handleSearchSubmission} >Search</button>
                 </div>
             </div> 
 

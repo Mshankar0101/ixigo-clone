@@ -31,9 +31,9 @@ useEffect(()=>{
 
 //updated innerwiwdth of window for navbar responsiveness
 const {resolution} = useContext(GlobalContext);
-useEffect(()=>{
-  console.log(resolution);
-},[resolution]);
+// useEffect(()=>{
+//   console.log(resolution);
+// },[resolution]); 
 
 
   return (
@@ -50,7 +50,6 @@ useEffect(()=>{
           <Routes>
               <Route path="/" element={<Flights/>} />
               <Route path="/nav" element={<NavbarMobile/>} />
-              {/* <Routes></Routes> */}
               <Route path="/flights/*" element={<Flights/>} />
               <Route path="/flights/search/*" element={<Search/>} />
               <Route path="/flights/search/book" element={<FlightBooking/>} />

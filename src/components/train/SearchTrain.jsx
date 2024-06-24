@@ -9,9 +9,16 @@ import { useLocation } from 'react-router-dom';
 const SearchTrain = () => {
   const location = useLocation();
   const [filterObj, setFilterObj]= useState({});
+  const [sortObj, setSortObj]=useState({});
 
   //date picker
   const [currentDate, setCurrentDate] = useState(new Date());
+   
+  //formatted date for search card
+  const dateObj = new Date(currentDate);
+  const options = { weekday: 'short', day: '2-digit', month: 'short' };
+  const formattedDate = dateObj.toLocaleDateString('en-US', options);
+   
 
   //dropdown container for search feilds
   const [showSuggetion, setShowSuggetions]= useState(false);
@@ -97,13 +104,28 @@ const SearchTrain = () => {
     {id:45, name:"Visakhapatnam Junction"},
     {id:46, name:"Warangal"}
   ] 
-  const handleInputChange = (e)=>{
+
+   //handling input of from feild
+   const handleFromInputChange = (e)=>{
+    setFromValue(e.target.value);
     setInptValue(e.target.value);
-     if(e.target.value !== ""){
-      setInputChange(true);
-     }else{
-      setInputChange(false);
-     }
+    if(e.target.value !== ""){
+        setInputChange(true);
+    }else{
+        setInputChange(false);
+    }
+  }
+
+  //handling input of to feild
+  const handleToInputChange = (e)=>{
+    setToValue(e.target.value);
+    setInptValue(e.target.value);
+      if(e.target.value !== ""){
+          setInputChange(true);
+      }else{
+          setInputChange(false);
+      }
+    
   }
 
   // handling station click
@@ -118,34 +140,170 @@ const SearchTrain = () => {
      if(toSuggession){
       setToValue(name);
      }
-     setShowSuggetions(false)
+     setShowSuggetions(false);
+     setInptValue("");
+     setInputChange(false);
   }
-  useEffect(()=>{
-     console.log("toValue",toValue)
-     console.log("fromValue",fromValue)
-  },[toValue,fromValue])
+  
 
 
   //filter logic
+
+  //filter for class change
+  const [coach, setCoach]=useState([]);
+  const [isCoach, setIsCoach]= useState({SL:false, SAC:false, TE:false,TAC:false,FAC:false,G:false});
   const handleClassChange = (e)=>{
-    // const {value}= e.target;
-  }
-  const handleQuotaChange = ()=>{
+    const {value, checked,name}= e.target;
+    if(checked){
+      coach.push(value);
+      setFilterObj((pre)=>{
+        return {...pre, "coaches.coachType":coach}
+      })
+      setIsCoach((prev)=>{
+        return {...prev, [name]:true}
+      })
+      
+    }else{
+       let filteredrr = coach.filter((val)=> val !== value);
+       setCoach(filteredrr);
+       console.log(filteredrr);
+       setFilterObj((pre)=>{
+         return {...pre, "coaches.coachType":filteredrr} 
+       })
+      //  if(filteredrr.length === 0){
+         
+      //  }else{
 
+      //  }
+       setIsCoach((prev)=>{
+        return {...prev, [name]:false}
+      })
+      console.log("filteredrr.length",filteredrr.length);
+      console.log("coach.length",coach.length); 
+    }
+   
   }
 
+  //filter for quota change
+  const [isQuota, setIsQuota]= useState({general:true});
+  let updtedQuota = {general:false,tatkal:false,lower:false,ladies:false}
+  const handleQuotaChange = (e)=>{
+      const {value}= e.target;
+       setIsQuota(updtedQuota);
+       setIsQuota((pre)=>{
+          return {...pre, [value]: true};
+       })
+  }
+
+
+  //filter for arrival and departure change
   const [departureTime, setDepartureTime]= useState("");
   const [arrivalTime, setArrivalTime] = useState("");
+  const [sortingOption, setSortingOption]= useState("");
+  
   const handleArrivalTime = (value)=>{
+    const timeArr = value.split(" - ");
+    console.log(timeArr);
     setArrivalTime(value);
+    setFilterObj((pre)=>{
+      return {...pre, "arrivalTime":{"$gte":timeArr[0],"$lte":timeArr[1]}}
+    })
     console.log("value",value);
    
   }
   const handleDepartureTime = (value)=>{
+    const timeArr = value.split(" - ");
     setDepartureTime(value);
+    setFilterObj((pre)=>{
+      return {...pre, "departureTime":{"$gte":timeArr[0],"$lte":timeArr[1]}}
+    })
     console.log(value);
 
   }
+
+  //clear filters
+  const handleClearFilter = ()=>{
+    setFilterObj({});
+    setCoach([]);
+    setIsCoach({SL:false, SAC:false, TE:false,TAC:false,FAC:false,G:false});
+    setIsQuota({general:true,tatkal:false,lower:false,ladies:false});
+    setArrivalTime("");
+    setDepartureTime("");
+  }
+
+ useEffect(()=>{
+  console.log("filterObj",filterObj);
+  console.log("sortObj",sortObj)
+ },[filterObj,sortObj])
+
+
+  //sorting
+  const handleSorting = (value)=>{
+    setSortingOption(value);
+    setSortObj({[value]: 1})
+    console.log("sorting",value);
+  }
+
+
+
+  //accessing searched value on train home page
+  const [isNavigated, setIsNavigated]= useState(false);
+ useEffect(()=>{
+  const {fromValue,toValue,currentDate} = location.state || {};
+  if(fromValue && toValue){
+    setFromValue(fromValue);
+    setToValue(toValue);
+    setCurrentDate(currentDate);
+    setIsNavigated(true);
+  }
+},[location.state]);
+
+
+
+  //feching trains
+  const [trains,setTrains]=useState([]);
+  const fetchTrains = (source,destination,day)=>{
+    const filterString = Object.keys(filterObj).length !== 0 
+       ? `&filter=${encodeURIComponent(JSON.stringify(filterObj))}` 
+       : "";
+   //sortSelectedOption
+   const sortString = Object.keys(sortObj).length !== 0 
+         ? `&sort=${encodeURIComponent(JSON.stringify(sortObj))}` 
+         : "";
+      // `https://academics.newtonschool.co/api/v1/bookingportals/flight?search={"source":"${source}","destination":"${destination}"}&day=${day}${Object.keys(filterObj).length !== 0 ? `&filter=${encodeURIComponent(JSON.stringify(filterObj))}` : "" }`
+    const url = `https://academics.newtonschool.co/api/v1/bookingportals/train?search={"source":"${source}","destination":"${destination}"}&day=${day}${filterString}${sortString}`
+      fetch(url, 
+       {
+          method: 'get',
+          headers:{
+              'projectID': '9h69a26iogeq'
+          }
+      })
+      .then((response) => response.json())
+      .then((result) =>{
+          setTrains(result.data.trains);
+          console.log(result.data.trains);
+      
+      })
+      .catch((error) => console.error(error));
+
+ }
+
+  //hadling searches on search page
+  const handleSubmition = ()=>{ 
+    // console.log("inside handle submition");
+    var daysArr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    var day = daysArr[currentDate.getDay()];
+     if(fromValue && toValue && currentDate){ 
+         console.log("handle submition -->", fromValue,toValue, day);
+         fetchTrains(fromValue, toValue, day);  
+     }
+ }
+ useEffect(()=>{
+     console.log("useeffect");
+     handleSubmition();
+ },[filterObj, sortObj, isNavigated]);
+
 
   return (
     <>
@@ -159,7 +317,7 @@ const SearchTrain = () => {
                     setFromSuggesion(true);
                     setToSuggesion(false);
                   }}
-                  onChange={handleInputChange}
+                  onChange={handleFromInputChange}
                   value={fromValue}
                   required/>
                   <span className="floating-label-train">From</span>
@@ -220,7 +378,7 @@ const SearchTrain = () => {
                     setShowSuggetions(true);
                     setFromSuggesion(false);
                   }}
-                  onChange={handleInputChange}
+                  onChange={handleToInputChange}
                   value={toValue}
                   required/>
                   <span className="floating-label-train">To</span>
@@ -284,39 +442,43 @@ const SearchTrain = () => {
                 </div>
 
                 <div className='train-search-feild-container'>
-                  <button className='search-button'>Search</button>
+                  <button className='search-button' onClick={handleSubmition}>Search</button>
                 </div>
             </div> 
            </div>
-           <div className='train-filters'>
+           <div className='train-filters-container'>
+              <p onClick={handleClearFilter} style={{display: (Object.keys(filterObj).length !== 0? 'block': 'none'),margin: "2px 5px 0px 0px",color: "#EC5B24",width:'100%',textAlign:'right',fontWeight:'600',cursor:'pointer'}}>Clear Filters</p>
+
+              <div className='train-filters'>
                <div className="train-class">
                  <p>Class</p>
                  <div className="checkbox-list">
+                  
                     <div>
                         <div>
-                            <input type='checkbox' value="SL" onChange={handleClassChange}/>
+                            <input type='checkbox' name='SL' value="SL" onChange={handleClassChange} checked={isCoach.SL} />
                             <label>SL</label>
                         </div>
                         <div>
-                            <input type='checkbox' value="2A" onChange={handleClassChange} />
+                            <input type='checkbox' name='SAC' value="2A" onChange={handleClassChange} checked={isCoach.SAC} />
                             <label>2A</label>
                         </div>
                         <div>
-                            <input type='checkbox'value="3E" onChange={handleClassChange} />
+                            <input type='checkbox' name='TE' value="3E" onChange={handleClassChange} checked={isCoach.TE} />
                             <label>3E</label>
                         </div>
                     </div>
                     <div>
                         <div>
-                            <input type='checkbox' value="3A" onChange={handleClassChange} />
+                            <input type='checkbox' name='TAC' value="3A" onChange={handleClassChange} checked={isCoach.TAC} />
                             <label>3A</label>
                         </div>
                         <div>
-                            <input type='checkbox' value="1A" onChange={handleClassChange} />
+                            <input type='checkbox' name='FAC' value="1A" onChange={handleClassChange} checked={isCoach.FAC}/>
                             <label>1A</label>
                         </div>
                         <div>
-                            <input type='checkbox'value="2S" onChange={handleClassChange} />
+                            <input type='checkbox' name='G' value="2S" onChange={handleClassChange} checked={isCoach.G}/>
                             <label>2S</label>
                         </div>
                     </div>
@@ -327,21 +489,21 @@ const SearchTrain = () => {
                    <div className='quota-list'>
                         <div>
                             <div>
-                                <input type='radio' value='General' onChange={handleQuotaChange}/>
+                                <input type='radio' value='general' checked={isQuota.general === true} onChange={handleQuotaChange}/>
                                 <label>General</label>
                             </div>
                             <div>
-                                <input type='radio' value='Lower Berth' onChange={handleQuotaChange}/>
+                                <input type='radio' value='lower' checked={isQuota.lower === true} onChange={handleQuotaChange}/>
                                 <label>Lower Berth</label>
                             </div>
                         </div>  
                         <div>
                             <div>
-                                <input type='radio' value='Tatkal' onChange={handleQuotaChange}/>
+                                <input type='radio' value='tatkal' checked={isQuota.tatkal === true} onChange={handleQuotaChange}/>
                                 <label>Tatkal</label>
                             </div>
                             <div>
-                                <input type='radio' value='Ladies' onChange={handleQuotaChange}/>
+                                <input type='radio' value='ladies' checked={isQuota.ladies === true} onChange={handleQuotaChange}/>
                                 <label>Ladies</label>
                             </div>
                         </div>  
@@ -352,7 +514,7 @@ const SearchTrain = () => {
                         <p>Departure From</p>
                         <div className='time-list'>
                             <div>
-                                <div className={departureTime === "12:00 - 06:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("12:00 - 06:00")}>00:00 - 06:00</p></div>
+                                <div className={departureTime === "00:00 - 06:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("00:00 - 06:00")}>00:00 - 06:00</p></div>
                                 <p>Early Morning</p>
                             </div>
                             <div>
@@ -364,7 +526,7 @@ const SearchTrain = () => {
                                 <p>Mid Day</p>
                             </div>
                             <div>
-                                <div className={departureTime === "18:00 - 24:00"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("18:00 - 24:00")}>18:00 - 24:00</p></div>
+                                <div className={departureTime === "18:00 - 23:59"? "arrivalStyle": ""}><p onClick={()=> handleDepartureTime("18:00 - 23:59")}>18:00 - 24:00</p></div>
                                 <p>Night</p>
                             </div>
                         </div>
@@ -373,7 +535,7 @@ const SearchTrain = () => {
                         <p>Arrival at</p>
                         <div className='time-list'>
                             <div>
-                                <div  className={arrivalTime === "12:00 - 06:00"? "arrivalStyle": ""} ><p onClick={()=> handleArrivalTime("12:00 - 06:00")} >00:00 - 06:00</p></div>
+                                <div  className={arrivalTime === "00:00 - 06:00"? "arrivalStyle": ""} ><p onClick={()=> handleArrivalTime("00:00 - 06:00")} >00:00 - 06:00</p></div>
                                 <p>Early Morning</p>
                             </div>
                             <div>
@@ -385,18 +547,98 @@ const SearchTrain = () => {
                                 <p>Mid Day</p>
                             </div>
                             <div>
-                                <div className={arrivalTime === "18:00 - 24:00"? "arrivalStyle": ""}><p onClick={()=> handleArrivalTime("18:00 - 24:00")}>18:00 - 24:00</p></div>
+                                <div className={arrivalTime === "18:00 - 23:59"? "arrivalStyle": ""}><p onClick={()=> handleArrivalTime("18:00 - 23:59")}>18:00 - 24:00</p></div>
                                 <p>Night</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>  
            </div>
            
            <div className="train-sort-container">
-            
+                <div style={{maxWidth:'80px', color:'#00000061',minWidth:'55px'}} >Sort by:</div>
+                <div className={sortingOption === "departureTime"? "sort-selected sorting-option": "sorting-option"} onClick={()=>handleSorting("departureTime")}><p>DEPARTURE TIME</p></div>
+                <div className={sortingOption === "arrivalTime"? "sort-selected sorting-option": "sorting-option"} onClick={()=>handleSorting("arrivalTime")}><p>ARRIVAL TIME</p></div>
+                <div className={sortingOption === "fare"? "sort-selected sorting-option": "sorting-option"} onClick={()=>handleSorting("fare")}><p>FARE</p></div>
+                <div style={{border:'none'}} className={sortingOption === "trainName"? "sort-selected sorting-option": "sorting-option"} onClick={()=>handleSorting("trainName")}><p>NAME</p></div>
            </div>
 
+            { trains.map((item)=>{
+                let fare = item.fare + 500;
+                // console.log(item.fare);
+               return(
+                <div key={item._id} className='train-search-card'>
+                  <div className='train-source-destination-book'>
+                    <div className='train'>
+                        <p>{item.trainNumber} {item.trainName}</p>
+                        <div className='flex-runsOn'>
+                          <p>Runs on : </p>
+                          {item.daysOfOperation.map((days,index)=>{
+                              return <p key={index} >{days}</p>
+                          })}
+                        </div>
+                        <div className='train-type'>
+                            <span> &bull; {item.trainType}</span>
+                            <span>{" "}({item.trainNumber} Running Status)</span>
+                        </div>
+                    </div>
+                    <div className='source-duration-destination'>
+                        <div className='source'>
+                            <p>{item.source}</p>
+                            <p>{item.departureTime}</p>
+                            <p>{formattedDate}</p>
+                        </div>
+                        <div className='duration'>
+                            <p>{item.travelDuration}</p>
+                            <img alt='duration' src='https://edge.ixigo.com/st/vimaan/_next/static/media/line.9641f579.svg'/>
+                        </div>
+                        <div className='destination'>
+                            <p>{item.destination}</p>
+                            <p>{item.arrivalTime}</p>
+                            <p>{formattedDate}</p>
+                        </div>
+                    </div>
+                    <div className='book'>
+                        <button>BOOK</button>
+                    </div>
+                  </div>
+                  <div className='seats-classes'>
+                    {
+                      item.coaches.map((coach,index)=>{
+                        let updatedFare;
+                       if(coach.coachType === '1A'){
+                        updatedFare = fare;
+                       }
+                       else if(coach.coachType === '2A'){
+                        updatedFare = fare*9/10;
+                       }
+                       else if(coach.coachType === '3A'){
+                        updatedFare = fare*8/10;
+                       }
+                       else if(coach.coachType === 'SL'){
+                        updatedFare = fare*7/10;
+                       }
+                       else if(coach.coachType === 'EA'){
+                        updatedFare = fare*6/10;
+                       }
+                       else if(coach.coachType === 'CC'){
+                        updatedFare = fare*4/10;
+                       }
+                       else if(coach.coachType === '2S'){
+                        updatedFare = fare*2/10;
+                       }else{
+                        updatedFare = fare*3/10;
+                       }
+                        return <div key={index}>
+                            <p>{coach.coachType}  &bull; ₹{Math.floor(updatedFare)}</p>
+                            <p>AVL {coach.numberOfSeats}</p>
+                           </div>
+                      })
+                    }
+                  </div>
+              </div>)
+            })}
       </div>
     </>
   )
