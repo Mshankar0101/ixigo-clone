@@ -12,7 +12,7 @@ import { Header } from "./Header";
 import FlightSearchContextProvider from "../context/FlightSearchContextProvider";
 import PageNotFound from "./PageNotFound";
 import GlobalContext from '../context/Contexts';
-import FlightBooking from "./flight/FlightBooking";
+import BookingPage from "./common/BookingPage"
 import NavbarMobile from "./NavbarMobile";
 import SearchTrain from "./train/SearchTrain";
 
@@ -52,10 +52,11 @@ const {resolution} = useContext(GlobalContext);
               <Route path="/nav" element={<NavbarMobile/>} />
               <Route path="/flights/*" element={<Flights/>} />
               <Route path="/flights/search/*" element={<Search/>} />
-              <Route path="/flights/search/book" element={<FlightBooking/>} />
+              <Route path="/flights/search/book" element={<BookingPage/>} />
               <Route path="/hotels" element={<Hotels/>} />
               <Route path="/trains/*" element={<Trains/>} />
-              <Route path="/trains/search" element={<SearchTrain/>} />
+              <Route path="/trains/search/*" element={<SearchTrain/>} />
+              <Route path="/trains/search/book" element={<BookingPage/>} />
               <Route path="/buses" element={<Buses/>} />
               <Route path='/login' element={<Login/>} />
               <Route path='*' element={<PageNotFound/>} />

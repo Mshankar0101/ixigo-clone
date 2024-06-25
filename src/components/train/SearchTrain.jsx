@@ -1,15 +1,16 @@
 import React,{useState,useEffect, useRef} from 'react'
 import '../../styles/Train.css';
 import '../../styles/SearchTrain.css';
-import Datepicker from '../../common/Datepicker';
+import Datepicker from '../common/Datepicker';
 import { AiOutlineSwap } from "react-icons/ai";
 import { MdOutlineLocationCity } from "react-icons/md";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const SearchTrain = () => {
   const location = useLocation();
   const [filterObj, setFilterObj]= useState({});
   const [sortObj, setSortObj]=useState({});
+ 
 
   //date picker
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -305,6 +306,27 @@ const SearchTrain = () => {
  },[filterObj, sortObj, isNavigated]);
 
 
+
+//  handling book show avaibility and book click
+const [isOpen, setIsOpen]= useState(Array(trains.length).fill(false));
+
+const handleShowAvailabilityClick = (index)=>{
+  setIsOpen((prevState) => {
+    const newState = [...prevState];
+    newState[index] = !newState[index];
+    return newState;
+  });
+  console.log("isOpen",isOpen)
+}
+
+const navigate = useNavigate();
+const handleBookClick = (fare)=>{
+   const data = {
+    ticketPrice: fare
+   }
+   navigate('book',{state:data})
+}
+
   return (
     <>
   <div className='train-search-page'>
@@ -564,7 +586,7 @@ const SearchTrain = () => {
                 <div style={{border:'none'}} className={sortingOption === "trainName"? "sort-selected sorting-option": "sorting-option"} onClick={()=>handleSorting("trainName")}><p>NAME</p></div>
            </div>
 
-            { trains.map((item)=>{
+            { trains.map((item,i)=>{
                 let fare = item.fare + 500;
                 // console.log(item.fare);
                return(
@@ -600,10 +622,12 @@ const SearchTrain = () => {
                         </div>
                     </div>
                     <div className='book'>
-                        <button>BOOK</button>
+                      {/* isBookClicked.isBook && isBookClicked.index === i? */}
+                        <button onClick={()=> handleShowAvailabilityClick(i)}>{isOpen[i]? "Hide Availability": "Show Availability" }</button>
                     </div>
                   </div>
-                  <div className='seats-classes'>
+                  <div className='seats-classes' style={{display:(isOpen[i]?  "flex":"none")}}>
+
                     {
                       item.coaches.map((coach,index)=>{
                         let updatedFare;
@@ -631,8 +655,11 @@ const SearchTrain = () => {
                         updatedFare = fare*3/10;
                        }
                         return <div key={index}>
-                            <p>{coach.coachType}  &bull; ₹{Math.floor(updatedFare)}</p>
-                            <p>AVL {coach.numberOfSeats}</p>
+                                <div className='coach-fare'>
+                                  <p>{coach.coachType}  &bull; ₹{Math.floor(updatedFare)}</p>
+                                  <p>AVL {coach.numberOfSeats}</p>
+                                </div>
+                                <button onClick={()=>handleBookClick(Math.floor(updatedFare))}>Book</button>
                            </div>
                       })
                     }

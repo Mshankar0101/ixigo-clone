@@ -415,7 +415,7 @@
     border-radius: 2px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
     font-weight: 600;
-    background-color: #EC5B24;
+    background-color: #ef7143;
     cursor: pointer;
     margin-top: 10px;
 }
@@ -430,14 +430,14 @@
     border-top: 1px solid rgba(0, 0, 0, .1);
     overflow: hidden;
 }
-.train-search-card .seats-classes div{
+.train-search-card .seats-classes .coach-fare{
     border: 1px solid #CFE3BA;
     background: #EEF5E6;
     border-radius: 4px;
     height: 55px;
     padding: 8px 5px 5px;
 }
-.train-search-card .seats-classes div p:first-child{
+.train-search-card .seats-classes .coach-fare p:first-child{
     margin: 0;
     color: #000000DE;
     font-size: 14px;
@@ -446,7 +446,7 @@
     text-align: center;
    
 }
-.train-search-card .seats-classes div p:nth-child(2){
+.train-search-card .seats-classes .coach-fare p:nth-child(2){
     margin: 0;
     color: #008000;
     font-size: 16px;
@@ -454,8 +454,25 @@
     line-height: 25px;
     text-align: center;
 }
-
-
+.train-search-card .seats-classes button{
+    border: none;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    padding: 8px;
+    height: 30px;
+    width: 100%;
+    border-radius: 2px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    font-weight: 500;
+    background-color: #ef7143;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.train-source-destination-book .book button:hover, .train-search-card .seats-classes button:hover{
+    background-color:#ec5b24;
+}
+    
 
 
 
@@ -553,7 +570,7 @@
      }
      .train-source-destination-book .book button{
         width: 100%;
-        padding: 10px;
+        padding: 5px 2px;
         /* height: 35px; */
         margin-left: 5px;
      }

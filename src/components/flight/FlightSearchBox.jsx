@@ -1,5 +1,5 @@
 import React,{ useEffect, useState, useRef, useContext} from 'react'
-import Datepicker from '../../common/Datepicker';
+import Datepicker from '../common/Datepicker';
 import Airports from './Airports';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FlightSearchContext from '../../context/Contexts';

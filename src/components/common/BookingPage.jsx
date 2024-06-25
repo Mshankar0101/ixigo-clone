@@ -1,28 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Stack, TextField, Alert, styled, Button, Typography} from '@mui/material';
 import '../../styles/FlightBooking.css';
 import {useLocation} from 'react-router-dom';
 
-const FlightBooking = () => {
+const BookingPage = () => {
     const location = useLocation();
     const {ticketPrice,totalTravlers} = location.state || {};
-
-    //const [data, setData]= useState({});
     console.log(totalTravlers, ticketPrice);
-    // if(totalTravlers && ticketPrice){
-    //     setData({ticketPrice,totalTravlers});
-    // }
-    // useEffect(()=>{
-    //     console.log("totalTravlers", data.totalTravlers);
-    //     console.log("ticketPrice", data.ticketPrice);
-    // },[data]);
 
+    
 
-    const [selectedOption,setSelectedOption]= useState(150);
-    const selectedOfferChange = (e)=>{
-        const {value}= e.target;
-        setSelectedOption(Number(value));
-    }
 
     //button
     const CustomButton = styled(Button)(({ theme }) => ({
@@ -33,6 +20,54 @@ const FlightBooking = () => {
         backgroundColor: '#e36802',
         },
     }));
+
+
+    // add traveller
+    const [travellers,setTravellers]= useState([]);
+    const [traveller,setTraveller]= useState({FirstName:"",LastName:"",Age: null,Nationality:""});
+    const handleAddTraveller = ()=>{
+        if(!traveller.FirstName || !traveller.LastName || !traveller.Age ||  !traveller.Nationality){
+            alert("Please fill all the fields");
+        }else{
+            setTravellers((pre)=>{
+                return [...pre,traveller];
+            })
+        }
+    }
+
+    const handleInputChange = (e)=>{
+        const {value,name}= e.target;
+        setTraveller((prev)=>{
+              return{...prev,[name]:value}
+        })
+    }
+
+    const removeTraveller = (index)=>{
+        setTravellers(travellers.filter((_,i) => i !== index));
+    }
+
+
+     //fare summary
+     const [selectedOption,setSelectedOption]= useState(150);
+     const selectedOfferChange = (e)=>{
+         const {value}= e.target;
+         setSelectedOption(Number(value));
+     }
+     
+     const [taxes, setTaxes]=useState(Math.floor(ticketPrice*1/20));
+     const [totalAmount, setTotalAmount]=useState(ticketPrice+taxes-selectedOption);
+     
+     useEffect(()=>{
+       let length = travellers.length;
+       console.log(length);
+       if(length > 0){
+        setTaxes(Math.floor(ticketPrice*1/20)*length);
+        setTotalAmount(ticketPrice*length + taxes - selectedOption);
+       }else{
+        setTaxes((Math.floor(ticketPrice*1/20)));
+        setTotalAmount(ticketPrice + taxes - selectedOption);
+       }
+     },[travellers,selectedOption])
 
   return (
     <>
@@ -131,7 +166,7 @@ const FlightBooking = () => {
             >
                 <div className="flex-fare">
                   <h3>Fare Summary</h3>
-                  <p style={{color:'#5E616E',fontSize:'14px'}}>{`${totalTravlers} travellers`}</p> 
+                  <p style={{color:'#5E616E',fontSize:'14px'}}>{totalTravlers?`${totalTravlers} travellers`: ""}</p> 
                 </div>
                 <div className="flex-fare">
                     <p>Fare Type</p>
@@ -143,7 +178,8 @@ const FlightBooking = () => {
                 </div>
                 <div className="flex-fare">
                     <p>Taxes & Fees</p>
-                    <p>{`₹${ticketPrice*(1/20)}`}</p>
+                    {/* <p>{`₹${ticketPrice*(1/20)}`}</p> */}
+                    <p>{travellers.length===0?"": `₹${ticketPrice*(1/20)}*${travellers.length} - ` } ₹{taxes}</p>
                 </div>
                 <div style={{borderBottom:'1px solid rgba(239,239,240)',marginTop:'10px'}}></div>
                 <div className="flex-fare">
@@ -153,7 +189,8 @@ const FlightBooking = () => {
                 <div style={{borderBottom:'1px solid rgba(239,239,240)',marginTop:'10px'}}></div>
                 <div className="flex-fare">
                     <h3>Total Amount</h3>
-                    <h3>{`₹${ticketPrice+(ticketPrice*(1/20))-selectedOption}`}</h3>
+                    {/* <h3>{`₹${ticketPrice+(ticketPrice*(1/20))-selectedOption}`}</h3> */}
+                    <h3>₹{totalAmount}</h3>
                 </div>
             </Box>
             <Box
@@ -182,7 +219,7 @@ const FlightBooking = () => {
             >
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}}>
                    <h3 style={{margin:'0px',fontSize:'20px', fontWeight:'700',lineHeight:'1.2'}}>Traveller Details</h3>
-                   <p style={{margin:'0px',color:'#5E616E',fontSize:'14px', fontWeight:'500',lineHeight:'1.4'}}>{`${totalTravlers} travellers`}</p>
+                   <p style={{margin:'0px',color:'#5E616E',fontSize:'14px', fontWeight:'500',lineHeight:'1.4'}}>{totalTravlers?`${totalTravlers} travellers`: ""}</p>
                 </div>
                 <Alert severity="warning"  
                   sx={{
@@ -211,27 +248,63 @@ const FlightBooking = () => {
                 >
                     <TextField
                      size='small'
-                        //  sx={{
-                        //     height:'40px',
-                        //     width:'200px'
-                        //  }}
+                     onChange={handleInputChange}
+                     name='FirstName'
                      type='text'
                      required
                      label="First & Middle Name"
                     />
                     <TextField
                       size='small'
+                      onChange={handleInputChange}
+                      name='LastName'
                       label="Last Name"
                       type='text'
                       required
                     />
                     <TextField
                       size='small'
+                      onChange={handleInputChange}
+                      name='Age'
+                      label="Age"
+                      type='number'
+                      required
+                    />
+                    <TextField
+                      size='small'
+                      onChange={handleInputChange}
+                      name='Nationality'
                       label="Nationality"
                       type='text'
                       required
                     />
+                    <CustomButton
+                    size='large' 
+                    variant="contained"
+                    disableElevation
+                    disableRipple 
+                    onClick={handleAddTraveller} 
+                     >
+                     Add Traveller
+                    </CustomButton>
                 </Stack>
+
+                {
+                    travellers.map((traveller,index)=>{
+                        return(
+                            <div style={{margin:'10px 0px',padding:'10px',border:".5px solid rgba(0,0,0,0.2)",minWidth:'350px',maxWidth:'550px'}}>
+                                <div style={{display:'flex',justifyContent:'space-between',margin:'6px 0px'}}>
+                                    <p style={{margin:'0px',fontSize:'16px',fontWeight:'500'}}>Traveller {index+1}</p>
+                                    <p style={{margin:'0px',fontSize:'16px',fontWeight:'500',color:'#e36802',cursor:'pointer'}}  onClick={()=>removeTraveller(index)} >Delete</p>
+                                </div>
+                                <p style={{margin:'6px 0px',fontSize:'14px',fontWeight:'500'}}>First Name: <span style={{color:'#5E616E',margin:'0px',fontSize:'14px',fontWeight:'400'}}>{traveller.FirstName}</span></p>
+                                <p style={{margin:'6px 0px',fontSize:'14px',fontWeight:'500'}}>Last Name: <span style={{color:'#5E616E',margin:'0px',fontSize:'14px',fontWeight:'400'}}>{traveller.LastName}</span></p>
+                                <p style={{margin:'6px 0px',fontSize:'14px',fontWeight:'500'}}>Age: <span style={{color:'#5E616E',margin:'0px',fontSize:'14px',fontWeight:'400'}}>{traveller.Age}</span></p>
+                                <p style={{margin:'6px 0px',fontSize:'14px',fontWeight:'500'}}>Nationality: <span style={{color:'#5E616E',margin:'0px',fontSize:'14px',fontWeight:'400'}}>{traveller.Nationality}</span></p>
+                            </div>
+                        )
+                    })
+                }
             </Box>
             <Box
                 sx={{
@@ -247,7 +320,7 @@ const FlightBooking = () => {
                      className='fligh-booking-contact-details'
                     >
                         <h3>Contact Details</h3>
-                        <p>Your ticket & flight information will be sent here</p>
+                        <p>Your ticket & other information will be sent here</p>
                         <Stack
                         direction={{ xs: 'column', sm: 'column', md:'column', lg:'row' }}
                         spacing={{sm:2.5,md:2.5}}
@@ -281,7 +354,7 @@ const FlightBooking = () => {
                  </Box>
                  <Box className='flight-billing-address'>
                     <h3>GST Details</h3>
-                    <p>To claim credit for the GST charged by airlines, please enter your GST details</p>
+                    <p>To claim credit for the GST charged by airlines,Trains or Buses, please enter your GST details</p>
                     <div className='gst-no'>
                         <input type='checkbox' />
                         <p>I would like to add my GST Number</p>
@@ -341,7 +414,7 @@ const FlightBooking = () => {
                     zIndex:25
                 }}
             >
-              <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'700', lineHeight:'1.4'}} component='h2' >{`₹${ticketPrice+(ticketPrice*(1/20))-selectedOption}`}</Typography> 
+              <Typography variant='h6'  sx={{color:'#17181C',fontWeight:'700', lineHeight:'1.4'}} component='h2' >{`₹${totalAmount}`}</Typography> 
                 <CustomButton
                     size='large' 
                     variant="contained"
@@ -358,4 +431,4 @@ const FlightBooking = () => {
   )
 }
 
-export default FlightBooking
+export default BookingPage 

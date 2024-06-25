@@ -5,7 +5,7 @@ import flightDiscount from '../../images/flightAdvertisement.jpg';
 // import Carousel from 'react-multi-carousel';
 // import 'react-multi-carousel/lib/styles.css';
 import FlightSearchBox from './FlightSearchBox';
-import Crousel from '../../common/Crousel';
+import Crousel from '../common/Crousel';
 // import FlighCrouselt from './FlighCrouselt';
 
 

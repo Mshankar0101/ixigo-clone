@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useRef} from 'react'
 import '../../styles/Train.css';
-import Datepicker from '../../common/Datepicker';
+import Datepicker from '../common/Datepicker';
 import { AiOutlineSwap } from "react-icons/ai";
 import Footer from '../Footer';
 import { MdOutlineLocationCity } from "react-icons/md";

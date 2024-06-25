@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useRef} from 'react';
-import '../styles/Flight.css';
+import '../../styles/Flight.css';
 
 const Crousel = ({offer}) => {
     
