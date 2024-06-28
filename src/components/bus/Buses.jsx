@@ -135,7 +135,7 @@ const Buses = () => {
                       <Box 
                       >
                         <Typography sx={{fontSize:'18px', margin:'0px',lineHeight:1.2}} variant='h6' >{option.city} </Typography>
-                        <Typography sx={{fontSize:'14px', margin:'0px',lineHeight:1}} variant='subtitle1' > {option.state}</Typography>
+                        <Typography sx={{fontSize:'14px', margin:'0px',lineHeight:1.2}} variant='subtitle1' > {option.state}</Typography>
                       </Box>
                     </Box>
                   )}

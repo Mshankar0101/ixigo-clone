@@ -30,7 +30,6 @@
     position: absolute;
     top: 250px;
     width: 100%;
-    /* max-width: 1200px; */
     margin: 0px auto;
 }
 .bus-search-box{
@@ -67,12 +66,13 @@
 .bus-search-box .react-datepicker__input-container input {
     border-style: none;
     background-color: #f2f2f2;
-    width: 90%;
+    width:100%;
+    box-sizing: border-box;
     height: 64px;
     cursor: pointer;
     color: #17181c;
     font-size: 18px;
-    font-weight: 520;
+    font-weight: 500;
     padding: 0px;
     padding-left: 15px;
     line-height: 1.2;
@@ -92,8 +92,6 @@
     cursor: pointer;
     font-weight: 400;
     font-size: 24px;
-    /* border-top-right-radius:10px;
-    border-bottom-right-radius: 10px; */
     border-radius: 10px;
     background-color: rgb(252,121,13);
     color: #ffffff;
@@ -107,7 +105,6 @@
     height: 20px;
     width: 20px;
     margin-bottom: 17px;
-    
 }
 .location-icon{
     height: 25px;
@@ -207,4 +204,55 @@
     word-wrap: break-word;
     width: 220px;
     color: #868686;
+}
+
+
+
+/* media queries */
+@media only screen and (max-width: 810px) {
+    .bus-poster-heading{
+        top: 60px;
+       
+    }
+    .bus-poster-heading p{
+        font-size: 24px;
+    }
+    .bus-search-container{
+        top: 110px;
+        width: 100%;
+        min-width: 310px;
+        max-width: 480px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .bus-search-box{
+        /* min-width: 320px;
+        max-width: 600px; */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        margin: 0px 10px;
+        box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+    }
+    .bus-search-box .MuiAutocomplete-root .MuiInputBase-root{
+        height: 55px;
+        font-size: 16px;
+    }
+    .bus-search-box .react-datepicker__input-container input{
+        height: 55px;
+        font-size: 16px;
+        width:100%;
+        box-sizing: border-box;
+    }
+    .bus-search-box .search-button{
+        font-size: 20px;
+        height: 55px;
+    }
+    .ixigo-for-bus .why-description h2{
+        font-size: 20px;
+    }
+    .bus-home-page footer h3{
+        font-size: 20px;
+    }
 }
