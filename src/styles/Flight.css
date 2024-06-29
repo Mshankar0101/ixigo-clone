@@ -44,10 +44,11 @@
     background-color: white;
     margin: 10px auto;
     border-radius: 25px;
-    box-shadow: 0px -25px 19px -20px rgba(0,0,0,0.4),
+    /* box-shadow: 0px -25px 19px -20px rgba(0,0,0,0.4),
     25px 0px 20px -20px rgba(0,0,0,0.4),
     0px 25px 20px -20px rgba(0,0,0,0.4),
-    -25px 0px 20px -20px rgba(0,0,0,0.4) inset;
+    -25px 0px 20px -20px rgba(0,0,0,0.4) inset; */
+    box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
     padding: 15px;
 }
 /* .poster{
@@ -563,19 +564,48 @@ Hide scrollbar for Chrome, Safari and Opera
     }
     .search-book-go{
         font-size: 20px;
+        padding-top: 20px;
+        margin-bottom: 30px;
     }
     
     /* search box */
     .flight-search-box{
-       padding: 15px 5px;
+       padding: 15px;
+       /*  */
+       /* height: 380px; */
+       height: 425px;
+       /* height: 450px; */
+       box-sizing: border-box;
+       margin: 0px 10px;
+       overflow: hidden;
     }
+    
     .flight-search-input .flight-search-feild-container{
-        padding: 0px 10px;
+        /*  */
+        padding: unset;
+        box-sizing: border-box;
+    }
+     
+    .flight-search-input .flight-search-feild-relative{
+       padding: unset;
+    }
+    
+    /*  */
+    .flight-search-input{
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /*  */
+    .flight-passanger-category{
+        display: none;
     }
 
     .flight-search-input .search-button{
         padding: 15px 5px;
         font-size: 20px;
+        box-shadow:0 0 10px 0 rgba(0, 0, 0, .2);
+        border-radius: 10px;
     }
     .flight-passanger-category .special-fare{
         font-size: 14px;
@@ -586,18 +616,54 @@ Hide scrollbar for Chrome, Safari and Opera
     }
     .inputText, .react-datepicker__input-container input{
         font-size: 16px;
+        box-sizing: border-box;
+        border-radius: 10px;
     }
 
     /* autocomple box */
     .airport-suggesion-container{
         width: 280px;
     }
+    .flight-travellers-class h6{
+        padding: 2px 5px;
+    }
+    .flight-traveller{
+        padding: 10px;
+    }
+    .flight-class-container{
+        padding: 2px 20px;
+    }
     .flight-travellers-class{
-        width: 300px;
-        right: -100px;
+        width: 335px;
+        /* width: 100%; */
+        /* right: -100px; */
+        left: -10px;
+        top: -240px;
+        box-shadow:0 0 10px 0 rgba(0, 0, 0, .5);
+    }
+    .flight-travellers-class-btn-container{
+        padding: 2px 20px 5px;
     }
     .react-datepicker{
         width: 250px;
     }
+
+    /*  offers */
+    .flight-offers{
+        padding: 30px 10px;
+    }
+    .flight-offers-next-prev div:first-child{
+        left: 25px;
+    }
+    .flight-offers-next-prev div:nth-child(2){
+        right: 25px;
+    }
    
+    /* footer */
+    .flight footer{
+        padding: 5px 10px;
+    }
+    .flight footer h3{
+        font-size: 20px;
+    }
 }

@@ -6,6 +6,7 @@ import Footer from '../Footer';
 import { MdOutlineLocationCity } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 
+
 const Trains = () => {
   const navigate = useNavigate();
   //date picker
@@ -441,8 +442,8 @@ const handleToInputChange = (e)=>{
               </div>
           </div>
         </div>
+       <Footer/>
      </div>
-     <Footer/>
    </>
   )
 }

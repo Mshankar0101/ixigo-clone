@@ -508,4 +508,12 @@ input:not(:focus):valid ~ .floating-label-train{
     .react-datepicker{
         width: 250px;
     }
+
+    /* footer */
+    .train-home-page footer{
+        padding: 20px 10px;
+    }
+    .train-home-page footer h3{
+        font-size: 20px;
+    }
 }

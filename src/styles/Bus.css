@@ -249,8 +249,17 @@
         font-size: 20px;
         height: 55px;
     }
+    .crousel-bus{
+        padding: 20px 10px 10px;
+    }
+    .ixigo-for-bus{
+        padding: 20px 10px;
+    }
     .ixigo-for-bus .why-description h2{
         font-size: 20px;
+    }
+    .bus-home-page footer{
+        padding: 5px 10px;
     }
     .bus-home-page footer h3{
         font-size: 20px;
