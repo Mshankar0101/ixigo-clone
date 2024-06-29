@@ -30,7 +30,9 @@
     position: absolute;
     top: 250px;
     width: 100%;
-    margin: 0px auto;
+    max-width: 1280px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .bus-search-box{
     padding: 25px;
@@ -222,8 +224,6 @@
         width: 100%;
         min-width: 310px;
         max-width: 480px;
-        left: 50%;
-        transform: translateX(-50%);
     }
     .bus-search-box{
         /* min-width: 320px;

@@ -43,6 +43,9 @@
    padding: 15px 0px;
    width: 100%;
    background-color: white;
+   max-width: 1280px;
+   left: 50%;
+   transform: translateX(-50%);
   
 }
 .search-input-feilds{
