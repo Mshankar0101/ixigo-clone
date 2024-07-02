@@ -3,6 +3,7 @@ import Datepicker from '../common/Datepicker';
 import Airports from './Airports';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FlightSearchContext from '../../context/Contexts';
+import  GlobalContext from '../../context/Contexts';
 import "../../styles/Flight.css";
 import "../../styles/FlightSearch.css";
 
@@ -147,14 +148,15 @@ const FlightSearchBox =({handleSubmition}) => {
 
     // },[toValue,value,searchFeilds]);
 
+    const {resolution} = useContext(GlobalContext);
+
 
   return (
-    <>
-        
-     <div className={(location.pathname === '/flights/search' && !sticky) ? 'flight-search-box-search-component' :(location.pathname === '/flights/search' && sticky)? 'flight-search-box-search-component flight-search-box-sticky': 'flight-search-box'}>
+    <>    
+     <div className={(location.pathname === '/flights/search' && !sticky && window.innerWidth > 600) ? 'flight-search-box-search-component' :(location.pathname === '/flights/search' && sticky && window.innerWidth > 600)? 'flight-search-box-search-component flight-search-box-sticky': 'flight-search-box'}>
 
         <div className='flight-search-input'>
-            
+               
             <div className='flight-search-feild-relative'>
                 <input type="text" className="inputText input-first-child" onFocus={()=> {
                     setShowSuggestions(true);

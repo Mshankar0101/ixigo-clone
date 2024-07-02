@@ -265,7 +265,7 @@ const handleToInputChange = (e)=>{
                     (fromSuggession && showSuggetion && !inputChange)?
                     <div className='station-dropdown-container' ref={autocompleteRef}>
                         <div className='popular-airports'>
-                             <p>Popular Airports</p>
+                             <p>Popular Stations</p>
                         </div>
                         <ul>
                           { stationsArr.map((station)=>{

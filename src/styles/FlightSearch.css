@@ -117,7 +117,8 @@
     line-height: 1.25rem;
     font-weight: 600;
 }
-
+ 
+/*  */
 .flight-filter-time{
    padding: 20px 20px 30px 20px; 
 }
@@ -154,7 +155,7 @@
     overflow: hidden;
     cursor: pointer;
 }
-.filter-time .icon-div-border{
+.flight-filter-time .filter-time .icon-div-border{
     padding: 0px 1px 4px 1px;
     border: 1px solid rgb(7, 112, 228);
     background-color: rgba(7, 112, 228, 0.2);
@@ -169,21 +170,21 @@
     overflow: hidden;
     cursor: pointer;
 }
-.filter-time .icon-div-border p:nth-of-type(1){
+.flight-filter-time .filter-time .icon-div-border p:nth-of-type(1){
     font-size: 14px;
     line-height: 1.4;
     font-weight: 500;
     margin: 0px ;
     color:rgb(7, 112, 228) ;
 }
-.filter-time .icon-div-border p:nth-of-type(2){
+.flight-filter-time .filter-time .icon-div-border p:nth-of-type(2){
     font-size: 12px;
     line-height: 1.4;
     font-weight: 500;
     margin: 0px;
     color: rgb(7, 112, 228);
 }
-.filter-time .icon-div-border img{
+.flight-filter-time .filter-time .icon-div-border img{
     width: 24px;
     height: 24px;
 }
@@ -560,6 +561,7 @@
     .flight-filter-range p{
         font-size: 16px;
     }
+    /*  */
     .flight-filter-time{
         padding: 10px 5px 0px 5px;
         width: 97%;
@@ -585,6 +587,8 @@
     .filter-time .icon-div{
         min-width: 75px;
     }
+
+
     .filter-airlines .heading{
         font-size: 16px;
         padding: 0px 20px;

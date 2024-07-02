@@ -15,6 +15,7 @@ import GlobalContext from '../context/Contexts';
 import BookingPage from "./common/BookingPage"
 import NavbarMobile from "./NavbarMobile";
 import SearchTrain from "./train/SearchTrain";
+import SearchBus from "./bus/SearchBus";
 
 function App() {
 const location = useLocation();
@@ -49,15 +50,22 @@ const {resolution} = useContext(GlobalContext);
         }
           <Routes>
               <Route path="/" element={<Flights/>} />
+              <Route path="/search" element={<Flights/>} />
               <Route path="/nav" element={<NavbarMobile/>} />
+
               <Route path="/flights/*" element={<Flights/>} />
               <Route path="/flights/search/*" element={<Search/>} />
               <Route path="/flights/search/book" element={<BookingPage/>} />
+
               <Route path="/hotels" element={<Hotels/>} />
+
               <Route path="/trains/*" element={<Trains/>} />
               <Route path="/trains/search/*" element={<SearchTrain/>} />
               <Route path="/trains/search/book" element={<BookingPage/>} />
-              <Route path="/buses" element={<Buses/>} />
+
+              <Route path="/buses/*" element={<Buses/>} />
+              <Route path="/buses/search/*" element={<SearchBus/>} />
+
               <Route path='/login' element={<Login/>} />
               <Route path='*' element={<PageNotFound/>} />
           </Routes>

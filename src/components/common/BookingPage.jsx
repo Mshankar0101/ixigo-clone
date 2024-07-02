@@ -4,6 +4,12 @@ import '../../styles/FlightBooking.css';
 import {useLocation} from 'react-router-dom';
 
 const BookingPage = () => {
+   useEffect(()=>{
+
+       window.scroll(0,0);
+   })
+
+
     const location = useLocation();
     const {ticketPrice,totalTravlers} = location.state || {};
     console.log(totalTravlers, ticketPrice);
